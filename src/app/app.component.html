@@ -2,30 +2,38 @@
 
   <div class="enable">
     <div class="result">
-        <p>{{results}}</p>
+        <p>{{c}}</p>
     </div>
     
     <div class="keys">
-      <app-button class="bnt1" [route]="'../assets/AC.png'">  </app-button>
+      <app-button class="bnt1" [route]="'../assets/AC.png'" (click)="ac()">  </app-button>
       <app-button class="bnt1" [route]="'../assets/borrar.png'">  </app-button>
       <app-button class="bnt1" [route]="'../assets/porcentaje.png'">  </app-button>
-      <app-button class="bnt1" [route]="'../assets/dividendo.png'">  </app-button>
+      <app-button class="bnt1" [route]="'../assets/dividendo.png'" (click)="setSign(4)">  </app-button>
+
       <app-button class="bnt1" [route]="'../assets/7.png'" (click)="setAB(7)">  </app-button>
-      <app-button class="bnt1" [route]="'../assets/8.png'">  </app-button>
-      <app-button class="bnt1" [route]="'../assets/9.png'">  </app-button>
-      <app-button class="bnt1" [route]="'../assets/por.png'">  </app-button>
-      <app-button class="bnt1" [route]="'../assets/4.png'">  </app-button>
-      <app-button class="bnt1" [route]="'../assets/5.png'">  </app-button>
-      <app-button class="bnt1" [route]="'../assets/6.png'">  </app-button>
-      <app-button class="bnt1" [route]="'../assets/menos.png'">  </app-button>
-      <app-button class="bnt1" [route]="'../assets/1.png'">  </app-button>
-      <app-button class="bnt1" [route]="'../assets/2.png'">  </app-button>
-      <app-button class="bnt1" [route]="'../assets/3.png'">  </app-button>
-      <app-button class="bnt1" [route]="'../assets/mas.png'">  </app-button>
+      <app-button class="bnt1" [route]="'../assets/8.png'" (click)="setAB(8)"> </app-button>
+      <app-button class="bnt1" [route]="'../assets/9.png'" (click)="setAB(9)"> </app-button>
+
+      <app-button class="bnt1" [route]="'../assets/por.png'" (click)="setSign(3)">  </app-button>
+
+      <app-button class="bnt1" [route]="'../assets/4.png'" (click)="setAB(4)"> </app-button>
+      <app-button class="bnt1" [route]="'../assets/5.png'" (click)="setAB(5)"> </app-button>
+      <app-button class="bnt1" [route]="'../assets/6.png'" (click)="setAB(6)"> </app-button>
+
+      <app-button class="bnt1" [route]="'../assets/menos.png'" (click)="setSign(2)">  </app-button>
+
+      <app-button class="bnt1" [route]="'../assets/1.png'" (click)="setAB(1)"> </app-button>
+      <app-button class="bnt1" [route]="'../assets/2.png'" (click)="setAB(2)"> </app-button>
+      <app-button class="bnt1" [route]="'../assets/3.png'" (click)="setAB(3)"> </app-button>
+
+      <app-button class="bnt1" [route]="'../assets/mas.png'" (click)="setSign(1)">  </app-button>
       <app-button class="bnt1" [route]="'../assets/extender.png'">  </app-button>
-      <app-button class="bnt1" [route]="'../assets/0.png'">  </app-button>
-      <app-button class="bnt1" [route]="'../assets/punto.png'">  </app-button>
-      <app-button class="bnt1" [route]="'../assets/igual.png'">  </app-button>
+
+      <app-button class="bnt1" [route]="'../assets/0.png'" (click)="setAB(0)"> </app-button>
+
+      <app-button class="bnt1" [route]="'../assets/punto.png'" (click)="setP()">  </app-button>
+      <app-button class="bnt1" [route]="'../assets/igual.png'" (click)="igualdad()">  </app-button>
     </div>
     
   </div>

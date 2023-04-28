@@ -1,21 +1,24 @@
 .container{
-    background-color: rgba(0, 0, 0, 0.416);
+    background-color: rgb(251, 251, 251);
     position: relative;
 
     display: flex;
     justify-content: center;
-    
+    border-radius: 1rem;
+    box-shadow: 0rem 0rem 1rem rgba(232, 231, 231, 0.425);
+
     top: 5rem;
 }
 
 .enable{
-    background-color: rgba(2, 175, 43, 0.784);
+    background-color: rgb(192, 192, 192);
     width: 18rem;
     min-height: 35rem;
     position: relative;
     padding: 0px;
     padding-right: .8rem;
     border-radius: 2rem;
+    box-shadow: inset 0rem 0rem 1rem rgba(43, 66, 125, 0.588);
 
     display: grid;
     
@@ -23,7 +26,7 @@
 
 
 .result{
-    background-color: rgba(127, 255, 212, 0.668);
+    background-color: rgba(248, 248, 248, 0.846);
     width: 100%;
     min-height: 4rem;
     display: flex;
@@ -36,6 +39,7 @@
 .result p {
     margin-right: 1rem;
     margin-bottom: 1rem;
+    
 }
 
 
