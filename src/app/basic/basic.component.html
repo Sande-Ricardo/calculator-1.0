@@ -1,26 +1,29 @@
 <div class="container1">
-    <!-- <span class="background"></span> -->
-    <div class="expression">{{expression}}</div>
-    <div class="buttons">
-        <button class="btn" id="c" (click)="C()" >C</button>
-        <button class="btn" id="delete" (click)="del()" >←</button>
-        <button class="btn" (click)="setExp('/')" >/</button>
-        <button class="btn" (click)="setExp('*')" >*</button>
-        <button class="btn" (click)="setExp('7')" >7</button>
-        <button class="btn" (click)="setExp('8')" >8</button>
-        <button class="btn" (click)="setExp('9')" >9</button>
-        <button class="btn" (click)="setExp('-')" >-</button>
-        <button class="btn" (click)="setExp('4')" >4</button>
-        <button class="btn" (click)="setExp('5')" >5</button>
-        <button class="btn" (click)="setExp('6')" >6</button>
-        <button class="btn" (click)="setExp('+')" >+</button>
-        <button class="btn" (click)="setExp('1')" >1</button>
-        <button class="btn" (click)="setExp('2')" >2</button>
-        <button class="btn" (click)="setExp('3')" >3</button>
-        <div class="btn tr"></div>
-        <button class="btn equal" id="equal" (click)="solve()" >=</button>
-        <button class="btn" (click)="setExp('.')" >.</button>
-        <button class="btn" id="zero" (click)="setExp('0')" >0</button>
-        <button class="btn" (click)="percent()" >%</button>
+    <div class="basic">
+        <!-- <span class="background"></span> -->
+        <div class="expression">{{expression}}</div>
+        <div class="buttons">
+            <button class="btn" id="c" (click)="C()" >C</button>
+            <button class="btn" id="delete" (click)="del()" >←</button>
+            <button class="btn" (click)="setExp('/')" >/</button>
+            <button class="btn" (click)="setExp('*')" >*</button>
+            <button class="btn" (click)="setExp('7')" >7</button>
+            <button class="btn" (click)="setExp('8')" >8</button>
+            <button class="btn" (click)="setExp('9')" >9</button>
+            <button class="btn" (click)="setExp('-')" >-</button>
+            <button class="btn" (click)="setExp('4')" >4</button>
+            <button class="btn" (click)="setExp('5')" >5</button>
+            <button class="btn" (click)="setExp('6')" >6</button>
+            <button class="btn" (click)="setExp('+')" >+</button>
+            <button class="btn" (click)="setExp('1')" >1</button>
+            <button class="btn" (click)="setExp('2')" >2</button>
+            <button class="btn" (click)="setExp('3')" >3</button>
+            <div class="btn tr"></div>
+            <button class="btn equal" id="equal" (click)="solve()" >=</button>
+            <button class="btn" (click)="setExp('.')" >.</button>
+            <button class="btn" id="zero" (click)="setExp('0')" >0</button>
+            <button class="btn" (click)="percent()" >%</button>
+        </div>
     </div>
+
 </div>

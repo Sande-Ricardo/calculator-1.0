@@ -1,0 +1,113 @@
+$primary-color: #4a90e2;
+$background-color: #f9f9fb;
+$text-color: #333;
+$button-bg: #ffffff;
+$button-hover-bg: #e6f0ff;
+$border-radius: 8px;
+$box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+$font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+.calculator-container {
+  max-width: 480px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: $background-color;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  font-family: $font-family;
+  color: $text-color;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: $primary-color;
+}
+
+.input-section {
+  width: 100%;
+  margin-bottom: 1.5rem;
+
+  .input-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .function-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+    border: 1px solid lighten($text-color, 60%);
+    border-radius: $border-radius;
+    outline: none;
+    transition: border-color 0.3s ease;
+
+    &:focus {
+      border-color: $primary-color;
+      box-shadow: 0 0 5px $primary-color;
+    }
+  }
+}
+
+.buttons-section {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+
+  .btn {
+    flex: 1 1 20%;
+    padding: 0.75rem 0;
+    background-color: $button-bg;
+    border: 1px solid lighten($text-color, 70%);
+    border-radius: $border-radius;
+    font-size: 1rem;
+    font-weight: 600;
+    color: $text-color;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+
+    &:hover {
+      background-color: $button-hover-bg;
+      border-color: $primary-color;
+    }
+  }
+
+  .clear-btn {
+    flex: 1 1 100%;
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+
+    &:hover {
+      background-color: #ff4c4c;
+    }
+  }
+}
+
+.result-section {
+  width: 100%;
+  background-color: lighten($primary-color, 45%);
+  padding: 1rem 1.5rem;
+  border-radius: $border-radius;
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.05);
+
+  .result-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: darken($primary-color, 10%);
+  }
+
+  .result-text {
+    font-size: 1.1rem;
+    font-family: monospace;
+    word-wrap: break-word;
+  }
+}

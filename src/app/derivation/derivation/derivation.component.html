@@ -1,0 +1,24 @@
+<div class="calculator-container">
+    <h1 class="title">Derivation Calculator</h1>
+    <div class="input-section">
+        <label for="functionInput" class="input-label">Enter function to derive:</label>
+        <input id="functionInput" type="text" placeholder="e.g. x^2 + 3x + 5" [(ngModel)]="functionInput"
+            class="function-input" />
+    </div>
+    <div class="buttons-section">
+        <button class="btn" (click)="appendToInput('x')">x</button>
+        <button class="btn" (click)="appendToInput('^')">^</button>
+        <button class="btn" (click)="appendToInput('+')">+</button>
+        <button class="btn" (click)="appendToInput('-')">-</button>
+        <button class="btn" (click)="appendToInput('*')">*</button>
+        <button class="btn" (click)="appendToInput('/')">/</button>
+        <button class="btn" (click)="appendToInput('sin()')">sin</button>
+        <button class="btn" (click)="appendToInput('cos()')">cos</button>
+        <button class="btn" (click)="appendToInput('ln()')">ln</button>
+        <button class="btn clear-btn" (click)="clearInput()">Clear</button>
+    </div>
+    <div class="result-section" *ngIf="result">
+        <h2 class="result-title">Result:</h2>
+        <p class="result-text">{{ result }}</p>
+    </div>
+</div>
