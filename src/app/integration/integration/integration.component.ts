@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-derivation',
-  templateUrl: './derivation.component.html',
-  styleUrls: ['./derivation.component.scss'],
+  selector: 'app-integration',
+  templateUrl: './integration.component.html',
+  styleUrls: ['./integration.component.scss']
 })
-export class DerivationComponent implements OnInit {
+export class IntegrationComponent implements OnInit {
   functionInput: string = '';
   result: string = '';
   selectedVariable: string = 'x';
@@ -62,20 +62,20 @@ export class DerivationComponent implements OnInit {
     this.steps = [];
   }
 
-  calculateDerivative(): void {
+  calculateIntegral(): void {
     if (!this.functionInput.trim()) {
       return;
     }
 
-    // Placeholder for actual derivation logic
+    // Placeholder for actual integration logic
     this.result = `d/d${this.selectedVariable}[${this.functionInput}]`;
 
     // Generate sample steps for demonstration
     this.steps = [
-      `Apply derivative to function: ${this.functionInput}`,
+      `Apply integral to function: ${this.functionInput}`,
       `Use appropriate differentiation rules`,
       `Simplify the result`,
-      `Final derivative: ${this.result}`,
+      `Final integral: ${this.result}`,
     ];
   }
 }

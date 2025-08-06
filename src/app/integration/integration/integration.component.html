@@ -1,10 +1,10 @@
-<div class="container2 crystal-box">
-    <header class="derivation-header">
-        <h1 class="title">Derivation Calculator</h1>
-        <p class="subtitle">Calculate derivatives with step-by-step solutions</p>
+<div class="container3 crystal-box">
+    <header class="integration-header">
+        <h1 class="title">Integration Calculator</h1>
+        <p class="subtitle">Calculate integrates with step-by-step solutions</p>
     </header>
 
-    <main class="derivation-main">
+    <main class="integration-main">
         <!-- Input Section -->
         <section class="input-section">
             <div class="input-card">
@@ -12,7 +12,7 @@
                 <div class="input-group">
                     <label for="expression">Function f(x) =</label>
                     <input type="text" id="expression" class="expression-input" [(ngModel)]="functionInput"
-                        placeholder="Enter your function (e.g., x^2 + 3*x + 2)" (keyup.enter)="calculateDerivative()" />
+                        placeholder="Enter your function (e.g., x^2 + 3*x + 2)" (keyup.enter)="calculateIntegral()" />
                 </div>
 
                 <div class="variable-selector">
@@ -34,8 +34,8 @@
                     <button class="basic-btn clear-btn" (click)="clearInput()">C</button>
                 </div>
 
-                <button class="calculate-btn" (click)="calculateDerivative()" [disabled]="!functionInput">
-                    <span>Calculate Derivative</span>
+                <button class="calculate-btn" (click)="calculateIntegral()" [disabled]="!functionInput">
+                    <span>Calculate Integral</span>
                     <svg class="btn-icon" viewBox="0 0 24 24">
                         <path
                             d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z" />
@@ -54,7 +54,7 @@
                         <span class="result-value">{{ functionInput || 'f(x) = ?' }}</span>
                     </div>
                     <div class="result-item">
-                        <span class="result-label">Derivative:</span>
+                        <span class="result-label">Integral:</span>
                         <span class="result-value">{{ result || 'f\'(x) = ?' }}</span>
                     </div>
                 </div>

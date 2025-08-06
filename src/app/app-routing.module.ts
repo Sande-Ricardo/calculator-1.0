@@ -3,11 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
 
-  // {
-  //   path: '*',
-  //   pathMatch: 'full',
-  //   redirectTo: 'basic'
-  // },
+  {
+    path: '*',
+    pathMatch: 'full',
+    redirectTo: ''
+  },
   {
     path: '',
     loadComponent: () => import('./basic/basic.component').then(m => m.BasicComponent)
@@ -15,6 +15,10 @@ const routes: Routes = [
   {
     path: 'derivate',
     loadChildren: () => import('./derivation/derivation.module').then(m => m.DerivationModule)
+  },
+  {
+    path: 'integrate',
+    loadChildren: () => import('./integration/integration.module').then(m => m.IntegrationModule)
   }
 
 ];

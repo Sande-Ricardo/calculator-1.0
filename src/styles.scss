@@ -14,3 +14,56 @@
     font-family: sans-serif;
     overflow: hidden;
 }
+
+// glassmorphism
+.crystal-box{
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    background: rgba(55, 55, 55, 0.2);
+    backdrop-filter: blur(100px);
+    -webkit-backdrop-filter: blur(10px);
+}
+// .crystal-box {
+//     background: rgba(255, 255, 255, 0.2);
+//     /* translucent white */
+//     border-radius: 16px;
+//     /* rounded corners */
+//     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+//     /* soft shadow */
+//     backdrop-filter: blur(8px);
+//     /* the core frosted glass blur */
+//     -webkit-backdrop-filter: blur(8px);
+//     /* Safari support */
+//     border: 1px solid rgba(255, 255, 255, 0.3);
+//     /* subtle border */
+//     overflow: hidden;
+//     /* clip inner effects */
+//     /* Optional: add highlights for a 3D glass look */
+//     position: relative;
+// }
+
+// .crystal-box::before,
+// .crystal-box::after {
+//     content: "";
+//     position: absolute;
+//     pointer-events: none;
+//     border-radius: inherit;
+//     box-shadow: 0 2px 8px rgba(255, 255, 255, 0.3) inset;
+//     /* inside highlight */
+//     top: 10%;
+//     bottom: 10%;
+//     left: 10%;
+//     right: 10%;
+//     z-index: 1;
+// }
+
+// .crystal-box::after {
+//     box-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
+//     /* outer glow */
+//     top: 0;
+//     bottom: 0;
+//     left: 0;
+//     right: 0;
+//     z-index: 0;
+// }
