@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiManagementService } from 'src/app/core/services/api-management.service';
 
 @Component({
   selector: 'app-derivation',
@@ -6,6 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./derivation.component.scss'],
 })
 export class DerivationComponent implements OnInit {
+  constructor(
+    private apiManagementSv: ApiManagementService
+  ) {}
+  ngOnInit(): void {}
+  
+  
+  
   functionInput: string = '';
   result: string = '';
   selectedVariable: string = 'x';
@@ -18,6 +26,8 @@ export class DerivationComponent implements OnInit {
     'ln(',
     'log(',
     'e^(',
+    'e',
+    'π',
     '^',
     'sqrt(',
   ]
@@ -36,6 +46,8 @@ export class DerivationComponent implements OnInit {
     'ln',
     'log',
     'e^',
+    'e',
+    'π',
     '^',
     '√',
   ];
@@ -48,9 +60,6 @@ export class DerivationComponent implements OnInit {
     '÷',
   ];
 
-  constructor() {}
-
-  ngOnInit(): void {}
 
   appendToInput(value: string): void {
     this.functionInput += value;
@@ -63,9 +72,9 @@ export class DerivationComponent implements OnInit {
   }
 
   calculateDerivative(): void {
-    if (!this.functionInput.trim()) {
-      return;
-    }
+    
+    console.log(this.apiManagementSv.sanitizeExpression(this.functionInput));
+    
 
     // Placeholder for actual derivation logic
     this.result = `d/d${this.selectedVariable}[${this.functionInput}]`;

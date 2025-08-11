@@ -1,5 +1,13 @@
 .container{
-    background-color: var(--primary);
+    // background-color: var(--primary);
+    
+    background-color: var(--back1);
+    background-image:
+                        radial-gradient(at 0% 0%, var(--back3) 0px, transparent 20%),
+                        radial-gradient(at 0% 0%, var(--back2) 0px, transparent 70%)
+                        ;
+
+
     position: absolute;
     width: 100%;
     height: 100%;
@@ -14,13 +22,20 @@
 }
 
 .logo{
-    background-image: linear-gradient(80deg, var(--third), var(--secondary));
+    // background-image: linear-gradient(80deg, var(--third), var(--secondary));
     position: absolute;
     width: 70%;
     height: 50%;
     border-radius: 0 100% 5% 100%;
-    box-shadow: 0 0 3.5rem var(--primary) inset,
-                0 0 .5rem var(--third) inset;
+    box-shadow: 0 0 3.5rem var(--back3) inset,
+                0 0 .5rem var(--back4) inset;
+
+
+
+    background-color:var(--back1);
+    background-image:
+        radial-gradient(at 100% 100%, var(--back2) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, var(--back3) 0px, transparent 50%);
 }
 
 .router{
@@ -31,9 +46,7 @@
     justify-content: center;
     align-items: center;
 
-
     z-index: 1;
-    // border: red solid 1px;
 }
 
 // .basic{

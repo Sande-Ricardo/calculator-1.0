@@ -5,6 +5,14 @@
     --fourth    :   #3d2e4a;
     --fifth     :   #263233;
 
+
+    --back1 : #0e0f25;
+    --back2 : #28284f;
+    --back3 : #eaecff23;
+
+    
+    --back4 : #ffffff7d;
+
 }
 
 *{
@@ -20,7 +28,8 @@
     background-color: rgba(0, 0, 0, 0.5);
     border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    background: rgba(55, 55, 55, 0.2);
+    background: #37373733;
+    // background: #0f172a;
     backdrop-filter: blur(100px);
     -webkit-backdrop-filter: blur(10px);
 }
