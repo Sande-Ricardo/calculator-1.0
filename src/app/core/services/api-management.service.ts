@@ -14,7 +14,9 @@ export class ApiManagementService {
   constructor(private http: HttpClient) {}
 
   sanitizeExpression(input: string): string {
-    // 8 + 5*12+2^3-sqrt(4)*cos(4) -e^(2) + π - e
+
+    // Rational numbers missing
+    // Example: 8 + 5*12+2^3-sqrt(4)*cos(4) -e^(2) + π - e
     let result = input;
 
     // Reemplazar potencias ^ → **

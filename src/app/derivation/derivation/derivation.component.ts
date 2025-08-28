@@ -15,6 +15,8 @@ export class DerivationComponent implements OnInit {
   
   
   functionInput: string = '';
+  mathJaxExpression: string = "f(x) = ?";
+
   result: string = '';
   selectedVariable: string = 'x';
   steps: string[] = [];
@@ -62,6 +64,7 @@ export class DerivationComponent implements OnInit {
 
 
   appendToInput(value: string): void {
+    this.mathJaxExpression = "f(x) = " + "$" + this.functionInput + "$"
     this.functionInput += value;
   }
 
@@ -75,7 +78,6 @@ export class DerivationComponent implements OnInit {
     
     console.log(this.apiManagementSv.sanitizeExpression(this.functionInput));
     
-
     // Placeholder for actual derivation logic
     this.result = `d/d${this.selectedVariable}[${this.functionInput}]`;
 

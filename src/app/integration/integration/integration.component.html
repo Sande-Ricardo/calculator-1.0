@@ -26,11 +26,13 @@
                 </div>
 
                 <div class="function-buttons">
-                    <button class="func-btn" *ngFor="let value of functionButtons, let i = index" (click)="appendToInput(value)" >{{functionVisible[i]}}</button>
+                    <button class="func-btn" *ngFor="let value of functionButtons, let i = index"
+                        (click)="appendToInput(value)">{{functionVisible[i]}}</button>
                 </div>
 
                 <div class="basic-buttons">
-                    <button class="basic-btn" *ngFor="let value of basicButtons, let i = index" (click)="appendToInput(value)" >{{basicVisible[i]}}</button>
+                    <button class="basic-btn" *ngFor="let value of basicButtons, let i = index"
+                        (click)="appendToInput(value)">{{basicVisible[i]}}</button>
                     <button class="basic-btn clear-btn" (click)="clearInput()">C</button>
                 </div>
 
@@ -61,15 +63,67 @@
             </div>
 
             <div class="steps-card">
-                <h2>Step-by-Step Solution</h2>
+                <h2 (click)="implementMock()">Step-by-Step Solution</h2>
                 <div class="steps-container">
                     <div *ngIf="steps.length === 0" class="no-steps">
                         <p>Steps will appear here after calculation</p>
                     </div>
-                    <div *ngFor="let step of steps; let i = index" class="step-item">
+                    <ul>
+                        <ng-container *ngFor="let step of stepsArray; let i = index">
+                            <li>
+                                <strong>{{ step.rule }}</strong>:
+                                <app-mathjax-viewer [expression]="'\\(' + step.integrand + '\\)'"></app-mathjax-viewer>
+
+                                <div *ngIf="step.constant">
+                                    constante:
+                                    <app-mathjax-viewer [expression]="'\\(' + step.constant + '\\)'"></app-mathjax-viewer>
+                                </div>
+
+                                <div *ngIf="step.base">
+                                    base:
+                                    <app-mathjax-viewer [expression]="'\\(' + step.base + '\\)'"></app-mathjax-viewer>
+                                </div>
+
+                                <div *ngIf="step.exp">
+                                    exponente:
+                                    <app-mathjax-viewer [expression]="'\\(' + step.exp + '\\)'"></app-mathjax-viewer>
+                                </div>
+
+                                <ul *ngIf="step.substeps && step.substeps.length > 0">
+                                    <ng-container *ngFor="let sub of step.substeps">
+                                        <li>
+                                            <strong>{{ sub.rule }}</strong>:
+                                            <app-mathjax-viewer [expression]="'\\(' + sub.integrand + '\\)'"></app-mathjax-viewer>
+                                            <!-- Reuso recursivo -->
+                                            <div *ngIf="sub.constant">
+                                                constante:
+                                                <app-mathjax-viewer [expression]="'\\(' + sub.constant + '\\)'"></app-mathjax-viewer>
+                                            </div>
+                                            <div *ngIf="sub.base">
+                                                base:
+                                                <app-mathjax-viewer [expression]="'\\(' + sub.base + '\\)'"></app-mathjax-viewer>
+                                            </div>
+                                            <div *ngIf="sub.exp">
+                                                exponente:
+                                                <app-mathjax-viewer [expression]="'\\(' + sub.exp + '\\)'"></app-mathjax-viewer>
+                                            </div>
+                                            <ul *ngIf="sub.substeps && sub.substeps.length > 0">
+                                                <ng-container *ngFor="let subsub of sub.substeps">
+                                                    <li>
+                                                        <strong>{{ subsub.rule }}</strong>:
+                                                        <app-mathjax-viewer [expression]="'\\(' + subsub.integrand + '\\)'"></app-mathjax-viewer>
+                                                    </li>
+                                                </ng-container>
+                                            </ul>
+                                        </li>
+                                    </ng-container>
+                                </ul>
+                            </li>
+                        </ng-container>
+                    </ul> <!-- <div *ngFor="let step of steps; let i = index" class="step-item">
                         <div class="step-number">{{ i + 1 }}</div>
                         <div class="step-content">{{ step }}</div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </section>

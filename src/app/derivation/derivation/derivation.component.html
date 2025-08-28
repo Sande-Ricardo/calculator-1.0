@@ -51,11 +51,18 @@
                 <div class="result-display">
                     <div class="result-item">
                         <span class="result-label">Original Function:</span>
-                        <span class="result-value">{{ functionInput || 'f(x) = ?' }}</span>
+                        <!-- <span class="result-value">{{ functionInput || 'f(x) = ?' }}</span> -->
+                        <span class="result-value">
+                            <!-- <app-mathjax-viewer [expression]="'$2x+3$'" ></app-mathjax-viewer> -->
+                            <app-mathjax-viewer [expression]="mathJaxExpression" ></app-mathjax-viewer>
+                        </span>
                     </div>
                     <div class="result-item">
                         <span class="result-label">Derivative:</span>
                         <span class="result-value">{{ result || 'f\'(x) = ?' }}</span>
+                        <!-- <span class="result-value">
+                            <app-mathjax-viewer [expression]='{{}}' ></app-mathjax-viewer>
+                        </span> -->
                     </div>
                 </div>
             </div>

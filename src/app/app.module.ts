@@ -15,6 +15,7 @@ import { AppComponent } from './app.component';
 @NgModule({
   declarations: [
     AppComponent
+    // MathjaxViewerComponent
   ],
   imports: [
     BrowserModule,
