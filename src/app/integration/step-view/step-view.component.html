@@ -1,0 +1,21 @@
+<div class="step">
+    <div class="step-header">
+        <div class="step-title">{{ title }}</div>
+        <div *ngIf="hint" class="step-hint">{{ hint }}</div>
+    </div>
+
+    <div class="step-integral">
+        <app-mathjax-viewer [expression]="integralLatex()"></app-mathjax-viewer>
+    </div>
+
+    <div *ngIf="paramEntries().length" class="step-params">
+        <div class="param" *ngFor="let p of paramEntries(); trackBy: trackByIndex">
+            <app-mathjax-viewer [expression]="asKeyValueLatex(p.key, p.value)"></app-mathjax-viewer>
+        </div>
+    </div>
+
+    <div class="step-children" *ngIf="step.children.length">
+        <app-step-view *ngFor="let c of step.children; trackBy: trackByIndex" [step]="c">
+        </app-step-view>
+    </div>
+</div>

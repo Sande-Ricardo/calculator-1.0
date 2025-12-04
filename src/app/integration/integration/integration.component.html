@@ -11,8 +11,8 @@
                 <h2>Expression Input</h2>
                 <div class="input-group">
                     <label for="expression">Function f(x) =</label>
-                    <input type="text" id="expression" class="expression-input" [(ngModel)]="functionInput"
-                        placeholder="Enter your function (e.g., x^2 + 3*x + 2)" (keyup.enter)="calculateIntegral()" />
+                    <input type="text" id="expression" class="expression-input" [(ngModel)]="expression"
+                        placeholder="Enter your function (e.g., x^2 + 3*x + 2)" (keyup.enter)="onCompute()" />
                 </div>
 
                 <div class="variable-selector">
@@ -36,7 +36,8 @@
                     <button class="basic-btn clear-btn" (click)="clearInput()">C</button>
                 </div>
 
-                <button class="calculate-btn" (click)="calculateIntegral()" [disabled]="!functionInput">
+                <!-- <button class="calculate-btn" (click)="calculateIntegral()" [disabled]="!functionInput"> -->
+                <button class="calculate-btn" (click)="onCompute()" [disabled]="!expression" [disabled]="loading">
                     <span>Calculate Integral</span>
                     <svg class="btn-icon" viewBox="0 0 24 24">
                         <path
@@ -53,7 +54,7 @@
                 <div class="result-display">
                     <div class="result-item">
                         <span class="result-label">Original Function:</span>
-                        <span class="result-value">{{ functionInput || 'f(x) = ?' }}</span>
+                        <span class="result-value">{{ expression || 'f(x) = ?' }}</span>
                     </div>
                     <div class="result-item">
                         <span class="result-label">Integral:</span>
@@ -63,12 +64,44 @@
             </div>
 
             <div class="steps-card">
-                <h2 (click)="implementMock()">Step-by-Step Solution</h2>
+                <h2 (click)="statusTest()" >Step-by-Step Solution</h2>
                 <div class="steps-container">
-                    <div *ngIf="steps.length === 0" class="no-steps">
+                    <div *ngIf="rootSteps.length == 0" class="no-steps">
+                    <!-- <div *ngIf="(rootSteps$ | async)?.length === 0" class="no-steps"> -->
                         <p>Steps will appear here after calculation</p>
                     </div>
-                    <ul>
+                    <div class="panel">
+                        <!-- <div class="row">
+                            <label>Expresión:</label>
+                            <input [(ngModel)]="expression" />
+                            <label>Variable:</label>
+                            <input [(ngModel)]="variable" style="width:6rem" />
+                            <button (click)="onCompute()" [disabled]="loading">Integrar</button>
+                        </div> -->
+
+                        <div *ngIf="loading">Procesando…</div>
+                        <div *ngIf="error" class="error">{{ error }}</div>
+                        
+                        <ng-container *ngIf="(response$ | async) as response">
+                            <h3>Integral</h3>
+                            <app-mathjax-viewer
+                            [expression]="'\\( ' + '∫ ' + response!.expression + ' d' + response!.variable + ' \\)'">
+                        </app-mathjax-viewer>
+                        
+                        <h3>Antiderivada</h3>
+                        <app-mathjax-viewer [expression]="'\\( ' + antiderivativeLatex + ' \\)'"></app-mathjax-viewer>
+                        
+                        <h3>Resolución paso a paso</h3>
+                        <div *ngIf="!rootSteps.length" class="muted">No hay pasos (caso directo o no soportado).
+                        <!-- <div *ngIf="(rootSteps$ | async)?.length === 0" class="muted">No hay pasos (caso directo o no soportado). -->
+                        </div>
+                        
+                        <app-step-view *ngFor="let s of rootSteps; trackBy: trackByIdx" [step]="s">
+                            </app-step-view>
+                        </ng-container>
+                    </div>
+                    
+                    <!-- <ul>
                         <ng-container *ngFor="let step of stepsArray; let i = index">
                             <li>
                                 <strong>{{ step.rule }}</strong>:
@@ -94,7 +127,6 @@
                                         <li>
                                             <strong>{{ sub.rule }}</strong>:
                                             <app-mathjax-viewer [expression]="'\\(' + sub.integrand + '\\)'"></app-mathjax-viewer>
-                                            <!-- Reuso recursivo -->
                                             <div *ngIf="sub.constant">
                                                 constante:
                                                 <app-mathjax-viewer [expression]="'\\(' + sub.constant + '\\)'"></app-mathjax-viewer>
@@ -120,10 +152,13 @@
                                 </ul>
                             </li>
                         </ng-container>
-                    </ul> <!-- <div *ngFor="let step of steps; let i = index" class="step-item">
+                    </ul> -->
+
+                    <!-- <div *ngFor="let step of steps; let i = index" class="step-item">
                         <div class="step-number">{{ i + 1 }}</div>
                         <div class="step-content">{{ step }}</div>
                     </div> -->
+                    <!-- src/app/features/integral-view/integral-view.component.html -->
                 </div>
             </div>
         </section>

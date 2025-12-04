@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { DerivationRequest } from 'src/app/interfaces/DerivationRequest';
 import { DerivationResponse } from 'src/app/interfaces/DerivationResponse';
+import { IntegrationRequestDTO, IntegrationResponseDTO } from 'src/app/interfaces/Integration';
 // import { DerivationResponse } from 'src/app/interfaces/DerivationResponse';
 
 @Injectable({
@@ -9,7 +11,7 @@ import { DerivationResponse } from 'src/app/interfaces/DerivationResponse';
 })
 export class ApiManagementService {
   // local
-  apiUrl: string = 'http://localhost:8080/api';
+  apiUrl: string = 'http://localhost:8080/op';
 
   constructor(private http: HttpClient) {}
 
@@ -82,5 +84,9 @@ export class ApiManagementService {
       });
 
     return response;
+  }
+
+  integrate(body: IntegrationRequestDTO): Observable<IntegrationResponseDTO> {
+    return this.http.post<IntegrationResponseDTO>(this.apiUrl + '/integration', body);
   }
 }

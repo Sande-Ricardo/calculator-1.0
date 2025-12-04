@@ -1,0 +1,42 @@
+/* src/app/features/integral-view/step-view/step-view.component.css */
+.step {
+    border-left: 2px solid #ddd;
+    margin-left: .75rem;
+    padding-left: .75rem;
+    margin-top: .75rem;
+}
+
+.step-header {
+    display: flex;
+    flex-direction: column;
+    gap: .125rem;
+}
+
+.step-title {
+    font-weight: 600;
+}
+
+.step-hint {
+    font-size: .875rem;
+    opacity: .75;
+}
+
+.step-integral {
+    margin: .35rem 0;
+}
+
+.step-params {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+}
+
+.param {
+    // background: #f7f7f7;
+    padding: .25rem .5rem;
+    border-radius: .25rem;
+}
+
+.step-children {
+    margin-top: .5rem;
+}

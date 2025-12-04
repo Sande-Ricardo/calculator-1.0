@@ -448,6 +448,11 @@ $font-mono: "JetBrains Mono", "Fira Code", "Courier New", monospace;
     }
 }
 
+.panel { padding: 1rem; }
+.row { display: flex; gap: .5rem; align-items: center; margin-bottom: .75rem; }
+.error { color: #b00020; }
+.muted { opacity: .7; }
+
 // Responsive Design
 @media (max-width: 640px) {
     .container2 {
