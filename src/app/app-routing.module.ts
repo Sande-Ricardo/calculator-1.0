@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    loadComponent: () => import('./basic/basic.component').then(m => m.BasicComponent)
+    loadComponent: () => import('./components/basic/basic.component').then(m => m.BasicComponent)
   },
   {
     path: 'derivate',
@@ -19,6 +19,10 @@ const routes: Routes = [
   {
     path: 'integrate',
     loadChildren: () => import('./integration/integration.module').then(m => m.IntegrationModule)
+  },
+  {
+    path: 'calculator',
+    loadChildren: () => import('./calculator/calculator.module').then(m => m.CalculatorModule)
   }
 
 ];

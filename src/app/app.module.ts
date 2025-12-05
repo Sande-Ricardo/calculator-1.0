@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { TopMenuComponent } from './components/top-menu/top-menu.component';
 
 
 // const appRoutes:Routes=[
@@ -14,7 +15,8 @@ import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TopMenuComponent
     // MathjaxViewerComponent
   ],
   imports: [
