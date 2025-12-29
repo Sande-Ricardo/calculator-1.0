@@ -1,5 +1,5 @@
 <div class="container">
-  <span class="logo"></span>
+  <span class="logo" *ngIf="router.url != '/course'"></span>
   <div class="router"> <!-- no estaría funcionando -->
     <router-outlet></router-outlet>
   </div>

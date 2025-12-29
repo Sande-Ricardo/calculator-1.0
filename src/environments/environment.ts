@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  // desmosApiKey:'dcb31709b452b1cf9dc26972add0fda6'
+  desmosApiKey:'0ab8a14a6a69473fb3b5d0ea282a23b3' //prop
 };
 
 /*

@@ -1,0 +1,9 @@
+<div class="container6">
+    <div #calculatorContainer class="calculator"></div>
+
+    <div class="info-panel" *ngIf="data">
+        <h3>Información de la Función</h3>
+        <p><strong>Raíces detectadas:</strong> {{ data.raices.join(', ') }}</p>
+        <p><strong>Puntos críticos:</strong> {{ data.criticos.join(', ') }}</p>
+    </div>
+</div>

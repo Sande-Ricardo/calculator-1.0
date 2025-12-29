@@ -47,7 +47,7 @@
         <!-- Results Section -->
         <section class="results-section">
             <div class="result-card">
-                <h2>Result</h2>
+                <h2>Results</h2>
                 <div class="result-display">
                     <div class="result-item">
                         <span class="result-label">Original Function:</span>
@@ -84,10 +84,13 @@
         <!-- Graphics Section -->
         <section class="graphics-section">
             <div class="graphics-card">
-                <h2>Function Visualization</h2>
+                <h2>Function display</h2>
                 <div class="graphics-container">
                     <div class="chart-placeholder">
-                        <svg viewBox="0 0 400 300" class="chart-svg">
+
+                        <app-function-viewer [functions]="functionsToView"></app-function-viewer>
+
+                        <!-- <svg viewBox="0 0 400 300" class="chart-svg">
                             <defs>
                                 <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
                                     <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
@@ -98,7 +101,7 @@
                             <text x="200" y="150" text-anchor="middle" fill="white" font-size="16">
                                 Function Graph
                             </text>
-                        </svg>
+                        </svg> -->
                     </div>
                 </div>
             </div>

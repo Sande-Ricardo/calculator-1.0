@@ -62,6 +62,11 @@ export class DerivationComponent implements OnInit {
     '÷',
   ];
 
+  functionsToView: string[] = [
+    'y=x^3-6x^2+11x-6',
+    'y=3x-12x+11'
+  ];
+
 
   appendToInput(value: string): void {
     this.mathJaxExpression = "f(x) = " + "$" + this.functionInput + "$"
