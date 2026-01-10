@@ -1,9 +1,9 @@
 // src/app/shared/utils/steps-normalizer.ts
-import { StepNode, StepNodeNormalized } from '../../interfaces/Integration';
+import { StepNode, StepNodeIntegrateNormalized } from '../../interfaces/Integration';
 
 export function normalizeSteps(
     steps: StepNode | StepNode[] | []
-): StepNodeNormalized[] {
+): StepNodeIntegrateNormalized[] {
     if (Array.isArray(steps)) {
         return steps.map((n) => normalizeNode(n));
     }
@@ -13,7 +13,7 @@ export function normalizeSteps(
     return [];
 }
 
-function normalizeNode(node: StepNode): StepNodeNormalized {
+function normalizeNode(node: StepNode): StepNodeIntegrateNormalized {
     const params: Record<string, string> = {};
 
     // Toma todos los posibles campos paramétricos que tu backend exponga
@@ -39,7 +39,7 @@ function normalizeNode(node: StepNode): StepNodeNormalized {
         if (typeof v === 'string') params[k] = v;
     }
 
-    const children: StepNodeNormalized[] = [];
+    const children: StepNodeIntegrateNormalized[] = [];
     if (node.substep) children.push(normalizeNode(node.substep));
     if (node.substeps?.length) children.push(...node.substeps.map(normalizeNode));
 

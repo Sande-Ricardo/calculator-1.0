@@ -51,18 +51,13 @@
                 <div class="result-display">
                     <div class="result-item">
                         <span class="result-label">Original Function:</span>
-                        <!-- <span class="result-value">{{ functionInput || 'f(x) = ?' }}</span> -->
                         <span class="result-value">
-                            <!-- <app-mathjax-viewer [expression]="'$2x+3$'" ></app-mathjax-viewer> -->
                             <app-mathjax-viewer [expression]="mathJaxExpression" ></app-mathjax-viewer>
                         </span>
                     </div>
                     <div class="result-item">
                         <span class="result-label">Derivative:</span>
                         <span class="result-value">{{ result || 'f\'(x) = ?' }}</span>
-                        <!-- <span class="result-value">
-                            <app-mathjax-viewer [expression]='{{}}' ></app-mathjax-viewer>
-                        </span> -->
                     </div>
                 </div>
             </div>
@@ -70,13 +65,27 @@
             <div class="steps-card">
                 <h2>Step-by-Step Solution</h2>
                 <div class="steps-container">
-                    <div *ngIf="steps.length === 0" class="no-steps">
+                    <div *ngIf="!(response$ | async)" class="no-steps">
                         <p>Steps will appear here after calculation</p>
                     </div>
-                    <div *ngFor="let step of steps; let i = index" class="step-item">
-                        <div class="step-number">{{ i + 1 }}</div>
-                        <div class="step-content">{{ step }}</div>
-                    </div>
+                    <ng-container *ngIf="(response$ | async) as response">
+                        <div class="step-by-step-result" >
+                            <div class="expression-to-derivate">
+                                <h2>Derivative</h2>
+                                <div class="derivative-result">
+                                    <app-mathjax-viewer [expression]="'\\( ' + response!.derive + ' \\)'"></app-mathjax-viewer>
+                                </div>
+                            </div>
+                            <div class="final-result">
+                                <p>Result</p>
+                                <app-mathjax-viewer [expression]="'\\( ' + response.step_result + ' \\)'"></app-mathjax-viewer>
+                            </div>
+                            <div class="step-by-step">
+                                <h3>Derivation Steps:</h3>
+                                <app-step-view-derivative [steps]="response.substeps"></app-step-view-derivative>
+                            </div>
+                        </div>
+                    </ng-container>
                 </div>
             </div>
         </section>
@@ -88,9 +97,11 @@
                 <div class="graphics-container">
                     <div class="chart-placeholder">
 
-                        <app-function-viewer [functions]="functionsToView"></app-function-viewer>
+                        <ng-container *ngIf="(functionsToView$ | async) as functionsToView$">
+                            <app-function-viewer [functions]="functionsToView$"></app-function-viewer>
+                        </ng-container>
 
-                        <!-- <svg viewBox="0 0 400 300" class="chart-svg">
+                        <svg *ngIf="!(functionsToView$ | async)" viewBox="0 0 400 300" class="chart-svg" ng>
                             <defs>
                                 <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
                                     <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
@@ -101,7 +112,7 @@
                             <text x="200" y="150" text-anchor="middle" fill="white" font-size="16">
                                 Function Graph
                             </text>
-                        </svg> -->
+                        </svg>
                     </div>
                 </div>
             </div>

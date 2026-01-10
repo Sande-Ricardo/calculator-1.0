@@ -16,6 +16,30 @@
     --text1 : #e0e0e0;
     --text2 : #a0a0a0;
     
+
+    --primary-color: #3b82f6;
+    --secondary-color: #6366f1;
+
+    --accent-color: #8b5cf6;
+
+    --background-dark: #0f172a;
+
+    --surface-dark: #1e293b;
+    --surface-light: #334155;
+
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+
+    --border-color: #475569;
+    --border-light: #64748b;
+
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --error-color: #ef4444;
+
+    --font-primary: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",  sans-serif;
+    --font-mono: "JetBrains Mono", "Fira Code", "Courier New", monospace;
 }
 
 *{
@@ -32,50 +56,6 @@
     border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     background: #37373733;
-    // background: #0f172a;
     backdrop-filter: blur(100px);
     -webkit-backdrop-filter: blur(10px);
 }
-// .crystal-box {
-//     background: rgba(255, 255, 255, 0.2);
-//     /* translucent white */
-//     border-radius: 16px;
-//     /* rounded corners */
-//     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-//     /* soft shadow */
-//     backdrop-filter: blur(8px);
-//     /* the core frosted glass blur */
-//     -webkit-backdrop-filter: blur(8px);
-//     /* Safari support */
-//     border: 1px solid rgba(255, 255, 255, 0.3);
-//     /* subtle border */
-//     overflow: hidden;
-//     /* clip inner effects */
-//     /* Optional: add highlights for a 3D glass look */
-//     position: relative;
-// }
-
-// .crystal-box::before,
-// .crystal-box::after {
-//     content: "";
-//     position: absolute;
-//     pointer-events: none;
-//     border-radius: inherit;
-//     box-shadow: 0 2px 8px rgba(255, 255, 255, 0.3) inset;
-//     /* inside highlight */
-//     top: 10%;
-//     bottom: 10%;
-//     left: 10%;
-//     right: 10%;
-//     z-index: 1;
-// }
-
-// .crystal-box::after {
-//     box-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
-//     /* outer glow */
-//     top: 0;
-//     bottom: 0;
-//     left: 0;
-//     right: 0;
-//     z-index: 0;
-// }

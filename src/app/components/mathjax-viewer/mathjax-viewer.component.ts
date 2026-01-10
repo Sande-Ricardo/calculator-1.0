@@ -20,9 +20,11 @@ export class MathjaxViewerComponent implements AfterViewInit, OnChanges {
 
   private renderMathJax() {
     if (window.MathJax) {
-      // Esperar al siguiente ciclo de detección para asegurar que el HTML ya está en el DOM
+      // Wait for the next detection cycle to ensure that the HTML is already in the DOM
       setTimeout(() => {
         window.MathJax.typesetPromise([this.mathContainer.nativeElement]);
+        console.log("Intentando renderizar");
+        
       });
     }
   }
@@ -36,23 +38,5 @@ export class MathjaxViewerComponent implements AfterViewInit, OnChanges {
       this.renderMathJax();
     }
   }
-
-  // constructor(private el: ElementRef) { }
-
-
-  // @Input() expression: string = '';
-
-  // private renderMathJax() {
-  //   if (window.MathJax) {
-  //     window.MathJax.typesetPromise([this.el.nativeElement]);
-  //   }
-  // }
-
-  // ngAfterViewInit() {
-  //   this.renderMathJax();
-  // }
-  // ngOnChanges() {
-  //   this.renderMathJax();
-  // }
 
 }

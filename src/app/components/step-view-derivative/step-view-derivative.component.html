@@ -1,0 +1,19 @@
+<div class="steps">
+    <div class="step" *ngFor="let step of steps">
+        <!-- <p class="numberStep"></p> -->
+        <div class="rule"><p>{{step.rule}}</p></div>
+        <div class="flex-container">
+            <div class="toDerive">
+                <p>To derive: </p>
+                <app-mathjax-viewer [expression]="'\\( ' + step.derive + ' \\)'"></app-mathjax-viewer>
+            </div>
+            <div class="result">
+                <p>Substep result: </p>
+                <app-mathjax-viewer [expression]="'\\( ' + step.step_result + ' \\)'"></app-mathjax-viewer>
+            </div>
+        </div>
+        <div class="substeps" *ngIf="step.substeps">
+            <app-step-view-derivative [steps]="step.substeps"></app-step-view-derivative>
+        </div>
+    </div>
+</div>

@@ -41,7 +41,6 @@ export class BasicComponent implements OnInit {
   solve(){
     
     try{
-      // this.expression = eval(this.expression).toString();
       this.expression = eval(this.expression).toString();
     } catch {
       this.setError(0);

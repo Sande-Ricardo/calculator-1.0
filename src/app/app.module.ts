@@ -9,15 +9,11 @@ import { AppComponent } from './app.component';
 import { TopMenuComponent } from './components/top-menu/top-menu.component';
 
 
-// const appRoutes:Routes=[
-//   {path:'basic', component:BasicComponent}
-// ]
 
 @NgModule({
   declarations: [
     AppComponent,
     TopMenuComponent
-    // MathjaxViewerComponent
   ],
   imports: [
     BrowserModule,

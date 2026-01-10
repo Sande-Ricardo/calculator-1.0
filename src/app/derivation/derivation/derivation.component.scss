@@ -1,141 +1,56 @@
-// Dark Theme Variables
-$primary-color: #3b82f6;
-$secondary-color: #6366f1;
-$accent-color: #8b5cf6;
-$background-dark: #0f172a;
-$surface-dark: #1e293b;
-$surface-light: #334155;
-$text-primary: #f8fafc;
-$text-secondary: #cbd5e1;
-$text-muted: #94a3b8;
-$border-color: #475569;
-$border-light: #64748b;
-$success-color: #10b981;
-$warning-color: #f59e0b;
-$error-color: #ef4444;
-
-// Typography
-$font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-$font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
-
-// Elegant Mixins
-@mixin elegant-card {
-  background: $surface-dark;
-  border: 1px solid $border-color;
-  border-radius: 8px;
-  padding: 24px;
-  transition: all 0.2s ease;
-  
-  &:hover {
-    border-color: $border-light;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  }
-}
-
-@mixin elegant-button($bg-color, $hover-color: null) {
-  $hover: if($hover-color, $hover-color, lighten($bg-color, 10%));
-  
-  background: $bg-color;
-  color: $text-primary;
-  border: none;
-  border-radius: 6px;
-  padding: 10px 16px;
-  font-size: 14px;
-  font-weight: 500;
-  font-family: $font-primary;
-  cursor: pointer;
-  transition: all 0.15s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  
-  &:hover:not(:disabled) {
-    background: $hover;
-    transform: translateY(-1px);
-  }
-  
-  &:active:not(:disabled) {
-    transform: translateY(0);
-  }
-  
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none;
-  }
-}
-
-@mixin elegant-input {
-  background: $surface-light;
-  border: 1px solid $border-color;
-  border-radius: 6px;
-  color: $text-primary;
-  font-family: $font-primary;
-  transition: all 0.15s ease;
-  
-  &:focus {
-    outline: none;
-    border-color: $primary-color;
-    box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
-  }
-  
-  &::placeholder {
-    color: $text-muted;
-  }
-}
-
-// Global Styles
+/* Global Styles */
 .container2 {
   position: absolute;
   top: 0;
   left: 0;
   height: 100vh;
   width: 100%;
-  // background: $background-dark;
   padding: 32px 10%;
-  font-family: $font-primary;
-  color: $text-primary;
+  font-family: var(--font-primary);
+  color: var(--text-primary);
   line-height: 1.6;
-  
   overflow-y: auto;
+}
 
-  @media (min-width: 1200px) {
+@media (min-width: 1200px) {
+  .container2 {
     padding: 32px 10%;
   }
 }
 
-// Header
+/* Header */
 .derivation-header {
   text-align: center;
   margin-bottom: 48px;
-  
-  .title {
-    font-size: clamp(2rem, 4vw, 2.75rem);
-    font-weight: 600;
-    color: $text-primary;
-    margin-bottom: 8px;
-    letter-spacing: -0.025em;
-  }
-  
-  .subtitle {
-    font-size: 1.125rem;
-    color: $text-secondary;
-    font-weight: 400;
-    max-width: 600px;
-    margin: 0 auto;
-  }
 }
 
-// Main Layout
+.derivation-header .title {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  letter-spacing: -0.025em;
+}
+
+.derivation-header .subtitle {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Main Layout */
 .derivation-main {
   display: grid;
   grid-template-columns: 1fr;
   gap: 24px;
   max-width: 1400px;
   margin: 0 auto;
-  
-  @media (min-width: 1024px) {
+}
+
+@media (min-width: 1024px) {
+  .derivation-main {
     grid-template-columns: 1fr 1fr;
     grid-template-areas: 
       "input input"
@@ -144,66 +59,135 @@ $font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
   }
 }
 
-// Input Section
+/* Input Section */
 .input-section {
-  @media (min-width: 1024px) {
+/* No styles needed for mobile default */
+}
+
+@media (min-width: 1024px) {
+  .input-section {
     grid-area: input;
   }
-  
-  .input-card {
-    @include elegant-card;
-    
-    h2 {
-      color: $text-primary;
-      font-size: 1.375rem;
-      font-weight: 600;
-      margin-bottom: 24px;
-      letter-spacing: -0.025em;
-    }
-  }
 }
 
+/* Cards (Reemplazo del mixin 'elegant-card') */
+.input-card,
+.result-card,
+.steps-card,
+.graphics-card,
+.info-card {
+  background: var(--surface-dark);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 24px;
+  transition: all 0.2s ease;
+  animation: fadeInUp 0.4s ease-out;
+
+}
+
+.input-card:hover,
+.result-card:hover,
+.steps-card:hover,
+.graphics-card:hover,
+.info-card:hover {
+  border-color: var(--border-light);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.input-card h2,
+.result-card h2,
+.steps-card h2,
+.graphics-card h2,
+.info-card h2 {
+  color: var(--text-primary);
+  font-size: 1.375rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+  letter-spacing: -0.025em;
+}
+
+/* Specific font sizes for result/steps/graphics/info headers to match original sass */
+.result-card h2,
+.steps-card h2,
+.graphics-card h2,
+.info-card h2 {
+  font-size: 1.25rem;
+  margin-bottom: 20px;
+}
+.info-card h2 {
+  margin-bottom: 24px; 
+}
+
+
+/* Input Groups */
 .input-group {
   margin-bottom: 24px;
-  
-  label {
-    display: block;
-    margin-bottom: 8px;
-    color: $text-primary;
-    font-weight: 500;
-    font-size: 14px;
-  }
-  
-  .expression-input {
-    @include elegant-input;
-    width: 100%;
-    padding: 12px 16px;
-    font-size: 16px;
-    font-family: $font-mono;
-  }
 }
 
+.input-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 14px;
+}
+
+/* Inputs (Reemplazo del mixin 'elegant-input') */
+.expression-input {
+  background: var(--surface-light);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--text-primary);
+  transition: all 0.15s ease;
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 16px;
+  font-family: var(--font-mono);
+}
+
+.expression-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); /* Fallback opacity for primary-color */
+}
+
+.expression-input::placeholder {
+  color: var(--text-muted);
+}
+
+/* Variable Selector */
 .variable-selector {
   display: flex;
   align-items: center;
   gap: 12px;
   margin-bottom: 24px;
-  
-  label {
-    color: $text-primary;
-    font-weight: 500;
-    font-size: 14px;
-  }
-  
-  .variable-select {
-    @include elegant-input;
-    padding: 8px 12px;
-    cursor: pointer;
-    min-width: 80px;
-  }
 }
 
-// Button Groups
+.variable-selector label {
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.variable-select {
+  background: var(--surface-light);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--text-primary);
+  font-family: var(--font-primary);
+  transition: all 0.15s ease;
+  padding: 8px 12px;
+  cursor: pointer;
+  min-width: 80px;
+}
+
+.variable-select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Button Groups */
 .function-buttons,
 .basic-buttons {
   display: flex;
@@ -213,199 +197,236 @@ $font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
   margin-bottom: 20px;
 }
 
+/* Buttons (Reemplazo del mixin 'elegant-button') */
+/* Base styles for all buttons */
+.func-btn,
+.basic-btn,
+.clear-btn,
+.calculate-btn {
+  border: none;
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--text-primary);
+}
+
+/* Button Hover Effects */
+.func-btn:hover:not(:disabled),
+.basic-btn:hover:not(:disabled),
+.clear-btn:hover:not(:disabled),
+.calculate-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  /* Replaces sass lighten() */
+  filter: brightness(1.15); 
+}
+
+.func-btn:active:not(:disabled),
+.basic-btn:active:not(:disabled),
+.clear-btn:active:not(:disabled),
+.calculate-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.func-btn:disabled,
+.basic-btn:disabled,
+.clear-btn:disabled,
+.calculate-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Specific Button Colors and Fonts */
 .func-btn {
-  @include elegant-button($surface-light, $border-light);
-  min-width: 48px;
-  font-family: $font-mono;
+  background: var(--surface-light);
+  font-family: var(--font-mono);
   font-size: 13px;
+  min-width: 48px;
 }
 
 .basic-btn {
-  @include elegant-button($surface-light, $border-light);
-  min-width: 48px;
-  font-family: $font-mono;
+  background: var(--surface-light);
+  font-family: var(--font-mono);
   font-size: 13px;
+  min-width: 48px;
 }
 
 .clear-btn {
-  @include elegant-button($error-color, lighten($error-color, 10%));
+  background: var(--error-color);
+  font-family: var(--font-primary);
 }
 
 .calculate-btn {
-  @include elegant-button($primary-color, lighten($primary-color, 10%));
+  background: var(--primary-color);
   width: 100%;
   padding: 14px 24px;
   font-size: 15px;
   font-weight: 600;
   margin-top: 24px;
-  
-  .btn-icon {
-    width: 18px;
-    height: 18px;
-    fill: currentColor;
-  }
+  font-family: var(--font-primary);
 }
 
-// Results Section
+.calculate-btn .btn-icon {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+/* Results Section */
 .results-section {
-  @media (min-width: 1024px) {
-    grid-area: results;
-  }
-  
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
 
-.result-card,
-.steps-card {
-  @include elegant-card;
-  
-  h2 {
-    color: $text-primary;
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 20px;
-    letter-spacing: -0.025em;
+@media (min-width: 1024px) {
+  .results-section {
+    grid-area: results;
   }
 }
 
-.result-display {
-  .result-item {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 16px 0;
-    border-bottom: 1px solid $border-color;
-    
-    &:last-child {
-      border-bottom: none;
-    }
-    
-    @media (min-width: 640px) {
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-    }
-  }
-  
-  .result-label {
-    font-weight: 500;
-    color: $text-secondary;
-    font-size: 14px;
-  }
-  
-  .result-value {
-    color: $text-primary;
-    font-family: $font-mono;
-    background: $surface-light;
-    padding: 8px 12px;
-    border-radius: 4px;
-    font-size: 14px;
-    border: 1px solid $border-color;
-  }
+/* Result Display */
+.result-display .result-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border-color);
 }
 
-// Steps
-.steps-container {
-  .no-steps {
-    text-align: center;
-    color: $text-muted;
-    font-style: italic;
-    padding: 32px 16px;
-  }
-  
-  .step-item {
-    display: flex;
-    gap: 16px;
-    margin-bottom: 16px;
-    padding: 16px;
-    background: $surface-light;
-    border-radius: 6px;
-    border: 1px solid $border-color;
-    
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-  
-  .step-number {
-    background: $primary-color;
-    color: white;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    display: flex;
+.result-display .result-item:last-child {
+  border-bottom: none;
+}
+
+@media (min-width: 640px) {
+  .result-display .result-item {
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    font-size: 13px;
-    flex-shrink: 0;
-  }
-  
-  .step-content {
-    color: $text-primary;
-    font-family: $font-mono;
-    font-size: 14px;
-    line-height: 1.5;
   }
 }
 
-// Graphics Section
+.result-display .result-label {
+  font-weight: 500;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.result-display .result-value {
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  background: var(--surface-light);
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  border: 1px solid var(--border-color);
+}
+
+/* Steps */
+.steps-container .no-steps {
+  text-align: center;
+  color: var(--text-muted);
+  font-style: italic;
+  padding: 32px 16px;
+}
+
+.steps-container .step-item {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding: 16px;
+  background: var(--surface-light);
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+}
+
+.steps-container .step-item:last-child {
+  margin-bottom: 0;
+}
+
+.steps-container .step-number {
+  background: var(--primary-color);
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.steps-container .step-content {
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.steps-container .step-by-step-result{
+  display: flex;
+    flex-direction: column;
+    gap: .5rem;
+
+    h2 {
+        margin: 0;
+    }
+    .final-result p{
+      opacity: .75;
+    }
+
+    .experssion-to-derivate{
+      display: flex;
+    justify-content: center;
+    }
+}
+
+/* Graphics Section */
 .graphics-section {
-  @media (min-width: 1024px) {
+  /* No styles needed for mobile default */
+}
+
+@media (min-width: 1024px) {
+  .graphics-section {
     grid-area: graphics;
   }
 }
 
-.graphics-card {
-  @include elegant-card;
-  
-  h2 {
-    color: $text-primary;
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 20px;
-    letter-spacing: -0.025em;
-  }
+.graphics-container .chart-placeholder {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-light);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
 }
 
-.graphics-container {
-  .chart-placeholder {
-    position: relative;
-    width: 100%;
-    height: 280px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: $surface-light;
-    border: 1px solid $border-color;
-    border-radius: 6px;
-    
-    .chart-svg {
-      width: 100%;
-      height: 100%;
-      max-width: 400px;
-    }
-  }
+.graphics-container .chart-svg {
+  width: 100%;
+  height: 100%;
+  max-width: 400px;
 }
 
-// Information Section
+/* Information Section */
 .info-section {
-  @media (min-width: 1024px) {
-    grid-area: info;
-  }
+  /* No styles needed for mobile default */
 }
 
-.info-card {
-  @include elegant-card;
-  
-  h2 {
-    color: $text-primary;
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 24px;
-    letter-spacing: -0.025em;
+@media (min-width: 1024px) {
+  .info-section {
+    grid-area: info;
   }
 }
 
@@ -413,42 +434,40 @@ $font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 32px;
-  
-  .info-item {
-    h3 {
-      color: $text-primary;
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 16px;
-      letter-spacing: -0.025em;
-    }
-    
-    ul {
-      list-style: none;
-      padding: 0;
-      
-      li {
-        color: $text-secondary;
-        margin-bottom: 8px;
-        padding-left: 20px;
-        position: relative;
-        font-family: $font-mono;
-        font-size: 13px;
-        line-height: 1.5;
-        
-        &:before {
-          content: "→";
-          color: $primary-color;
-          position: absolute;
-          left: 0;
-          font-weight: 600;
-        }
-      }
-    }
-  }
 }
 
-// Responsive Design
+.info-content .info-item h3 {
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  letter-spacing: -0.025em;
+}
+
+.info-content .info-item ul {
+  list-style: none;
+  padding: 0;
+}
+
+.info-content .info-item ul li {
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  padding-left: 20px;
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.info-content .info-item ul li:before {
+  content: "→";
+  color: var(--primary-color);
+  position: absolute;
+  left: 0;
+  font-weight: 600;
+}
+
+/* Responsive Design Overrides */
 @media (max-width: 640px) {
   .container2 {
     padding: 20px 4%;
@@ -481,15 +500,7 @@ $font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
   }
 }
 
-// Subtle Animations
-.input-card,
-.result-card,
-.steps-card,
-.graphics-card,
-.info-card {
-  animation: fadeInUp 0.4s ease-out;
-}
-
+/* Animations */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -501,26 +512,26 @@ $font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
   }
 }
 
-// Focus and accessibility improvements
+/* Focus and Accessibility */
 *:focus-visible {
-  outline: 2px solid $primary-color;
+  outline: 2px solid var(--primary-color);
   outline-offset: 2px;
 }
 
-// Scrollbar styling for webkit browsers
+/* Scrollbar Styling */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: $surface-dark;
+  background: var(--surface-dark);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: $border-color;
+  background: var(--border-color);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: $border-light;
+  background: var(--border-light);
 }

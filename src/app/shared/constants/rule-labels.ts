@@ -1,35 +1,35 @@
 export const RULE_LABELS: Record<string, { title: string; hint?: string }> = {
     PartsRule: {
-        title: 'Integración por partes',
-        hint: 'Se usa ∫u·dv = u·v − ∫v·du.'
+        title: 'Integration by parts',
+        hint: '∫u·dv = u·v − ∫v·du.'
     },
     USubstitutionRule: {
-        title: 'Sustitución (cambio de variable)',
-        hint: 'Se realiza u = g(x) para simplificar la integral.'
+        title: 'Substitution (variable change)',
+        hint: 'u = g(x) to simplify.'
     },
     TrigIdentityRule: {
-        title: 'Identidad trigonométrica',
-        hint: 'Se reescribe usando identidades para facilitar la integración.'
+        title: 'Trigonomic identities',
+        hint: 'Use trig identities to simplify the integrand.'
     },
     RewriteRule: {
-        title: 'Reescritura',
-        hint: 'Se transforma el integrando a una forma integrable.'
+        title: 'Rewriting the integrand',
+        hint: 'Rewrite the integrand to a more convenient form.'
     },
     ConstantTimesRule: {
-        title: 'Constante por fuera',
-        hint: 'Se extrae un factor constante: ∫c·f(x)dx = c∫f(x)dx.'
+        title: 'Constant factor',
+        hint: 'Pull out constant factors from the integral: ∫c·f(x)dx = c∫f(x)dx'
     },
     AddRule: {
-        title: 'Linealidad (suma/resta)',
-        hint: 'Se integra término a término.'
+        title: 'Sum rule',
+        hint: '∫(f(x) + g(x))dx = ∫f(x)dx + ∫g(x)dx'
     },
     PowerRule: {
-        title: 'Regla de la potencia',
+        title: 'Power rule',
         hint: '∫xⁿ dx = xⁿ⁺¹/(n+1) (n≠−1).'
     },
     DirectRule: {
-        title: 'Caso directo',
-        hint: 'La antiderivada es conocida de forma inmediata.'
+        title: 'Direct case',
+        hint: 'The antiderivative is known immediately.'
     }
     // ...
 };

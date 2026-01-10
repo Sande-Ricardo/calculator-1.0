@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { MathjaxViewerComponent } from "src/app/components/mathjax-viewer/mathjax-viewer.component";
+import { StepViewDerivativeComponent } from "src/app/components/step-view-derivative/step-view-derivative.component";
 import { FunctionViewerComponent } from '../components/function-viewer/function-viewer.component';
 import { DerivationRoutingModule } from './derivation-routing.module';
 import { DerivationComponent } from './derivation/derivation.component';
@@ -16,7 +17,8 @@ import { DerivationComponent } from './derivation/derivation.component';
     FormsModule,
     DerivationRoutingModule,
     MathjaxViewerComponent,
-    FunctionViewerComponent
+    FunctionViewerComponent,
+    StepViewDerivativeComponent
 ]
 })
 export class DerivationModule { }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import * as math from 'mathjs';
 import { environment } from 'src/environments/environment';
 
@@ -12,7 +12,7 @@ declare var Desmos: any;
   imports: [CommonModule],
   standalone: true
 })
-export class FunctionViewerComponent implements AfterViewInit {
+export class FunctionViewerComponent implements AfterViewInit, OnChanges {
   @ViewChild('calculatorContainer') container!: ElementRef;
 
   constructor() { }
@@ -21,25 +21,10 @@ export class FunctionViewerComponent implements AfterViewInit {
   data: any = null;
 
   @Input() functions: string[] = [];
-  // @Input() originalLatex: string = ''; // Ejemplo de función polinómica
-  // @Input() secondaryLatex: string = ''; // Función secundaria opcional
 
-  hexColors: string[] = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf'];
+  hexColors: string[] = ['#FF8500', '#00FEB6', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf'];
 
   ngAfterViewInit() {
-    // // Inicializar el calculador
-    // this.calculator = Desmos.GraphingCalculator(this.container.nativeElement, {
-    //   keypad: false, // Ocultar teclado para una estética más limpia
-    //   expressions: true,
-    //   settingsMenu: false
-    // });
-
-    // console.log("desmos: ", this.calculator);
-
-
-    // this.renderFunctions();
-    // this.analyzeFunction();
-  
     this.checkDesmosAvailability();
   }
 
@@ -47,7 +32,6 @@ export class FunctionViewerComponent implements AfterViewInit {
     if (typeof Desmos !== 'undefined') {
       this.initCalculator();
     } else {
-      // Si no está listo, reintentamos en 100ms
       setTimeout(() => this.checkDesmosAvailability(), 100);
     }
   }
@@ -67,14 +51,12 @@ export class FunctionViewerComponent implements AfterViewInit {
 
   renderFunctions(): void {
     this.functions.forEach((funcLatex: string, index: number) => {
-      // const color = index === 0 ? Desmos.Colors.BLUE : Desmos.Colors.GREEN;
       this.calculator.setExpression({ latex: funcLatex, color: this.hexColors[index] });
     });
-    // this.calculator.setExpression({ latex: this.originalLatex, color: Desmos.Colors.BLUE });
-    // this.calculator.setExpression({ latex: this.secondaryLatex, color: Desmos.Colors.GREEN });
+    console.log("render functions: "+ this.functions);
   }
 
-  analyzeFunction(func:string) {    // ¡¡¡ Hace falta pasar como parámetro la variable !!! (ahora se asume que es 'x')
+  analyzeFunction(func:string) {
     try {
       const exp = this.cleanerLatex(func);
       const f = math.parse(exp);
@@ -96,8 +78,7 @@ export class FunctionViewerComponent implements AfterViewInit {
       this.data = {
         roots: roots.sort((a, b) => a - b),
 
-        // Los puntos críticos son las raíces de la derivada
-        // criticos: this.buscarPuntosCriticos(fDerivada)
+        // critical: this.searchCriticalPoints(fDerivative)
       };
 
     } catch (error) {
@@ -105,7 +86,7 @@ export class FunctionViewerComponent implements AfterViewInit {
     }
   }
 
-  // Newton-Raphson's algorithm: x_{n+1} = x_n - f(x_n) / f'(x_n)
+  // Newton-Raphson's algorithm: x^{n+1} = x^n - f(x^n) / f'(x^n)
   private newtonRaphson(f: math.MathNode, df: math.MathNode, guess: number): number | null {
     let x = guess;
     const iters = 20; // iteration limit
@@ -147,10 +128,31 @@ export class FunctionViewerComponent implements AfterViewInit {
     document.head.appendChild(script);
   }
 
+  actualizeFunctions(): void {
+    if (this.calculator) {
+      this.clearExpressions();
+      this.renderFunctions();
+    }
+  }
 
+  clearExpressions(): void {
+    if (this.calculator) {
+      const expressions = this.calculator.getExpressions();
+      console.log(expressions);
+      
+      this.calculator.removeExpressions(expressions);
+    }
+  }
 
   ngOnInit(): void {
     this.loaderDesmosScript();
   }
 
+  ngOnChanges(changes:SimpleChanges) {
+      if (changes['functions'] && !changes['functions'].firstChange) {
+        this.actualizeFunctions();
+        console.log("ngOnChanges");
+        
+      }
+  }
 }

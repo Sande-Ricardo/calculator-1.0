@@ -36,7 +36,6 @@
                     <button class="basic-btn clear-btn" (click)="clearInput()">C</button>
                 </div>
 
-                <!-- <button class="calculate-btn" (click)="calculateIntegral()" [disabled]="!functionInput"> -->
                 <button class="calculate-btn" (click)="onCompute()" [disabled]="!expression" [disabled]="loading">
                     <span>Calculate Integral</span>
                     <svg class="btn-icon" viewBox="0 0 24 24">
@@ -64,101 +63,35 @@
             </div>
 
             <div class="steps-card">
-                <h2 (click)="statusTest()" >Step-by-Step Solution</h2>
+                <h2>Step-by-Step Solution</h2>
                 <div class="steps-container">
                     <div *ngIf="rootSteps.length == 0" class="no-steps">
-                    <!-- <div *ngIf="(rootSteps$ | async)?.length === 0" class="no-steps"> -->
                         <p>Steps will appear here after calculation</p>
                     </div>
                     <div class="panel">
-                        <!-- <div class="row">
-                            <label>Expresión:</label>
-                            <input [(ngModel)]="expression" />
-                            <label>Variable:</label>
-                            <input [(ngModel)]="variable" style="width:6rem" />
-                            <button (click)="onCompute()" [disabled]="loading">Integrar</button>
-                        </div> -->
-
                         <div *ngIf="loading">Procesando…</div>
                         <div *ngIf="error" class="error">{{ error }}</div>
                         
                         <ng-container *ngIf="(response$ | async) as response">
-                            <h3>Integral</h3>
-                            <app-mathjax-viewer
-                            [expression]="'\\( ' + '∫ ' + response!.expression + ' d' + response!.variable + ' \\)'">
-                        </app-mathjax-viewer>
-                        
-                        <h3>Antiderivada</h3>
-                        <app-mathjax-viewer [expression]="'\\( ' + antiderivativeLatex + ' \\)'"></app-mathjax-viewer>
-                        
-                        <h3>Resolución paso a paso</h3>
-                        <div *ngIf="!rootSteps.length" class="muted">No hay pasos (caso directo o no soportado).
-                        <!-- <div *ngIf="(rootSteps$ | async)?.length === 0" class="muted">No hay pasos (caso directo o no soportado). -->
-                        </div>
-                        
-                        <app-step-view *ngFor="let s of rootSteps; trackBy: trackByIdx" [step]="s">
-                            </app-step-view>
+                            <div class="step-by-step-result">
+                                <h2>Integral</h2>
+                                <app-mathjax-viewer
+                                [expression]="'\\( ' + '∫ ' + response!.expression + ' d' + response!.variable + ' \\)'">
+                                </app-mathjax-viewer>
+                                
+                                <h3>Antiderivada</h3>
+                                <app-mathjax-viewer [expression]="'\\( ' + antiderivativeLatex + ' \\)'"></app-mathjax-viewer>
+                                
+                                <h3>Integration Steps: </h3>
+                                <div *ngIf="!rootSteps.length" class="muted">No hay pasos (caso directo o no soportado).
+                                </div>
+                                
+                                <app-step-view-integrated *ngFor="let s of rootSteps; trackBy: trackByIdx" [step]="s">
+                                </app-step-view-integrated>
+                            </div>
                         </ng-container>
                     </div>
                     
-                    <!-- <ul>
-                        <ng-container *ngFor="let step of stepsArray; let i = index">
-                            <li>
-                                <strong>{{ step.rule }}</strong>:
-                                <app-mathjax-viewer [expression]="'\\(' + step.integrand + '\\)'"></app-mathjax-viewer>
-
-                                <div *ngIf="step.constant">
-                                    constante:
-                                    <app-mathjax-viewer [expression]="'\\(' + step.constant + '\\)'"></app-mathjax-viewer>
-                                </div>
-
-                                <div *ngIf="step.base">
-                                    base:
-                                    <app-mathjax-viewer [expression]="'\\(' + step.base + '\\)'"></app-mathjax-viewer>
-                                </div>
-
-                                <div *ngIf="step.exp">
-                                    exponente:
-                                    <app-mathjax-viewer [expression]="'\\(' + step.exp + '\\)'"></app-mathjax-viewer>
-                                </div>
-
-                                <ul *ngIf="step.substeps && step.substeps.length > 0">
-                                    <ng-container *ngFor="let sub of step.substeps">
-                                        <li>
-                                            <strong>{{ sub.rule }}</strong>:
-                                            <app-mathjax-viewer [expression]="'\\(' + sub.integrand + '\\)'"></app-mathjax-viewer>
-                                            <div *ngIf="sub.constant">
-                                                constante:
-                                                <app-mathjax-viewer [expression]="'\\(' + sub.constant + '\\)'"></app-mathjax-viewer>
-                                            </div>
-                                            <div *ngIf="sub.base">
-                                                base:
-                                                <app-mathjax-viewer [expression]="'\\(' + sub.base + '\\)'"></app-mathjax-viewer>
-                                            </div>
-                                            <div *ngIf="sub.exp">
-                                                exponente:
-                                                <app-mathjax-viewer [expression]="'\\(' + sub.exp + '\\)'"></app-mathjax-viewer>
-                                            </div>
-                                            <ul *ngIf="sub.substeps && sub.substeps.length > 0">
-                                                <ng-container *ngFor="let subsub of sub.substeps">
-                                                    <li>
-                                                        <strong>{{ subsub.rule }}</strong>:
-                                                        <app-mathjax-viewer [expression]="'\\(' + subsub.integrand + '\\)'"></app-mathjax-viewer>
-                                                    </li>
-                                                </ng-container>
-                                            </ul>
-                                        </li>
-                                    </ng-container>
-                                </ul>
-                            </li>
-                        </ng-container>
-                    </ul> -->
-
-                    <!-- <div *ngFor="let step of steps; let i = index" class="step-item">
-                        <div class="step-number">{{ i + 1 }}</div>
-                        <div class="step-content">{{ step }}</div>
-                    </div> -->
-                    <!-- src/app/features/integral-view/integral-view.component.html -->
                 </div>
             </div>
         </section>
@@ -169,7 +102,10 @@
                 <h2>Function Visualization</h2>
                 <div class="graphics-container">
                     <div class="chart-placeholder">
-                        <svg viewBox="0 0 400 300" class="chart-svg">
+
+                        <app-function-viewer *ngIf="functionsToView.length > 0" [functions]="functionsToView" ></app-function-viewer>
+
+                        <svg *ngIf="functionsToView.length == 0" viewBox="0 0 400 300" class="chart-svg">
                             <defs>
                                 <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
                                     <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />

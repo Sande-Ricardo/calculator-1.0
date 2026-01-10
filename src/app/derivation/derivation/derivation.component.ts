@@ -1,25 +1,38 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ApiManagementService } from 'src/app/core/services/api-management.service';
+import { DerivativeResponseDTO } from 'src/app/interfaces/Derivation';
+import { DerivationResponseMock } from 'src/app/mocks/flask.mock';
 
 @Component({
   selector: 'app-derivation',
   templateUrl: './derivation.component.html',
   styleUrls: ['./derivation.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DerivationComponent implements OnInit {
   constructor(
     private apiManagementSv: ApiManagementService
-  ) {}
-  ngOnInit(): void {}
+  ) {
+  }
+  ngOnInit(): void {
+  }
   
   
   
   functionInput: string = '';
   mathJaxExpression: string = "f(x) = ?";
-
+  
   result: string = '';
   selectedVariable: string = 'x';
-  steps: string[] = [];
+  // steps: string[] = [];
+  
+  derivativeSteps!:DerivativeResponseDTO;
+  private _responseSource = new BehaviorSubject<DerivativeResponseDTO | null>(null);
+  response$ = this._responseSource.asObservable();
+  
+  private _functionsToViewSource = new BehaviorSubject<string[] | null>(null);
+  functionsToView$ = this._functionsToViewSource.asObservable();
 
   functionButtons: string[] = [
     'sin(',
@@ -62,10 +75,6 @@ export class DerivationComponent implements OnInit {
     '÷',
   ];
 
-  functionsToView: string[] = [
-    'y=x^3-6x^2+11x-6',
-    'y=3x-12x+11'
-  ];
 
 
   appendToInput(value: string): void {
@@ -76,22 +85,30 @@ export class DerivationComponent implements OnInit {
   clearInput(): void {
     this.functionInput = '';
     this.result = '';
-    this.steps = [];
+    this._responseSource.next(null);
   }
 
   calculateDerivative(): void {
-    
-    console.log(this.apiManagementSv.sanitizeExpression(this.functionInput));
-    
     // Placeholder for actual derivation logic
     this.result = `d/d${this.selectedVariable}[${this.functionInput}]`;
 
-    // Generate sample steps for demonstration
-    this.steps = [
-      `Apply derivative to function: ${this.functionInput}`,
-      `Use appropriate differentiation rules`,
-      `Simplify the result`,
-      `Final derivative: ${this.result}`,
-    ];
+    this._responseSource.next(
+      this.apiManagementSv.derivationRequest(this.functionInput, this.selectedVariable)
+    );
+
   }
+
+  implementMock() {
+      console.log('Implementing mock data...');
+      const mock = DerivationResponseMock;
+      this.response$ = new Observable<DerivativeResponseDTO>(subscriber => {
+        this.derivativeSteps = mock;
+        subscriber.next(mock);
+        subscriber.complete();
+        
+        this._functionsToViewSource.next(['y='+this.functionInput, 'y='+mock.step_result]);
+        console.log("function inp: " + this.functionInput,"step res: "+ mock.step_result);
+      });
+      this.result = mock.step_result;
+    }
 }

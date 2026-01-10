@@ -33,10 +33,11 @@ export interface StepNode {
 }
 
 /** Árbol normalizado para trabajar siempre con arrays de hijos */
-export interface StepNodeNormalized {
+export interface StepNodeIntegrateNormalized {
     rule: string;
     integrandLatex: string;
     variable: string;
     params: Record<string, string>; // clave → LaTeX (u, v, du, dv, base, exp, constant, other, etc.)
-    children: StepNodeNormalized[];
+    children: StepNodeIntegrateNormalized[];
 }
+

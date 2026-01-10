@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { DerivativeRequestDTO, DerivativeResponseDTO } from 'src/app/interfaces/Derivation';
 import { DerivationRequest } from 'src/app/interfaces/DerivationRequest';
 import { DerivationResponse } from 'src/app/interfaces/DerivationResponse';
 import { IntegrationRequestDTO, IntegrationResponseDTO } from 'src/app/interfaces/Integration';
-// import { DerivationResponse } from 'src/app/interfaces/DerivationResponse';
 
 @Injectable({
   providedIn: 'root',
@@ -21,20 +21,20 @@ export class ApiManagementService {
     // Example: 8 + 5*12+2^3-sqrt(4)*cos(4) -e^(2) + π - e
     let result = input;
 
-    // Reemplazar potencias ^ → **
+    // Power replace ^ → **
     result = result.replace(/(\w|\)|\])\^(\w|\()/g, '$1**$2');
 
-    // Reemplazar raíz cuadrada √x → sqrt(x)
+    // Sqrt replace √x → sqrt(x)
     result = result.replace(/√\s*(\w+|\([^()]+\))/g, 'sqrt($1)');
 
-    // Reemplazar π por pi
+    // Replace π by pi
     result = result.replace(/π/g, 'pi');
 
-    // Reemplazar e (número de Euler) solo cuando es constante matemática
-    // Evitar reemplazar variables con nombre 'e'
+    // Replace e (Euler's number) only when it is a mathematical constant
+    // Avoid replacing variables named 'e'
     result = result.replace(/\be\b(?![a-zA-Z0-9_])/g, 'E');
 
-    // Funciones trigonométricas y logaritmos: permitir mayúsculas o minúsculas
+    // Tricogonometric and logaritmic functions: allow uppercase and lowercase
     result = result.replace(/\bcos\b/gi, 'cos');
     result = result.replace(/\bsin\b/gi, 'sin');
     result = result.replace(/\btan\b/gi, 'tan');
@@ -42,26 +42,30 @@ export class ApiManagementService {
     result = result.replace(/\bexp\b/gi, 'exp');
     result = result.replace(/\babs\b/gi, 'Abs');
 
-    // Eliminar espacios innecesarios
+    // Delete all whitespace
     result = result.replace(/\s+/g, '');
 
     return result;
   }
 
-  derivationRequest(expression: string): DerivationResponse {
-    const request: DerivationRequest = {
+  // REVISAR
+  derivationRequest(expression: string, variable:string): DerivativeResponseDTO {
+    const request: DerivativeRequestDTO = {
       expression: expression,
+      variable: variable
     };
 
-    let response: DerivationResponse = {
-      result: '0',
+    let response: DerivativeResponseDTO = {
+      step_result: '0',
+      derive: '',
+      rule: '',
+      substeps: []
     };
 
     this.http
-      .post<DerivationResponse>(this.apiUrl + '/derivation', request)
+      .post<DerivativeResponseDTO>(this.apiUrl + '/derivation', request)
       .subscribe((res) => {
         response = res;
-        console.log(res);
       });
 
     return response;
@@ -80,7 +84,6 @@ export class ApiManagementService {
       .post<DerivationResponse>(this.apiUrl + '/integration', request)
       .subscribe((res) => {
         response = res;
-        console.log(res);
       });
 
     return response;

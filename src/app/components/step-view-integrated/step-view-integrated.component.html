@@ -15,7 +15,7 @@
     </div>
 
     <div class="step-children" *ngIf="step.children.length">
-        <app-step-view *ngFor="let c of step.children; trackBy: trackByIndex" [step]="c">
-        </app-step-view>
+        <app-step-view-integrated *ngFor="let c of step.children; trackBy: trackByIndex" [step]="c">
+        </app-step-view-integrated>
     </div>
 </div>
