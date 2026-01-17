@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ApiManagementService } from 'src/app/core/services/api-management.service';
-import { DerivativeResponseDTO } from 'src/app/interfaces/Derivation';
+import { DerivativeRequestDTO, DerivativeResponseDTO } from 'src/app/interfaces/Derivation';
 import { DerivationResponseMock } from 'src/app/mocks/flask.mock';
 
 @Component({
@@ -92,8 +92,21 @@ export class DerivationComponent implements OnInit {
     // Placeholder for actual derivation logic
     this.result = `d/d${this.selectedVariable}[${this.functionInput}]`;
 
-    this._responseSource.next(
-      this.apiManagementSv.derivationRequest(this.functionInput, this.selectedVariable)
+    // this._responseSource.next(
+    //   this.apiManagementSv.derivationRequest(this.functionInput, this.selectedVariable)
+    // );
+    const request:DerivativeRequestDTO = {
+      expression: this.functionInput,
+      variable: "x"
+    }
+    this.apiManagementSv.derive(request).subscribe(
+      (response) => {
+        this._responseSource.next(response);
+        this.result = response.step_result;
+        this._functionsToViewSource.next(
+          ['y='+this.apiManagementSv.convertToLatex(this.functionInput), 'y='+ response.derive]
+        )
+      }
     );
 
   }

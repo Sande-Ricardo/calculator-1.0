@@ -39,10 +39,9 @@ export class IntegrationComponent implements OnInit {
   response$ = this._responseSource.asObservable();
   rootSteps: StepNodeIntegrateNormalized[] = []; // StepNodeNormalized[]
 
-  functionsToView: string[] = ['y=x^3-6x^2+11x-6',
-    'y=3x-12x+11'];
+  functionsToView: string[] = [];
 
-  antiderivativeLatex = '\\frac{e^{3} x^{2}}{2} + \\frac{15 x^{7}}{7}';
+  antiderivativeLatex = '';
 
   functionButtons: string[] = [
     'sin(',
@@ -148,7 +147,8 @@ export class IntegrationComponent implements OnInit {
           this.loading = false;
           this.result = res.result;
 
-          this.functionsToView = [this.expression, this.result];
+          this.functionsToView = ['y='+this.apiManagementSv.convertToLatex(this.expression), 'y='+this.antiderivativeLatex];
+          
         },
         error: (err) => {
           this.error = err?.error?.error ?? 'Error al integrar.';

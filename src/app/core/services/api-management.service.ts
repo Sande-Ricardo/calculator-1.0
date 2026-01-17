@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DerivativeRequestDTO, DerivativeResponseDTO } from 'src/app/interfaces/Derivation';
-import { DerivationRequest } from 'src/app/interfaces/DerivationRequest';
-import { DerivationResponse } from 'src/app/interfaces/DerivationResponse';
 import { IntegrationRequestDTO, IntegrationResponseDTO } from 'src/app/interfaces/Integration';
+
+import * as math from 'mathjs';
 
 @Injectable({
   providedIn: 'root',
@@ -48,48 +48,62 @@ export class ApiManagementService {
     return result;
   }
 
-  // REVISAR
-  derivationRequest(expression: string, variable:string): DerivativeResponseDTO {
-    const request: DerivativeRequestDTO = {
-      expression: expression,
-      variable: variable
-    };
+  // // REVISAR
+  // derivationRequest(expression: string, variable:string): DerivativeResponseDTO {
+  //   const request: DerivativeRequestDTO = {
+  //     expression: expression,
+  //     variable: variable
+  //   };
 
-    let response: DerivativeResponseDTO = {
-      step_result: '0',
-      derive: '',
-      rule: '',
-      substeps: []
-    };
+  //   let response: DerivativeResponseDTO = {
+  //     step_result: '0',
+  //     derive: '',
+  //     rule: '',
+  //     substeps: []
+  //   };
 
-    this.http
-      .post<DerivativeResponseDTO>(this.apiUrl + '/derivation', request)
-      .subscribe((res) => {
-        response = res;
-      });
+  //   this.http
+  //     .post<DerivativeResponseDTO>(this.apiUrl + '/derivation', request)
+  //     .subscribe((res) => {
+  //       response = res;
+  //     });
 
-    return response;
+  //   return response;
+  // }
+
+  // integrationRequest(expression: string): DerivationResponse {
+  //   const request: IntegrationRequestDTO = {
+  //     expression: expression,
+  //     variable: 'x',
+  //   };
+
+  //   let response: DerivationResponse = {
+  //     result: '0',
+  //   };
+
+  //   this.http
+  //     .post<DerivationResponse>(this.apiUrl + '/integration', request)
+  //     .subscribe((res) => {
+  //       response = res;
+  //     });
+
+  //   return response;
+  // }
+
+  derive(body:DerivativeRequestDTO): Observable<DerivativeResponseDTO> {
+    return this.http.post<DerivativeResponseDTO>(this.apiUrl + '/derivation', body);
   }
-
-  integrationRequest(expression: string): DerivationResponse {
-    const request: DerivationRequest = {
-      expression: expression,
-    };
-
-    let response: DerivationResponse = {
-      result: '0',
-    };
-
-    this.http
-      .post<DerivationResponse>(this.apiUrl + '/integration', request)
-      .subscribe((res) => {
-        response = res;
-      });
-
-    return response;
-  }
-
   integrate(body: IntegrationRequestDTO): Observable<IntegrationResponseDTO> {
     return this.http.post<IntegrationResponseDTO>(this.apiUrl + '/integration', body);
+  }
+
+  convertToLatex(expression: string) {
+    try {
+      const node = math.parse(expression);
+      return node.toTex({ parenthesis: 'keep', implicit: 'show' });
+    } catch (error) {
+      console.error('Error converting to LaTeX:', error);
+      return null
+    }
   }
 }
