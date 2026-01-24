@@ -195,7 +195,8 @@
     justify-content: center;
     flex-wrap: wrap;
     gap: 8px;
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
+    padding: .5rem 0;
 }
 
 /* Buttons (Reemplazo del mixin 'elegant-button') */
