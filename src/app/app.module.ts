@@ -6,8 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TopMenuComponent } from './components/top-menu/top-menu.component';
 import { ScientificComponent } from './components/scientific/scientific.component';
+import { TopMenuComponent } from './components/top-menu/top-menu.component';
 
 
 
