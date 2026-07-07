@@ -13,11 +13,26 @@ import * as math from 'mathjs';
 export class StandardCalculatorComponent implements OnInit {
 
   isScientificMode: boolean = false;
+  isDegrees: boolean = true;
   expression: string = '0';
   writing: boolean = true;
 
   basicButtons: string[] = ['7', '8', '9', '/', '4', '5', '6', '*', '1', '2', '3', '-', '0', '.', '+'];
-  scientificButtons: string[] = ['sin(', 'cos(', 'tan(', 'log(', 'exp(', 'sqrt(', '^', 'pi', 'e', '(', ')'];
+  scientificButtons = [
+    { label: 'sin', value: 'sin(' },
+    { label: 'cos', value: 'cos(' },
+    { label: 'tan', value: 'tan(' },
+    { label: 'ln', value: 'log(' },
+    { label: 'exp', value: 'exp(' },
+    { label: '√', value: 'sqrt(' },
+    { label: 'ⁿ√', value: 'nthRoot(' },
+    { label: '^', value: '^' },
+    { label: 'n!', value: '!' },
+    { label: 'π', value: 'pi' },
+    { label: 'e', value: 'e' },
+    { label: '(', value: '(' },
+    { label: ')', value: ')' }
+  ];
 
   constructor() { }
 
@@ -26,6 +41,10 @@ export class StandardCalculatorComponent implements OnInit {
 
   toggleScientificMode(): void {
     this.isScientificMode = !this.isScientificMode;
+  }
+
+  toggleAngleMode(): void {
+    this.isDegrees = !this.isDegrees;
   }
 
   append(char: string): void {
@@ -70,8 +89,28 @@ export class StandardCalculatorComponent implements OnInit {
     if (!this.writing) return; // Already evaluated
 
     try {
-      // Evaluate the expression using mathjs
-      const result = math.evaluate(this.expression);
+      // Build a custom scope for trig functions if in degrees
+      const scope: any = {};
+      if (this.isDegrees) {
+        ['sin', 'cos', 'tan', 'sec', 'cot', 'csc'].forEach(name => {
+          const fn = (math as any)[name];
+          scope[name] = (x: any) => {
+            if (typeof x === 'number') return fn(x * Math.PI / 180);
+            return fn(x);
+          };
+        });
+        ['asin', 'acos', 'atan', 'asec', 'acot', 'acsc'].forEach(name => {
+          const fn = (math as any)[name];
+          scope[name] = (x: any) => {
+            const result = fn(x);
+            if (typeof result === 'number') return result * 180 / Math.PI;
+            return result;
+          };
+        });
+      }
+
+      // Evaluate the expression using mathjs with the custom scope
+      const result = math.evaluate(this.expression, scope);
       
       // Format to avoid extremely long decimals
       this.expression = math.format(result, { precision: 10 });

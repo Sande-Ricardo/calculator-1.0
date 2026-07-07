@@ -1,10 +1,22 @@
 <div class="calculator-wrapper crystal-box">
   <div class="calculator-header">
-    <div class="mode-toggle">
-      <label>
-        <input type="checkbox" [(ngModel)]="isScientificMode" (change)="toggleScientificMode()">
-        Scientific Mode
-      </label>
+    <div class="mode-toggles">
+      
+      <!-- Scientific Mode Toggle -->
+      <div class="toggle-wrapper" (click)="toggleScientificMode()">
+        <span class="toggle-label">Scientific</span>
+        <div class="switch" [class.active]="isScientificMode">
+          <div class="slider"></div>
+        </div>
+      </div>
+
+      <!-- Angle Mode Toggle (DEG / RAD) - Only visible in scientific mode -->
+      <div class="angle-toggle" *ngIf="isScientificMode" (click)="toggleAngleMode()">
+        <span class="angle-label" [class.active]="isDegrees">DEG</span>
+        <span class="angle-divider">|</span>
+        <span class="angle-label" [class.active]="!isDegrees">RAD</span>
+      </div>
+
     </div>
   </div>
 
@@ -15,10 +27,12 @@
   <div class="keypad-section" [class.scientific-active]="isScientificMode">
     
     <!-- Scientific Buttons Panel -->
-    <div class="scientific-panel" *ngIf="isScientificMode">
-      <button class="calc-btn func-btn" *ngFor="let btn of scientificButtons" (click)="append(btn)">
-        {{ btn }}
-      </button>
+    <div class="scientific-panel" [class.expanded]="isScientificMode">
+      <div class="scientific-grid">
+        <button class="calc-btn func-btn" *ngFor="let btn of scientificButtons" (click)="append(btn.value)">
+          {{ btn.label }}
+        </button>
+      </div>
     </div>
 
     <!-- Basic Buttons Panel -->
