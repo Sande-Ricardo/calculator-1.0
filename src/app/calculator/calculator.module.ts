@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { BasicComponent } from "src/app/components/basic/basic.component";
+import { StandardCalculatorComponent } from "src/app/components/standard-calculator/standard-calculator.component";
 import { CalculatorRoutingModule } from './calculator-routing.module';
 import { CalculatorComponent } from './calculator/calculator.component';
 
@@ -13,7 +13,7 @@ import { CalculatorComponent } from './calculator/calculator.component';
   imports: [
     CommonModule,
     CalculatorRoutingModule,
-    BasicComponent
+    StandardCalculatorComponent
 ]
 })
 export class CalculatorModule { }

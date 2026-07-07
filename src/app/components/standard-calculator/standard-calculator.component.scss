@@ -1,0 +1,146 @@
+.calculator-wrapper {
+  background: var(--surface-dark);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 24px;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  transition: max-width 0.3s ease;
+  animation: fadeInUp 0.4s ease-out;
+
+  /* If scientific mode is active, it expands slightly to accommodate more buttons */
+  & .keypad-section.scientific-active {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+.mode-toggle {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: flex-end;
+  
+  label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+  }
+}
+
+.display-section {
+  background: var(--surface-light);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 24px;
+  min-height: 80px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  overflow-x: auto;
+}
+
+.expression-display {
+  font-family: var(--font-mono);
+  font-size: 28px;
+  color: var(--text-primary);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Base button styles */
+.calc-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 16px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  font-family: var(--font-primary);
+
+  &:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.2);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+/* Grid Layouts */
+.basic-panel {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.scientific-panel {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Button Variants */
+.num-btn {
+  background: var(--surface-light-plus);
+  font-family: var(--font-mono);
+}
+
+.zero-btn {
+  grid-column: span 2;
+}
+
+.op-btn {
+  background: var(--surface-light);
+  color: var(--primary-color);
+  font-size: 22px;
+}
+
+.func-btn {
+  background: var(--surface-light);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  padding: 12px;
+}
+
+.action-btn {
+  background: var(--surface-light);
+  color: var(--warning-color);
+  font-size: 16px;
+}
+
+.clear-btn {
+  background: var(--error-color);
+}
+
+.eval-btn {
+  background: var(--primary-color);
+  font-size: 22px;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

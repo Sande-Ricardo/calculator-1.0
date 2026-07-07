@@ -8,6 +8,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ScientificComponent } from './components/scientific/scientific.component';
 import { TopMenuComponent } from './components/top-menu/top-menu.component';
+import { MainLayoutComponent } from './core/layout/main-layout/main-layout.component';
+import { SideMenuComponent } from './core/layout/side-menu/side-menu.component';
 
 
 
@@ -15,7 +17,9 @@ import { TopMenuComponent } from './components/top-menu/top-menu.component';
   declarations: [
     AppComponent,
     TopMenuComponent,
-    ScientificComponent
+    ScientificComponent,
+    MainLayoutComponent,
+    SideMenuComponent
   ],
   imports: [
     BrowserModule,

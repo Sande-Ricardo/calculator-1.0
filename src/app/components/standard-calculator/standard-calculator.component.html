@@ -1,0 +1,57 @@
+<div class="calculator-wrapper crystal-box">
+  <div class="calculator-header">
+    <div class="mode-toggle">
+      <label>
+        <input type="checkbox" [(ngModel)]="isScientificMode" (change)="toggleScientificMode()">
+        Scientific Mode
+      </label>
+    </div>
+  </div>
+
+  <div class="display-section">
+    <div class="expression-display">{{ expression }}</div>
+  </div>
+
+  <div class="keypad-section" [class.scientific-active]="isScientificMode">
+    
+    <!-- Scientific Buttons Panel -->
+    <div class="scientific-panel" *ngIf="isScientificMode">
+      <button class="calc-btn func-btn" *ngFor="let btn of scientificButtons" (click)="append(btn)">
+        {{ btn }}
+      </button>
+    </div>
+
+    <!-- Basic Buttons Panel -->
+    <div class="basic-panel">
+      <!-- Special Ops -->
+      <button class="calc-btn clear-btn" (click)="clear()">C</button>
+      <button class="calc-btn action-btn" (click)="delete()">DEL</button>
+      <button class="calc-btn action-btn" (click)="percent()">%</button>
+      <button class="calc-btn op-btn" (click)="append('/')">/</button>
+
+      <!-- Row 7,8,9,* -->
+      <button class="calc-btn num-btn" (click)="append('7')">7</button>
+      <button class="calc-btn num-btn" (click)="append('8')">8</button>
+      <button class="calc-btn num-btn" (click)="append('9')">9</button>
+      <button class="calc-btn op-btn" (click)="append('*')">*</button>
+
+      <!-- Row 4,5,6,- -->
+      <button class="calc-btn num-btn" (click)="append('4')">4</button>
+      <button class="calc-btn num-btn" (click)="append('5')">5</button>
+      <button class="calc-btn num-btn" (click)="append('6')">6</button>
+      <button class="calc-btn op-btn" (click)="append('-')">-</button>
+
+      <!-- Row 1,2,3,+ -->
+      <button class="calc-btn num-btn" (click)="append('1')">1</button>
+      <button class="calc-btn num-btn" (click)="append('2')">2</button>
+      <button class="calc-btn num-btn" (click)="append('3')">3</button>
+      <button class="calc-btn op-btn" (click)="append('+')">+</button>
+
+      <!-- Row 0, ., = -->
+      <button class="calc-btn num-btn zero-btn" (click)="append('0')">0</button>
+      <button class="calc-btn num-btn" (click)="append('.')">.</button>
+      <button class="calc-btn eval-btn" (click)="evaluateExpression()">=</button>
+    </div>
+
+  </div>
+</div>

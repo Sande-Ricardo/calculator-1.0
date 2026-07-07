@@ -1,0 +1,43 @@
+.container{
+    background-color: var(--back1);
+    background-image:
+                        radial-gradient(at 0% 0%, var(--back3) 0px, transparent 20%),
+                        radial-gradient(at 0% 0%, var(--back2) 0px, transparent 70%)
+                        ;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo{
+    position: absolute;
+    width: 70%;
+    height: 50%;
+    border-radius: 0 100% 5% 100%;
+    box-shadow: 0 0 3.5rem var(--back3) inset,
+                0 0 .5rem var(--back4) inset;
+    background-color:var(--back1);
+    background-image:
+        radial-gradient(at 100% 100%, var(--back2) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, var(--back3) 0px, transparent 50%);
+}
+
+.router{
+    position: fixed;
+    top: 3rem;
+    width: 100%;
+    height: calc(100% - 3rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+.top-menu{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 3rem;
+}
