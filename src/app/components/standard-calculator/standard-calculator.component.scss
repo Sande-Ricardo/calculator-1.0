@@ -32,7 +32,7 @@
   align-items: center;
   gap: 12px;
   cursor: pointer;
-  
+
   .toggle-label {
     font-weight: 500;
   }
@@ -83,6 +83,7 @@
   .angle-label {
     color: var(--text-secondary);
     transition: color 0.2s ease;
+
     &.active {
       color: var(--primary-color);
     }
@@ -112,6 +113,15 @@
   color: var(--text-primary);
   font-weight: 600;
   white-space: nowrap;
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  text-align: right;
+  
+  &::placeholder {
+    color: var(--text-secondary);
+  }
 }
 
 /* Base button styles */
@@ -214,6 +224,7 @@
     opacity: 0;
     transform: translateY(16px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);

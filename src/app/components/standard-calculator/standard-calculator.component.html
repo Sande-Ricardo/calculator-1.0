@@ -21,7 +21,11 @@
   </div>
 
   <div class="display-section">
-    <div class="expression-display">{{ expression }}</div>
+    <input type="text" 
+           class="expression-display" 
+           [(ngModel)]="expression" 
+           (keydown.enter)="evaluateExpression()"
+           (ngModelChange)="onInputChange($event)">
   </div>
 
   <div class="keypad-section" [class.scientific-active]="isScientificMode">
