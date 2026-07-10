@@ -28,7 +28,8 @@
 .router{
     position: fixed;
     top: 3rem;
-    width: 100%;
+    left: 68px;
+    width: calc(100% - 68px);
     height: calc(100% - 3rem);
     display: flex;
     justify-content: center;

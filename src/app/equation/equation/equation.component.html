@@ -1,0 +1,132 @@
+<div class="container2 crystal-box">
+  <header class="equation-header">
+    <h1 class="title">Equation Solver</h1>
+    <p class="subtitle">Solve, factorize, expand, or simplify algebraic equations</p>
+  </header>
+
+  <main class="equation-main">
+    <!-- Input Section -->
+    <section class="input-section">
+      <div class="input-card">
+        <h2>Parameters & Expression</h2>
+        
+        <!-- Operation Select -->
+        <div class="input-group">
+          <label for="operation">Operation:</label>
+          <select id="operation" [(ngModel)]="operation" class="custom-select">
+            <option value="solve">Solve</option>
+            <option value="factorize">Factorize</option>
+            <option value="expand">Expand</option>
+            <option value="simplify">Simplify</option>
+          </select>
+        </div>
+
+        <!-- Conditional Solve Options -->
+        <div class="solve-options" *ngIf="operation === 'solve'">
+          <div class="input-group">
+            <label for="variable">Target Variable:</label>
+            <select id="variable" [(ngModel)]="targetVariable" class="custom-select">
+              <option value="x">x</option>
+              <option value="y">y</option>
+              <option value="z">z</option>
+              <option value="t">t</option>
+            </select>
+          </div>
+
+          <div class="input-group">
+            <label for="method">Solving Method:</label>
+            <select id="method" [(ngModel)]="method" class="custom-select">
+              <option value="factorization">Factorization</option>
+              <option value="general_formula">General Formula</option>
+              <option value="quadratic_formula">Quadratic Formula</option>
+              <option value="default">Default</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Expression Input -->
+        <div class="input-group">
+          <label for="expression">Expression / Equation:</label>
+          <input type="text" id="expression" class="expression-input" [(ngModel)]="expression"
+                 placeholder="Enter equation (e.g., x^2 + 5*x + 6 = 0)" (ngModelChange)="updateMathJaxExpression()" (keyup.enter)="calculate()" />
+        </div>
+
+        <!-- Keyboard Panels -->
+        <div class="keyboard-panels">
+          <div class="panel-row">
+            <button class="func-btn" *ngFor="let val of functionButtons; let i = index" (click)="appendToInput(val)">
+              {{ functionVisible[i] }}
+            </button>
+          </div>
+          <div class="panel-row">
+            <button class="var-btn" *ngFor="let val of variableButtons" (click)="appendToInput(val)">
+              {{ val }}
+            </button>
+          </div>
+          <div class="panel-row">
+            <button class="basic-btn" *ngFor="let val of basicButtons; let i = index" (click)="appendToInput(val)">
+              {{ basicVisible[i] }}
+            </button>
+            <button class="clear-btn-keyboard" (click)="clearInput()">C</button>
+          </div>
+        </div>
+
+        <!-- Calculate Buttons -->
+        <div class="action-buttons">
+          <button class="calculate-btn" (click)="calculate()" [disabled]="!expression">
+            <span>Calculate</span>
+            <svg class="btn-icon" viewBox="0 0 24 24">
+              <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z" />
+            </svg>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="results-section">
+      <div class="result-card">
+        <h2>Result Preview</h2>
+        <div class="result-display">
+          <div class="result-item" *ngIf="expression">
+            <span class="result-label">Visual Input:</span>
+            <span class="result-value">
+              <app-mathjax-viewer [expression]="mathJaxExpression"></app-mathjax-viewer>
+            </span>
+          </div>
+          
+          <div class="result-item" *ngIf="results.length > 0">
+            <span class="result-label">Result:</span>
+            <div class="results-list">
+              <div class="result-equation" *ngFor="let res of results">
+                <app-mathjax-viewer [expression]="'\\( ' + res + ' \\)'"></app-mathjax-viewer>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step-by-Step Solutions -->
+      <div class="steps-card" *ngIf="steps.length > 0">
+        <h2>Step-by-Step Solution</h2>
+        <div class="steps-container">
+          <div class="step-node" *ngFor="let step of steps">
+            <div class="step-header">
+              <span class="step-badge">Step {{ step.order }}</span>
+              <p class="step-desc">{{ step.description }}</p>
+            </div>
+            <div class="step-math">
+              <app-mathjax-viewer [expression]="'\\( ' + step.math_state + ' \\)'"></app-mathjax-viewer>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="steps-card no-results" *ngIf="steps.length === 0">
+        <h2>Step-by-Step Solution</h2>
+        <p class="placeholder-text">Enter an expression and calculate to view solving steps.</p>
+      </div>
+    </section>
+  </main>
+</div>

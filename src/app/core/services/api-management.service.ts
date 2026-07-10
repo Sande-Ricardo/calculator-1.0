@@ -3,15 +3,19 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DerivativeRequestDTO, DerivativeResponseDTO } from 'src/app/interfaces/Derivation';
 import { IntegrationRequestDTO, IntegrationResponseDTO } from 'src/app/interfaces/Integration';
+import { EquationRequestDTO, EquationResponseDTO } from 'src/app/interfaces/Equation';
+
 
 import * as math from 'mathjs';
+
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiManagementService {
-  // local
-  apiUrl: string = 'http://localhost:8080/op';
+  // remote api
+  apiUrl: string = environment.apiGetaway + '/op';
 
   constructor(private http: HttpClient) {}
 
@@ -96,6 +100,10 @@ export class ApiManagementService {
   integrate(body: IntegrationRequestDTO): Observable<IntegrationResponseDTO> {
     return this.http.post<IntegrationResponseDTO>(this.apiUrl + '/integration', body);
   }
+  solveEquation(body: EquationRequestDTO): Observable<EquationResponseDTO> {
+    return this.http.post<EquationResponseDTO>(this.apiUrl + '/equation', body);
+  }
+
 
   convertToLatex(expression: string) {
     try {

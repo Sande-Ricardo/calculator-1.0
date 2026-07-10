@@ -1,5 +1,33 @@
 import { DerivativeResponseDTO } from "../interfaces/Derivation"
 import { IntegrationResponseDTO } from "../interfaces/Integration"
+import { EquationResponseDTO } from "../interfaces/Equation"
+
+export const EquationResponseMock: EquationResponseDTO = {
+  status: "success",
+  original_expression: "x^2 + 5x + 6 = 0",
+  final_result: [
+    "x_1 = -2",
+    "x_2 = -3"
+  ],
+  steps: [
+    {
+      order: 1,
+      description: "Identify coefficients for the quadratic equation",
+      math_state: "a = 1, \\quad b = 5, \\quad c = 6"
+    },
+    {
+      order: 2,
+      description: "Factor the expression into two binomials: (x + p)(x + q) = 0 where p*q = c and p+q = b",
+      math_state: "(x + 2)(x + 3) = 0"
+    },
+    {
+      order: 3,
+      description: "Set each factor to zero to find the roots",
+      math_state: "x + 2 = 0 \\implies x_1 = -2 \\\\ x + 3 = 0 \\implies x_2 = -3"
+    }
+  ]
+};
+
 
 export const IntegrationResponseMock:IntegrationResponseDTO = {
     "expression": "5*x**(3*2)*3 + e**3*x",
