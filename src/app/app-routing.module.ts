@@ -24,11 +24,16 @@ const routes: Routes = [
         loadChildren: () => import('./equation/equation.module').then(m => m.EquationModule)
       },
       {
+        path: 'graph',
+        loadChildren: () => import('./graphing/graphing.module').then(m => m.GraphingModule)
+      },
+      {
         path: '',
         loadChildren: () => import('./calculator/calculator.module').then(m => m.CalculatorModule)
       }
     ]
   },
+
   {
     path: '**',
     redirectTo: '',

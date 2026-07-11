@@ -1,0 +1,133 @@
+<div class="container2 crystal-box">
+  <header class="graphing-header">
+    <h1 class="title">Graphing Functions</h1>
+    <p class="subtitle">Plot multiple functions, analyze roots, and generate value tables</p>
+  </header>
+
+  <main class="graphing-main">
+    <!-- Left Sidebar for Tools -->
+    <aside class="sidebar-panel">
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab-btn" [class.active]="activeTab === 'graph'" (click)="activeTab = 'graph'">Expressions</button>
+        <button class="tab-btn" [class.active]="activeTab === 'table'" (click)="activeTab = 'table'; generateTable()">Table</button>
+        <button class="tab-btn" [class.active]="activeTab === 'analysis'" (click)="activeTab = 'analysis'; analyzeFunctions()">Analysis</button>
+      </div>
+
+      <div class="tab-content">
+        <!-- GRAPH TAB -->
+        <div *ngIf="activeTab === 'graph'" class="graph-tab">
+          
+          <!-- Expressions List -->
+          <div class="expressions-list">
+            <div class="expression-item" 
+                 *ngFor="let func of functions; let i = index"
+                 [class.active]="activeFunctionId === func.id"
+                 (click)="setActiveFunction(func.id)">
+              
+              <!-- Color Indicator / Visibility Toggle -->
+              <button class="visibility-btn" (click)="toggleVisibility(func); $event.stopPropagation()">
+                <svg *ngIf="func.visible" viewBox="0 0 24 24" class="icon" [style.color]="func.color">
+                  <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/>
+                </svg>
+                <svg *ngIf="!func.visible" viewBox="0 0 24 24" class="icon" style="color: #666;">
+                  <path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z" fill="currentColor"/>
+                </svg>
+              </button>
+
+              <input type="text" [(ngModel)]="func.latex" 
+                     (ngModelChange)="onExpressionChange()" 
+                     class="expression-input"
+                     placeholder="e.g., sin(x)" />
+
+              <button class="remove-btn" (click)="removeFunction(func.id); $event.stopPropagation()">×</button>
+            </div>
+            
+            <button class="add-func-btn" (click)="addFunction()">+ Add Expression</button>
+          </div>
+
+          <!-- Keyboard Panels -->
+          <div class="keyboard-panels">
+            <div class="panel-row">
+              <button class="func-btn" *ngFor="let val of functionButtons; let i = index" (click)="appendToInput(val)">
+                {{ functionVisible[i] }}
+              </button>
+            </div>
+            <div class="panel-row">
+              <button class="var-btn" *ngFor="let val of variableButtons" (click)="appendToInput(val)">
+                {{ val }}
+              </button>
+            </div>
+            <div class="panel-row">
+              <button class="basic-btn" *ngFor="let val of basicButtons; let i = index" (click)="appendToInput(val)">
+                {{ basicVisible[i] }}
+              </button>
+              <button class="clear-btn-keyboard" (click)="clearInput()">C</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- TABLE TAB -->
+        <div *ngIf="activeTab === 'table'" class="table-tab">
+          <div class="table-settings">
+            <div class="input-group">
+              <label>Min X:</label>
+              <input type="number" [(ngModel)]="tableRangeMin" (change)="generateTable()" />
+            </div>
+            <div class="input-group">
+              <label>Max X:</label>
+              <input type="number" [(ngModel)]="tableRangeMax" (change)="generateTable()" />
+            </div>
+            <div class="input-group">
+              <label>Step:</label>
+              <input type="number" [(ngModel)]="tableStep" (change)="generateTable()" />
+            </div>
+          </div>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>x</th>
+                  <th *ngFor="let f of functions" [style.color]="f.color">{{ f.id }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of tableData">
+                  <td>{{ row.x }}</td>
+                  <td *ngFor="let f of functions">{{ row[f.id] }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ANALYSIS TAB -->
+        <div *ngIf="activeTab === 'analysis'" class="analysis-tab">
+          <button class="action-btn" (click)="analyzeFunctions()">Analyze Now</button>
+          
+          <div class="analysis-results">
+            <div *ngFor="let res of analysisData" class="analysis-card">
+              <h3 [style.color]="res.color || '#fff'">
+                Function: {{ res.funcId }}
+              </h3>
+              <p><strong>Roots (x-intercepts):</strong></p>
+              <ul *ngIf="res.roots.length > 0; else noRoots">
+                <li *ngFor="let r of res.roots">x ≈ {{ r }}</li>
+              </ul>
+              <ng-template #noRoots>
+                <p class="empty-msg">No real roots found in [-10, 10]</p>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Right Side: Desmos Canvas -->
+    <section class="desmos-section">
+      <div #calculatorContainer class="desmos-container"></div>
+    </section>
+
+  </main>
+</div>

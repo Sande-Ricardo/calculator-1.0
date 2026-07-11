@@ -1,0 +1,328 @@
+.container2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  padding: 32px 10%;
+  font-family: var(--font-primary);
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 1200px) {
+  .container2 {
+    padding: 32px 5%;
+  }
+}
+
+.graphing-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.graphing-header .title {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.graphing-header .subtitle {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+.graphing-main {
+  display: flex;
+  flex: 1;
+  gap: 24px;
+  min-height: 0;
+  margin-bottom: 24px;
+}
+
+/* Sidebar */
+.sidebar-panel {
+  width: 400px;
+  background: var(--surface-dark);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.tabs {
+  display: flex;
+  background: rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 16px;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-family: var(--font-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-bottom: 2px solid transparent;
+
+  &:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  &.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+    background: rgba(59, 130, 246, 0.1);
+  }
+}
+
+.tab-content {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+/* Expressions List */
+.expressions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.expression-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 8px;
+  transition: border-color 0.2s ease;
+  cursor: pointer;
+
+  &.active {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.3);
+  }
+}
+
+.visibility-btn, .remove-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  padding: 4px;
+  
+  &:hover {
+    background: rgba(255,255,255,0.1);
+  }
+}
+
+.visibility-btn .icon {
+  width: 24px;
+  height: 24px;
+}
+
+.remove-btn {
+  color: var(--error-color);
+  font-size: 20px;
+  line-height: 1;
+  width: 32px;
+  height: 32px;
+}
+
+.expression-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 16px;
+  padding: 8px;
+  
+  &:focus {
+    outline: none;
+  }
+}
+
+.add-func-btn {
+  background: transparent;
+  border: 1px dashed var(--border-light);
+  color: var(--text-secondary);
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+    background: rgba(59, 130, 246, 0.05);
+  }
+}
+
+/* Keyboard */
+.keyboard-panels {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.panel-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.func-btn, .var-btn, .basic-btn, .clear-btn-keyboard {
+  border: none;
+  border-radius: 4px;
+  padding: 8px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  cursor: pointer;
+  min-width: 40px;
+  transition: all 0.15s ease;
+  flex: 1;
+  text-align: center;
+  
+  &:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.2);
+  }
+}
+
+.func-btn { background: var(--surface-light); color: var(--primary-color); }
+.var-btn { background: var(--surface-light-plus); color: var(--warning-color); }
+.basic-btn { background: var(--surface-light); color: var(--text-primary); }
+.clear-btn-keyboard { background: var(--error-color); color: white; }
+
+/* Table Tab */
+.table-settings {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.input-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  
+  label {
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+  
+  input {
+    background: rgba(0,0,0,0.2);
+    border: 1px solid var(--border-color);
+    color: white;
+    padding: 8px;
+    border-radius: 4px;
+    width: 100%;
+  }
+}
+
+.table-container {
+  overflow-x: auto;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    
+    th, td {
+      padding: 10px;
+      text-align: center;
+      border-bottom: 1px solid var(--border-color);
+      border-right: 1px solid var(--border-color);
+    }
+    
+    th {
+      background: rgba(0,0,0,0.4);
+      font-weight: 600;
+    }
+    
+    tr:last-child td { border-bottom: none; }
+    td:last-child, th:last-child { border-right: none; }
+  }
+}
+
+/* Analysis Tab */
+.action-btn {
+  width: 100%;
+  padding: 12px;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 20px;
+  
+  &:hover {
+    filter: brightness(1.1);
+  }
+}
+
+.analysis-results {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.analysis-card {
+  background: rgba(0,0,0,0.2);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 16px;
+  
+  h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 16px;
+  }
+  
+  ul {
+    margin: 8px 0 0 0;
+    padding-left: 20px;
+  }
+  
+  .empty-msg {
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 14px;
+  }
+}
+
+/* Desmos Section */
+.desmos-section {
+  flex: 1;
+  background: white; /* Desmos will handle its own dark mode, but needs a background */
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.desmos-container {
+  width: 100%;
+  height: 100%;
+}
