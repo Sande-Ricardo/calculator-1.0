@@ -6,13 +6,35 @@
     background-color: rgba(31, 54, 98, 0.2);
     box-shadow: 0 0 10px rgba(31, 54, 98, 0.8);
     backdrop-filter: blur(50px);
-
     border-bottom: solid 2px var(--back3);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem 0 1.5rem;
+}
+
+.brand-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .top-logo {
+        height: 28px;
+        width: auto;
+        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+    }
+
+    .brand-name {
+        font-family: var(--font-primary);
+        color: var(--text1);
+        font-weight: 600;
+        font-size: 1.2rem;
+        letter-spacing: 1px;
+    }
 }
 
 .right-menu{
-    position: absolute;
-    right: 0;
 
     width: fit-content;
     height: 100%;
