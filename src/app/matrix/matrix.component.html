@@ -1,0 +1,122 @@
+<div class="container2 crystal-box">
+  <header class="matrix-header">
+    <h1 class="title">Matrix Operations</h1>
+    <p class="subtitle">Compute inverse, determinant, or reduced row echelon form (RREF)</p>
+  </header>
+
+  <main class="matrix-main">
+    <!-- Input Section -->
+    <section class="input-section">
+      <div class="input-card">
+        <h2>Configuration & Input</h2>
+
+        <!-- Grid Size and Parameters -->
+        <div class="control-row">
+          <div class="input-group">
+            <label for="operation">Operation:</label>
+            <select id="operation" [(ngModel)]="operation" class="custom-select">
+              <option value="inverse">Inverse (A⁻¹)</option>
+              <option value="determinant">Determinant (det A)</option>
+              <option value="rref">Reduced Row Echelon (RREF)</option>
+            </select>
+          </div>
+
+          <div class="input-group">
+            <label for="mode">Mode:</label>
+            <select id="mode" [(ngModel)]="mode" class="custom-select">
+              <option value="symbolic">Symbolic (Exact)</option>
+              <option value="numeric">Numeric (Approx)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="control-row">
+          <div class="input-group">
+            <label for="rows">Rows:</label>
+            <select id="rows" [(ngModel)]="rows" (change)="updateGridSize()" class="custom-select">
+              <option *ngFor="let opt of rowOptions" [value]="opt">{{ opt }}</option>
+            </select>
+          </div>
+
+          <div class="input-group">
+            <label for="cols">Columns:</label>
+            <select id="cols" [(ngModel)]="cols" (change)="updateGridSize()" class="custom-select">
+              <option *ngFor="let opt of colOptions" [value]="opt">{{ opt }}</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Dynamic Matrix Grid -->
+        <div class="matrix-grid-container">
+          <label class="grid-label">Matrix A:</label>
+          <div class="matrix-brackets">
+            <div class="matrix-grid" [style.grid-template-columns]="'repeat(' + cols + ', 1fr)'">
+              <div *ngFor="let row of matrixInput; let r = index">
+                <div *ngFor="let cell of row; let c = index">
+                  <input type="text" [(ngModel)]="matrixInput[r][c]" class="matrix-cell-input" placeholder="0" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <button class="calculate-btn" (click)="calculate()" [disabled]="loading">
+            <span *ngIf="!loading">Calculate</span>
+            <span *ngIf="loading">Calculating...</span>
+          </button>
+          <button class="mock-btn" (click)="fillIdentity()">
+            <span>Fill Identity</span>
+          </button>
+          <button class="mock-btn" (click)="clear()">
+            <span>Clear</span>
+          </button>
+        </div>
+
+        <!-- Error Message -->
+        <div class="error-container" *ngIf="errorMessage">
+          <p class="error-text">{{ errorMessage }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="results-section">
+      <!-- Result Card -->
+      <div class="result-card">
+        <h2>Result Preview</h2>
+        <div class="result-display">
+          <div class="result-item" *ngIf="resultLatex">
+            <span class="result-label">Output Matrix (LaTeX):</span>
+            <div class="result-value">
+              <app-mathjax-viewer [expression]="'\\( ' + resultLatex + ' \\)'"></app-mathjax-viewer>
+            </div>
+          </div>
+          <div class="placeholder-container" *ngIf="!resultLatex && !loading">
+            <p class="placeholder-text">Enter matrix values and click Calculate to view results.</p>
+          </div>
+          <div class="loading-spinner-container" *ngIf="loading">
+            <div class="spinner"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step-by-Step Solutions -->
+      <div class="steps-card" *ngIf="steps.length > 0">
+        <h2>Step-by-Step Solution</h2>
+        <div class="steps-container">
+          <div class="step-node" *ngFor="let step of steps">
+            <div class="step-header">
+              <span class="step-badge">Step {{ step.order }}</span>
+              <p class="step-desc">{{ step.description }}</p>
+            </div>
+            <div class="step-math" *ngIf="step.math_state">
+              <app-mathjax-viewer [expression]="'\\( ' + step.math_state + ' \\)'"></app-mathjax-viewer>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>

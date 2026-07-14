@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { DerivativeRequestDTO, DerivativeResponseDTO } from 'src/app/interfaces/Derivation';
 import { IntegrationRequestDTO, IntegrationResponseDTO } from 'src/app/interfaces/Integration';
 import { EquationRequestDTO, EquationResponseDTO } from 'src/app/interfaces/Equation';
+import { MatrixRequestDTO, MatrixResponseDTO } from 'src/app/interfaces/Matrix';
 
 
 import * as math from 'mathjs';
@@ -102,6 +103,9 @@ export class ApiManagementService {
   }
   solveEquation(body: EquationRequestDTO): Observable<EquationResponseDTO> {
     return this.http.post<EquationResponseDTO>(this.apiUrl + '/equation', body);
+  }
+  solveMatrix(body: MatrixRequestDTO): Observable<MatrixResponseDTO> {
+    return this.http.post<MatrixResponseDTO>(this.apiUrl + '/matrix', body);
   }
 
 

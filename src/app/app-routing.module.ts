@@ -28,6 +28,10 @@ const routes: Routes = [
         loadChildren: () => import('./graphing/graphing.module').then(m => m.GraphingModule)
       },
       {
+        path: 'matrix',
+        loadChildren: () => import('./matrix/matrix.module').then(m => m.MatrixModule)
+      },
+      {
         path: '',
         loadChildren: () => import('./calculator/calculator.module').then(m => m.CalculatorModule)
       }
