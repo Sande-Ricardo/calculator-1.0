@@ -1,0 +1,133 @@
+<div class="container2 crystal-box">
+  <header class="ode-header">
+    <h1 class="title">Ordinary Differential Equations</h1>
+    <p class="subtitle">Analytical ODE solver with step-by-step mathematical resolution</p>
+  </header>
+
+  <main class="ode-main">
+    <div class="split-layout">
+      <!-- Input Panel -->
+      <section class="control-panel">
+        <div class="input-card">
+          <h2>ODE Parameters</h2>
+          
+          <div class="input-group">
+            <label for="equation">Differential Equation:</label>
+            <textarea id="equation" [(ngModel)]="equation" class="custom-textarea" rows="4"
+                      placeholder="e.g. y' + 2*y = exp(x) or dy/dx = y/x"></textarea>
+            <span class="input-tip">Supports Leibniz (dy/dx), Lagrange (y'), and Newton notations.</span>
+          </div>
+
+          <div class="variables-grid">
+            <div class="input-group">
+              <label for="independentVar">Independent Var:</label>
+              <input type="text" id="independentVar" [(ngModel)]="independentVar" class="custom-input" placeholder="x" />
+            </div>
+            <div class="input-group">
+              <label for="dependentVar">Dependent Var (Function):</label>
+              <input type="text" id="dependentVar" [(ngModel)]="dependentVar" class="custom-input" placeholder="y" />
+            </div>
+          </div>
+
+          <hr class="separator" />
+
+          <!-- IVP Toggle -->
+          <div class="toggle-group">
+            <label class="switch-label">
+              <input type="checkbox" [(ngModel)]="isIVP" />
+              <span class="slider"></span>
+            </label>
+            <span class="toggle-text">Initial Value Problem (IVP)</span>
+          </div>
+
+          <!-- IVP Fields -->
+          <div class="ivp-fields-grid" *ngIf="isIVP">
+            <div class="input-group">
+              <label for="x0">x0 (Initial point):</label>
+              <input type="number" id="x0" [(ngModel)]="x0" class="custom-input" />
+            </div>
+            <div class="input-group">
+              <label for="y0">y(x0) = y0:</label>
+              <input type="number" id="y0" [(ngModel)]="y0" class="custom-input" />
+            </div>
+            <div class="input-group">
+              <label for="y0Prime">y'(x0) (Optional):</label>
+              <input type="number" id="y0Prime" [(ngModel)]="y0Prime" class="custom-input" placeholder="y'0" />
+            </div>
+          </div>
+
+          <div class="action-buttons-row">
+            <button class="clear-btn" (click)="clear()">Clear</button>
+            <button class="calculate-btn" (click)="solve()" [disabled]="loading">
+              <span *ngIf="!loading">Solve ODE</span>
+              <span *ngIf="loading">Solving...</span>
+            </button>
+          </div>
+
+          <div class="error-container" *ngIf="error">
+            <p class="error-text">{{ error }}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Output Panel -->
+      <section class="results-panel">
+        <div class="result-card">
+          <h2>Resolution Details</h2>
+
+          <!-- Loading Spinner -->
+          <div class="loading-spinner-container" *ngIf="loading">
+            <div class="spinner"></div>
+            <p class="spinner-text">Processing mathematical states via SymPy...</p>
+          </div>
+
+          <!-- Empty State -->
+          <div class="placeholder-container" *ngIf="!result && !loading">
+            <p class="placeholder-text">Configure the equation on the left and click Solve to calculate the analytical solution.</p>
+          </div>
+
+          <!-- Results Content -->
+          <div class="results-content" *ngIf="result && !loading">
+            <!-- Classification -->
+            <div class="info-badge-row">
+              <span class="info-label">ODE Type:</span>
+              <span class="info-value">{{ result.classification_name }}</span>
+            </div>
+
+            <!-- General Solution -->
+            <div class="solution-card">
+              <h3>General Solution</h3>
+              <div class="math-container">
+                <app-mathjax-viewer [formula]="result.general_solution"></app-mathjax-viewer>
+              </div>
+            </div>
+
+            <!-- Particular Solution (Optional) -->
+            <div class="solution-card warning-accent" *ngIf="result.particular_solution">
+              <h3>Particular Solution</h3>
+              <div class="math-container">
+                <app-mathjax-viewer [formula]="result.particular_solution"></app-mathjax-viewer>
+              </div>
+            </div>
+
+            <!-- Steps timeline -->
+            <div class="steps-section" *ngIf="result.steps && result.steps.length > 0">
+              <h3>Resolution Steps</h3>
+              <div class="steps-timeline">
+                <div class="timeline-item" *ngFor="let step of result.steps">
+                  <div class="timeline-badge">{{ step.order }}</div>
+                  <div class="timeline-content">
+                    <p class="step-desc">{{ step.description }}</p>
+                    <div class="step-math" *ngIf="step.math_state">
+                      <app-mathjax-viewer [formula]="step.math_state"></app-mathjax-viewer>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>

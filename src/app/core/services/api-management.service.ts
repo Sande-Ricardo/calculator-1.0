@@ -11,6 +11,7 @@ import {
   StatsProbabilityRequestDTO,
   StatsProbabilityResponseDTO
 } from 'src/app/interfaces/Stats';
+import { OdeSolveRequestDTO, OdeSolveResponseDTO } from 'src/app/interfaces/Ode';
 
 
 import * as math from 'mathjs';
@@ -118,6 +119,9 @@ export class ApiManagementService {
   }
   getProbabilityDistribution(body: StatsProbabilityRequestDTO): Observable<StatsProbabilityResponseDTO> {
     return this.http.post<StatsProbabilityResponseDTO>(environment.apiGetaway + '/stats/probability', body);
+  }
+  solveOde(body: OdeSolveRequestDTO): Observable<OdeSolveResponseDTO> {
+    return this.http.post<OdeSolveResponseDTO>(environment.apiGetaway + '/ode/solve', body);
   }
 
 

@@ -36,11 +36,16 @@ const routes: Routes = [
         loadChildren: () => import('./stats/stats.module').then(m => m.StatsModule)
       },
       {
+        path: 'ode',
+        loadChildren: () => import('./ode/ode.module').then(m => m.OdeModule)
+      },
+      {
         path: '',
         loadChildren: () => import('./calculator/calculator.module').then(m => m.CalculatorModule)
       }
     ]
   },
+
 
 
   {
