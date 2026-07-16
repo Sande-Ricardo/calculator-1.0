@@ -1,0 +1,286 @@
+<div class="container2 crystal-box">
+  <header class="stats-header">
+    <h1 class="title">Statistical Analysis</h1>
+    <p class="subtitle">Descriptive summary metrics and probability distributions</p>
+  </header>
+
+  <!-- Navigation Tabs -->
+  <div class="tabs">
+    <button class="tab-btn" [class.active]="activeTab === 'descriptive'" (click)="onTabChange('descriptive')">
+      Descriptive Statistics
+    </button>
+    <button class="tab-btn" [class.active]="activeTab === 'probability'" (click)="onTabChange('probability')">
+      Probability Distributions
+    </button>
+  </div>
+
+  <main class="stats-main">
+
+    <!-- DESCRIPTIVE STATISTICS VIEW -->
+    <div *ngIf="activeTab === 'descriptive'" class="tab-view-container">
+      <div class="split-layout">
+        <!-- Inputs Card -->
+        <section class="control-panel">
+          <div class="input-card">
+            <h2>Dataset Input</h2>
+            <div class="input-group">
+              <label for="dataset">Enter numbers (separated by commas, spaces, or lines):</label>
+              <textarea id="dataset" [(ngModel)]="datasetRaw" class="custom-textarea" rows="6" 
+                        placeholder="e.g. 12.5, 14.2, 10.1, 15.6, 12.5"></textarea>
+            </div>
+
+            <div class="toggle-group">
+              <label class="switch-label">
+                <input type="checkbox" [(ngModel)]="isSample" (change)="calculateDescriptive()" />
+                <span class="slider"></span>
+              </label>
+              <span class="toggle-text">Use Sample Statistics (n - 1 degrees of freedom)</span>
+            </div>
+
+            <div class="action-buttons">
+              <button class="calculate-btn" (click)="calculateDescriptive()" [disabled]="descriptiveLoading">
+                <span *ngIf="!descriptiveLoading">Analyze Dataset</span>
+                <span *ngIf="descriptiveLoading">Analyzing...</span>
+              </button>
+            </div>
+
+            <div class="error-container" *ngIf="descriptiveError">
+              <p class="error-text">{{ descriptiveError }}</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Results summaries -->
+        <section class="results-panel" *ngIf="descriptiveData">
+          <div class="metrics-grid">
+            <!-- Central Tendency -->
+            <div class="metric-card">
+              <h3>Central Tendency</h3>
+              <div class="metric-row">
+                <span class="metric-label">Mean:</span>
+                <span class="metric-value">{{ descriptiveData.central_tendency.mean }}</span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-label">Median:</span>
+                <span class="metric-value">{{ descriptiveData.central_tendency.median }}</span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-label">Mode:</span>
+                <span class="metric-value">{{ descriptiveData.central_tendency.mode.join(', ') || 'No mode' }}</span>
+              </div>
+            </div>
+
+            <!-- Dispersion -->
+            <div class="metric-card">
+              <h3>Dispersion</h3>
+              <div class="metric-row">
+                <span class="metric-label">Variance:</span>
+                <span class="metric-value">{{ descriptiveData.dispersion.variance }}</span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-label">Std Deviation:</span>
+                <span class="metric-value">{{ descriptiveData.dispersion.standard_deviation }}</span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-label">Range:</span>
+                <span class="metric-value">{{ descriptiveData.dispersion.range }}</span>
+              </div>
+            </div>
+
+            <!-- Position -->
+            <div class="metric-card">
+              <h3>Position</h3>
+              <div class="metric-row">
+                <span class="metric-label">Min / Max:</span>
+                <span class="metric-value">{{ descriptiveData.position.min }} / {{ descriptiveData.position.max }}</span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-label">Quartiles (Q1, Q2, Q3):</span>
+                <span class="metric-value">{{ descriptiveData.position.q1 }}, {{ descriptiveData.position.q2 }}, {{ descriptiveData.position.q3 }}</span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-label">IQR:</span>
+                <span class="metric-value">{{ descriptiveData.position.iqr }}</span>
+              </div>
+            </div>
+
+            <!-- Outliers -->
+            <div class="metric-card">
+              <h3>Outliers</h3>
+              <div class="outliers-list" *ngIf="descriptiveData.outliers.length > 0; else noOutliers">
+                <span class="outlier-badge" *ngFor="let out of descriptiveData.outliers">{{ out }}</span>
+              </div>
+              <ng-template #noOutliers>
+                <p class="empty-msg">No outliers detected (1.5 IQR rule)</p>
+              </ng-template>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Histogram visualization -->
+      <section class="chart-section" *ngIf="descriptiveData">
+        <div class="chart-card">
+          <h2>Frequency Histogram</h2>
+          <div class="chart-container">
+            <canvas #histogramCanvas></canvas>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- PROBABILITY DISTRIBUTIONS VIEW -->
+    <div *ngIf="activeTab === 'probability'" class="tab-view-container">
+      <div class="split-layout">
+        <!-- Controls Card -->
+        <section class="control-panel">
+          <div class="input-card">
+            <h2>Distribution Configuration</h2>
+
+            <!-- Distribution Selector -->
+            <div class="input-group">
+              <label for="distribution">Distribution:</label>
+              <select id="distribution" [(ngModel)]="selectedDistribution" (change)="onDistributionChange()" class="custom-select">
+                <option value="normal">Normal</option>
+                <option value="t_student">Student's t</option>
+                <option value="binomial">Binomial</option>
+                <option value="poisson">Poisson</option>
+              </select>
+            </div>
+
+            <!-- Dynamic Parameters -->
+            <div class="parameters-grid">
+              <!-- Normal -->
+              <ng-container *ngIf="selectedDistribution === 'normal'">
+                <div class="input-group">
+                  <label for="mu">Mean (μ):</label>
+                  <input type="number" id="mu" [(ngModel)]="mu" class="custom-input" />
+                </div>
+                <div class="input-group">
+                  <label for="sigma">Std Dev (σ):</label>
+                  <input type="number" id="sigma" [(ngModel)]="sigma" class="custom-input" min="0.001" />
+                </div>
+              </ng-container>
+
+              <!-- Student t -->
+              <ng-container *ngIf="selectedDistribution === 't_student'">
+                <div class="input-group">
+                  <label for="df">Deg of Freedom (df):</label>
+                  <input type="number" id="df" [(ngModel)]="df" class="custom-input" min="1" />
+                </div>
+                <div class="input-group">
+                  <label for="loc">Location (μ):</label>
+                  <input type="number" id="loc" [(ngModel)]="loc" class="custom-input" />
+                </div>
+                <div class="input-group">
+                  <label for="scale">Scale (σ):</label>
+                  <input type="number" id="scale" [(ngModel)]="scale" class="custom-input" min="0.001" />
+                </div>
+              </ng-container>
+
+              <!-- Binomial -->
+              <ng-container *ngIf="selectedDistribution === 'binomial'">
+                <div class="input-group">
+                  <label for="n">Trials (n):</label>
+                  <input type="number" id="n" [(ngModel)]="n" class="custom-input" min="1" />
+                </div>
+                <div class="input-group">
+                  <label for="p">Success Prob (p):</label>
+                  <input type="number" id="p" [(ngModel)]="p" class="custom-input" min="0" max="1" step="0.01" />
+                </div>
+              </ng-container>
+
+              <!-- Poisson -->
+              <ng-container *ngIf="selectedDistribution === 'poisson'">
+                <div class="input-group">
+                  <label for="lambda">Rate (λ):</label>
+                  <input type="number" id="lambda" [(ngModel)]="lambda" class="custom-input" min="0.001" />
+                </div>
+              </ng-container>
+            </div>
+
+            <hr class="separator" />
+
+            <!-- Query Selector -->
+            <div class="input-group">
+              <label for="queryType">Calculation Type:</label>
+              <select id="queryType" [(ngModel)]="queryType" class="custom-select">
+                <option value="exact" *ngIf="selectedDistribution === 'binomial' || selectedDistribution === 'poisson'">
+                  Exact P(X = x)
+                </option>
+                <option value="cumulative_less">Cumulative P(X &le; x)</option>
+                <option value="cumulative_greater">Cumulative P(X &ge; x)</option>
+                <option value="between">Interval P(a &le; X &le; b)</option>
+              </select>
+            </div>
+
+            <!-- Query Evaluation Values -->
+            <div class="query-values-row">
+              <ng-container *ngIf="queryType !== 'between'; else betweenInputs">
+                <div class="input-group full-width">
+                  <label for="queryValue">Evaluation point (x):</label>
+                  <input type="number" id="queryValue" [(ngModel)]="queryValue" class="custom-input" />
+                </div>
+              </ng-container>
+              <ng-template #betweenInputs>
+                <div class="input-group">
+                  <label for="queryValueMin">Lower limit (a):</label>
+                  <input type="number" id="queryValueMin" [(ngModel)]="queryValueMin" class="custom-input" />
+                </div>
+                <div class="input-group">
+                  <label for="queryValueMax">Upper limit (b):</label>
+                  <input type="number" id="queryValueMax" [(ngModel)]="queryValueMax" class="custom-input" />
+                </div>
+              </ng-template>
+            </div>
+
+            <!-- Action Button -->
+            <div class="action-buttons">
+              <button class="calculate-btn" (click)="calculateProbability()" [disabled]="probabilityLoading">
+                <span *ngIf="!probabilityLoading">Calculate Probability</span>
+                <span *ngIf="probabilityLoading">Calculating...</span>
+              </button>
+            </div>
+
+            <div class="error-container" *ngIf="probabilityError">
+              <p class="error-text">{{ probabilityError }}</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Result Display Card -->
+        <section class="results-panel">
+          <div class="result-card">
+            <h2>Outcome Result</h2>
+            <div class="result-display-box" *ngIf="probabilityData">
+              <div class="probability-equation">
+                <span class="math-expr">{{ probabilityData.calculation.type }}</span>
+              </div>
+              <div class="probability-value">
+                <span class="val-pct">{{ (probabilityData.calculation.probability * 100).toFixed(2) }}%</span>
+                <span class="val-dec">({{ probabilityData.calculation.probability.toFixed(6) }})</span>
+              </div>
+            </div>
+            <div class="placeholder-container" *ngIf="!probabilityData && !probabilityLoading">
+              <p class="placeholder-text">Configure the parameters and click Calculate to visualize outcomes.</p>
+            </div>
+            <div class="loading-spinner-container" *ngIf="probabilityLoading">
+              <div class="spinner"></div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Distribution Curve visualization -->
+      <section class="chart-section" *ngIf="probabilityData">
+        <div class="chart-card">
+          <h2>Distribution Curve & Highlighted Region</h2>
+          <div class="chart-container">
+            <canvas #probabilityCanvas></canvas>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  </main>
+</div>

@@ -5,6 +5,12 @@ import { DerivativeRequestDTO, DerivativeResponseDTO } from 'src/app/interfaces/
 import { IntegrationRequestDTO, IntegrationResponseDTO } from 'src/app/interfaces/Integration';
 import { EquationRequestDTO, EquationResponseDTO } from 'src/app/interfaces/Equation';
 import { MatrixRequestDTO, MatrixResponseDTO } from 'src/app/interfaces/Matrix';
+import {
+  StatsDescriptiveRequestDTO,
+  StatsDescriptiveResponseDTO,
+  StatsProbabilityRequestDTO,
+  StatsProbabilityResponseDTO
+} from 'src/app/interfaces/Stats';
 
 
 import * as math from 'mathjs';
@@ -106,6 +112,12 @@ export class ApiManagementService {
   }
   solveMatrix(body: MatrixRequestDTO): Observable<MatrixResponseDTO> {
     return this.http.post<MatrixResponseDTO>(this.apiUrl + '/matrix', body);
+  }
+  getDescriptiveStats(body: StatsDescriptiveRequestDTO): Observable<StatsDescriptiveResponseDTO> {
+    return this.http.post<StatsDescriptiveResponseDTO>(environment.apiGetaway + '/stats/descriptive', body);
+  }
+  getProbabilityDistribution(body: StatsProbabilityRequestDTO): Observable<StatsProbabilityResponseDTO> {
+    return this.http.post<StatsProbabilityResponseDTO>(environment.apiGetaway + '/stats/probability', body);
   }
 
 

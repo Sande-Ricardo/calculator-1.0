@@ -32,11 +32,16 @@ const routes: Routes = [
         loadChildren: () => import('./matrix/matrix.module').then(m => m.MatrixModule)
       },
       {
+        path: 'stats',
+        loadChildren: () => import('./stats/stats.module').then(m => m.StatsModule)
+      },
+      {
         path: '',
         loadChildren: () => import('./calculator/calculator.module').then(m => m.CalculatorModule)
       }
     ]
   },
+
 
   {
     path: '**',
