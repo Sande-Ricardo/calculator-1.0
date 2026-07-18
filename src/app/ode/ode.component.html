@@ -98,7 +98,7 @@
             <div class="solution-card">
               <h3>General Solution</h3>
               <div class="math-container">
-                <app-mathjax-viewer [formula]="result.general_solution"></app-mathjax-viewer>
+                <app-mathjax-viewer [expression]="'\\( ' + result.general_solution + ' \\)'"></app-mathjax-viewer>
               </div>
             </div>
 
@@ -106,7 +106,7 @@
             <div class="solution-card warning-accent" *ngIf="result.particular_solution">
               <h3>Particular Solution</h3>
               <div class="math-container">
-                <app-mathjax-viewer [formula]="result.particular_solution"></app-mathjax-viewer>
+                <app-mathjax-viewer [expression]="'\\( ' + result.particular_solution + ' \\)'"></app-mathjax-viewer>
               </div>
             </div>
 
@@ -119,7 +119,7 @@
                   <div class="timeline-content">
                     <p class="step-desc">{{ step.description }}</p>
                     <div class="step-math" *ngIf="step.math_state">
-                      <app-mathjax-viewer [formula]="step.math_state"></app-mathjax-viewer>
+                      <app-mathjax-viewer [expression]="'\\( ' + step.math_state + ' \\)'"></app-mathjax-viewer>
                     </div>
                   </div>
                 </div>

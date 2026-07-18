@@ -12,10 +12,12 @@ Calculator is a feature-rich Angular 14 application built with TypeScript, lever
 - Derivative computation and analysis
 - Integral and integration operations
 - Equation solving and manipulation
-- Graph plotting and visualization
-- Matrix operations and calculations
+- Graph plotting and visualization (Desmos API integration)
+- Matrix operations and linear algebra
+- Descriptive statistics and probability distribution modeling
+- Analytical ordinary differential equations (ODE) solver
 - Comprehensive course materials and learning resources
-- Responsive user interface with sidebar navigation
+- Responsive user interface with sidebar navigation and Glassmorphism design
 - Real-time calculation updates
 
 ## Project Context
@@ -124,8 +126,8 @@ The application implements a feature-based module structure with lazy loading fo
 
 Ensure you have the following installed on your system:
 
-- Node.js (v16 or higher)
-- npm (v7 or higher) or yarn
+- Node.js (v18 or higher, v20 recommended)
+- pnpm (strictly enforced for package management)
 - Angular CLI v14 or higher
 
 ### Installation
@@ -140,13 +142,13 @@ cd calculator-1.0
 2. Install dependencies:
 
 ```bash
-npm install
+pnpm install
 ```
 
 3. Verify installation:
 
 ```bash
-ng version
+npx ng version
 ```
 
 ## Development
@@ -156,13 +158,13 @@ ng version
 Start the development server with automatic reloading:
 
 ```bash
-npm start
+pnpm start
 ```
 
 or
 
 ```bash
-ng serve
+npx ng serve
 ```
 
 The application will be available at `http://localhost:4200/`. Changes to source files will automatically refresh the application.
@@ -215,13 +217,13 @@ ng generate --help
 Create an optimized production build with all optimizations enabled:
 
 ```bash
-npm run build
+pnpm build
 ```
 
 or
 
 ```bash
-ng build
+npx ng build
 ```
 
 Build artifacts will be stored in the `dist/calculator` directory. The build includes:
@@ -236,7 +238,7 @@ Build artifacts will be stored in the `dist/calculator` directory. The build inc
 Generate a development build with source maps and unminified code:
 
 ```bash
-ng build --configuration development
+npx ng build --configuration development
 ```
 
 ### Watch Mode
@@ -244,7 +246,7 @@ ng build --configuration development
 Rebuild automatically when source files change:
 
 ```bash
-npm run watch
+pnpm watch
 ```
 
 Build artifacts will be regenerated in `dist/calculator` without rebuilding the entire project.
@@ -268,13 +270,13 @@ Build budgets are enforced:
 Execute unit tests using Karma test runner and Jasmine testing framework:
 
 ```bash
-npm test
+pnpm test
 ```
 
 or
 
 ```bash
-ng test
+npx ng test
 ```
 
 Tests run in watch mode by default. Modify test files and see results update automatically.
@@ -291,7 +293,7 @@ Tests run in watch mode by default. Modify test files and see results update aut
 Generate code coverage reports:
 
 ```bash
-ng test --code-coverage
+npx ng test --code-coverage
 ```
 
 Coverage reports will be generated in the `coverage/` directory. View detailed coverage metrics by opening `coverage/index.html` in your browser.
@@ -301,7 +303,7 @@ Coverage reports will be generated in the `coverage/` directory. View detailed c
 To run end-to-end tests, add an e2e testing package:
 
 ```bash
-ng e2e
+npx ng e2e
 ```
 
 Note: E2E testing package must be added separately as it is not included in the default Angular CLI setup.
@@ -357,6 +359,8 @@ const routes: Routes = [
       { path: 'equation', loadChildren: () => import('./equation/equation.module')... },
       { path: 'graph', loadChildren: () => import('./graphing/graphing.module')... },
       { path: 'matrix', loadChildren: () => import('./matrix/matrix.module')... },
+      { path: 'stats', loadChildren: () => import('./stats/stats.module')... },
+      { path: 'ode', loadChildren: () => import('./ode/ode.module')... },
       { path: '', loadChildren: () => import('./calculator/calculator.module')... }
     ]
   },
@@ -389,7 +393,7 @@ constructor(private http: HttpClient) {}
 
 ## Scripts Reference
 
-All available npm scripts defined in `package.json`:
+All available scripts defined in `package.json` (execute using `pnpm <script>`):
 
 | Script | Command | Purpose |
 |--------|---------|---------|
