@@ -5,7 +5,17 @@
   </header>
 
   <main class="ode-main">
-    <div class="split-layout">
+    <!-- View Switcher Tabs -->
+    <div class="view-toggle-container">
+      <button class="toggle-view-btn" [class.active]="currentView === 'analytical'" (click)="currentView = 'analytical'">
+        Analytical Solver
+      </button>
+      <button class="toggle-view-btn" [class.active]="currentView === 'slope-field'" (click)="currentView = 'slope-field'">
+        Slope Field Plotter
+      </button>
+    </div>
+
+    <div class="split-layout" *ngIf="currentView === 'analytical'">
       <!-- Input Panel -->
       <section class="control-panel">
         <div class="input-card">
@@ -129,5 +139,8 @@
         </div>
       </section>
     </div>
+
+    <!-- Slope Field Component -->
+    <app-slope-field *ngIf="currentView === 'slope-field'"></app-slope-field>
   </main>
 </div>

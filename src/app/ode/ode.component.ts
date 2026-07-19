@@ -9,6 +9,9 @@ import { OdeSolveRequestDTO, OdeSolveResponseDTO, InitialConditionsDTO } from 's
 })
 export class OdeComponent implements OnInit {
 
+  // View Switcher
+  currentView: string = 'analytical';
+
   // Inputs
   equation: string = "y' + 2*y = exp(x)";
   independentVar: string = 'x';

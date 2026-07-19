@@ -11,7 +11,7 @@ import {
   StatsProbabilityRequestDTO,
   StatsProbabilityResponseDTO
 } from 'src/app/interfaces/Stats';
-import { OdeSolveRequestDTO, OdeSolveResponseDTO } from 'src/app/interfaces/Ode';
+import { OdeSolveRequestDTO, OdeSolveResponseDTO, OdeSlopeFieldRequestDTO, OdeSlopeFieldResponseDTO } from 'src/app/interfaces/Ode';
 
 
 import * as math from 'mathjs';
@@ -122,6 +122,9 @@ export class ApiManagementService {
   }
   solveOde(body: OdeSolveRequestDTO): Observable<OdeSolveResponseDTO> {
     return this.http.post<OdeSolveResponseDTO>(environment.apiGetaway + '/ode/solve', body);
+  }
+  solveOdeSlopeField(body: OdeSlopeFieldRequestDTO): Observable<OdeSlopeFieldResponseDTO> {
+    return this.http.post<OdeSlopeFieldResponseDTO>(environment.apiGetaway + '/ode/slope-field', body);
   }
 
 

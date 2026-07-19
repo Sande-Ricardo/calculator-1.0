@@ -1,0 +1,125 @@
+<div class="split-layout">
+  <!-- Input Panel -->
+  <section class="control-panel">
+    <div class="input-card">
+      <h2>Slope Field Parameters</h2>
+
+      <!-- Equation Input -->
+      <div class="input-group">
+        <label for="eqInput">dy/dx = f(x, y):</label>
+        <input type="text" id="eqInput" [(ngModel)]="equation" class="custom-input font-mono"
+               placeholder="e.g. exp(x) - 2*y or y/x" />
+        <span class="input-tip">Enter the expression in terms of independent and dependent variables.</span>
+      </div>
+
+      <!-- Variables -->
+      <div class="variables-grid">
+        <div class="input-group">
+          <label for="indVar">Independent Var:</label>
+          <input type="text" id="indVar" [(ngModel)]="independentVar" class="custom-input" placeholder="x" />
+        </div>
+        <div class="input-group">
+          <label for="depVar">Dependent Var:</label>
+          <input type="text" id="depVar" [(ngModel)]="dependentVar" class="custom-input" placeholder="y" />
+        </div>
+      </div>
+
+      <hr class="separator" />
+
+      <!-- Grid Limits Configuration -->
+      <h3>Grid Bounds & Steps</h3>
+      
+      <div class="grid-config-row">
+        <div class="input-group">
+          <label for="xMin">x Min:</label>
+          <input type="number" id="xMin" [(ngModel)]="xMin" class="custom-input" />
+        </div>
+        <div class="input-group">
+          <label for="xMax">x Max:</label>
+          <input type="number" id="xMax" [(ngModel)]="xMax" class="custom-input" />
+        </div>
+        <div class="input-group">
+          <label for="xSteps">x Steps:</label>
+          <input type="number" id="xSteps" [(ngModel)]="xSteps" class="custom-input" min="5" max="50" />
+        </div>
+      </div>
+
+      <div class="grid-config-row">
+        <div class="input-group">
+          <label for="yMin">y Min:</label>
+          <input type="number" id="yMin" [(ngModel)]="yMin" class="custom-input" />
+        </div>
+        <div class="input-group">
+          <label for="yMax">y Max:</label>
+          <input type="number" id="yMax" [(ngModel)]="yMax" class="custom-input" />
+        </div>
+        <div class="input-group">
+          <label for="ySteps">y Steps:</label>
+          <input type="number" id="ySteps" [(ngModel)]="ySteps" class="custom-input" min="5" max="50" />
+        </div>
+      </div>
+
+      <div class="action-buttons-row">
+        <button class="clear-btn" (click)="resetAll()">Reset</button>
+        <button class="calculate-btn" (click)="calculate()" [disabled]="loading">
+          <span *ngIf="!loading">Generate Field</span>
+          <span *ngIf="loading">Generating...</span>
+        </button>
+      </div>
+
+      <div class="error-container" *ngIf="error">
+        <p class="error-text">{{ error }}</p>
+      </div>
+    </div>
+
+    <!-- IVP Info Panel -->
+    <div class="input-card ivp-info-card" *ngIf="x0 !== null && y0 !== null">
+      <h3>Interactive Particular Solution</h3>
+      <div class="ivp-details">
+        <div class="info-badge-row">
+          <span class="info-label">Initial Condition:</span>
+          <span class="info-value">y({{ x0 }}) = {{ y0 }}</span>
+        </div>
+        
+        <div class="solution-formula-container" *ngIf="particularSolutionFormula">
+          <h4 class="formula-title">Analytical Particular Solution:</h4>
+          <div class="formula-text font-mono">
+            {{ particularSolutionFormula }}
+          </div>
+        </div>
+
+        <div class="loading-spinner-container" *ngIf="solvingIvp">
+          <div class="spinner tiny"></div>
+          <p class="spinner-text">Solving IVP via SymPy...</p>
+        </div>
+
+        <button class="clear-ivp-btn" (click)="clearIvp()">Clear Initial Condition</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Visualizer Panel -->
+  <section class="results-panel">
+    <div class="result-card canvas-card">
+      <h2>Vector Field Visualization</h2>
+
+      <div class="visualizer-container">
+        <!-- Canvas Element -->
+        <div class="canvas-wrapper">
+          <canvas #slopeCanvas (click)="onCanvasClick($event)" class="slope-canvas"></canvas>
+          
+          <!-- Hover/Interactive instructions -->
+          <div class="canvas-instruction-overlay" *ngIf="!x0 && vectorFieldData">
+            <span>Tip: Click inside the grid to plot an IVP solution curve.</span>
+          </div>
+        </div>
+
+        <!-- Custom Loading Spinner overlay -->
+        <div class="canvas-loading-overlay" *ngIf="loading">
+          <div class="spinner"></div>
+          <p class="spinner-text font-mono">Requesting grid elements...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

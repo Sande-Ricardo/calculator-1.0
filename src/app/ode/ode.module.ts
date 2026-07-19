@@ -3,13 +3,15 @@ import { CommonModule } from '@angular/common';
 
 import { OdeRoutingModule } from './ode-routing.module';
 import { OdeComponent } from './ode.component';
+import { SlopeFieldComponent } from './slope-field/slope-field.component';
 
 import { FormsModule } from '@angular/forms';
 import { MathjaxViewerComponent } from 'src/app/components/mathjax-viewer/mathjax-viewer.component';
 
 @NgModule({
   declarations: [
-    OdeComponent
+    OdeComponent,
+    SlopeFieldComponent
   ],
   imports: [
     CommonModule,
@@ -19,3 +21,4 @@ import { MathjaxViewerComponent } from 'src/app/components/mathjax-viewer/mathja
   ]
 })
 export class OdeModule { }
+
