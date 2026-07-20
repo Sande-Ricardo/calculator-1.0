@@ -1,11 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CourseComponent } from './course/course.component';
+import { CourseViewerComponent } from './viewer/course-viewer.component';
+import { CourseEditorComponent } from './editor/course-editor.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: CourseComponent
+    component: CourseViewerComponent
+  },
+  {
+    path: 'edit',
+    component: CourseEditorComponent
   }
 ];
 
@@ -14,3 +19,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class CourseRoutingModule { }
+

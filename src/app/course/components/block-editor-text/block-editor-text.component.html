@@ -1,0 +1,9 @@
+<div class="editor-group">
+  <label for="textContent">Text Content (Supports Markdown headings `#`, list items `-`, bold `**`, code `` ` ``):</label>
+  <textarea id="textContent" 
+            [ngModel]="block.content" 
+            (ngModelChange)="onContentChange($event)" 
+            class="custom-textarea" 
+            rows="6" 
+            placeholder="Type your markdown text here..."></textarea>
+</div>

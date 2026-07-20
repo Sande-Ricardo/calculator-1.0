@@ -1,0 +1,21 @@
+<div class="editor-row">
+  <div class="editor-group">
+    <label for="linkUrl">Destination URL (Use `/route` for internal, `https://...` for external):</label>
+    <input type="text" 
+           id="linkUrl" 
+           [ngModel]="block.content" 
+           (ngModelChange)="onUrlChange($event)" 
+           class="custom-input" 
+           placeholder="e.g. /ode or https://calculato.org" />
+  </div>
+
+  <div class="editor-group">
+    <label for="linkLabel">Link/Button Label Text:</label>
+    <input type="text" 
+           id="linkLabel" 
+           [ngModel]="block.metadata?.label" 
+           (ngModelChange)="onLabelChange($event)" 
+           class="custom-input" 
+           placeholder="e.g. Visit ODE Section" />
+  </div>
+</div>

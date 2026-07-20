@@ -1,0 +1,19 @@
+<div class="link-block-container" *ngIf="content">
+  <!-- Internal Route Link -->
+  <a *ngIf="isInternal" [routerLink]="content" class="link-button">
+    <span class="link-label">{{ metadata?.label || content }}</span>
+    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="5" y1="12" x2="19" y2="12"/>
+      <polyline points="12 5 19 12 12 19"/>
+    </svg>
+  </a>
+
+  <!-- External Link -->
+  <a *ngIf="!isInternal" [href]="content" target="_blank" rel="noopener noreferrer" class="link-button external">
+    <span class="link-label">{{ metadata?.label || content }}</span>
+    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="7" y1="17" x2="17" y2="7"/>
+      <polyline points="7 7 17 7 17 17"/>
+    </svg>
+  </a>
+</div>

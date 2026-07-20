@@ -1,0 +1,21 @@
+<div class="editor-row">
+  <div class="editor-group">
+    <label for="imageUrl">Image Source URL:</label>
+    <input type="text" 
+           id="imageUrl" 
+           [ngModel]="block.content" 
+           (ngModelChange)="onUrlChange($event)" 
+           class="custom-input" 
+           placeholder="https://example.com/image.png" />
+  </div>
+
+  <div class="editor-group">
+    <label for="imageCaption">Caption:</label>
+    <input type="text" 
+           id="imageCaption" 
+           [ngModel]="block.metadata?.caption" 
+           (ngModelChange)="onCaptionChange($event)" 
+           class="custom-input" 
+           placeholder="Explain this image..." />
+  </div>
+</div>

@@ -1,0 +1,148 @@
+<div class="container2 crystal-box">
+  <header class="editor-header">
+    <h1 class="title">Course Creator Panel</h1>
+    <p class="subtitle">Draft, structure, and edit educational mathematical courses</p>
+  </header>
+
+  <main class="editor-main" *ngIf="courseCopy">
+    <!-- Course General Metadata Card -->
+    <section class="metadata-card input-card">
+      <h2>General Course Details</h2>
+      <div class="input-group">
+        <label for="courseTitle">Course Title:</label>
+        <input type="text" id="courseTitle" [(ngModel)]="courseCopy.title" class="custom-input" placeholder="e.g. Intro to Calculus" />
+      </div>
+      <div class="input-group">
+        <label for="courseDesc">Course Description:</label>
+        <textarea id="courseDesc" [(ngModel)]="courseCopy.description" class="custom-textarea" rows="2" placeholder="Brief summary of the course..."></textarea>
+      </div>
+
+      <div class="variables-grid">
+        <div class="input-group">
+          <label for="authorName">Author Name:</label>
+          <input type="text" id="authorName" [(ngModel)]="courseCopy.author.name" class="custom-input" placeholder="Author name" />
+        </div>
+        <div class="input-group">
+          <label for="authorBio">Author Bio / Title:</label>
+          <input type="text" id="authorBio" [(ngModel)]="courseCopy.author.bio" class="custom-input" placeholder="Author title or description" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Blocks List Section -->
+    <section class="blocks-editor-section">
+      <div class="section-header-row">
+        <h2>Course Content Blocks</h2>
+        <span class="blocks-count-badge">{{ courseCopy.blocks.length }} blocks</span>
+      </div>
+
+      <!-- Empty State -->
+      <div class="empty-blocks-card" *ngIf="courseCopy.blocks.length === 0">
+        <p>No content blocks added yet. Click one of the buttons below to insert your first block!</p>
+      </div>
+
+      <div class="blocks-list">
+        <div class="editor-block-card" *ngFor="let block of courseCopy.blocks; let i = index">
+          <!-- Block Management Header -->
+          <div class="block-card-header">
+            <span class="block-index-label">
+              <span class="num">#{{ i + 1 }}</span>
+              <span class="type-badge" [class]="block.type">{{ block.type | uppercase }}</span>
+            </span>
+            
+            <div class="block-header-actions">
+              <!-- Move Up -->
+              <button class="icon-action-btn" 
+                      (click)="moveBlock(i, 'up')" 
+                      [disabled]="i === 0" 
+                      title="Move block up">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="18 15 12 9 6 15"/>
+                </svg>
+              </button>
+              
+              <!-- Move Down -->
+              <button class="icon-action-btn" 
+                      (click)="moveBlock(i, 'down')" 
+                      [disabled]="i === courseCopy.blocks.length - 1" 
+                      title="Move block down">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"/>
+                </svg>
+              </button>
+              
+              <!-- Delete -->
+              <button class="icon-action-btn delete-btn" 
+                      (click)="deleteBlock(i)" 
+                      title="Delete block">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="3 6 5 6 21 6"/>
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Dynamic Block Editors -->
+          <div class="block-card-body">
+            <app-block-editor-text *ngIf="block.type === 'text'" 
+                                  [block]="block" 
+                                  (blockChange)="updateBlock(i, $event)"></app-block-editor-text>
+            
+            <app-block-editor-latex *ngIf="block.type === 'latex'" 
+                                   [block]="block" 
+                                   (blockChange)="updateBlock(i, $event)"></app-block-editor-latex>
+            
+            <app-block-editor-image *ngIf="block.type === 'image'" 
+                                   [block]="block" 
+                                   (blockChange)="updateBlock(i, $event)"></app-block-editor-image>
+            
+            <app-block-editor-link *ngIf="block.type === 'link'" 
+                                  [block]="block" 
+                                  (blockChange)="updateBlock(i, $event)"></app-block-editor-link>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add Block Controls -->
+      <div class="add-block-control-panel">
+        <h3>Add New Content Block</h3>
+        <div class="add-buttons-row">
+          <button (click)="addBlock('text')" class="add-btn text">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="btn-icon">
+              <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            Text Block
+          </button>
+          
+          <button (click)="addBlock('latex')" class="add-btn latex">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="btn-icon">
+              <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            LaTeX Formula
+          </button>
+          
+          <button (click)="addBlock('image')" class="add-btn image">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="btn-icon">
+              <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            Image Media
+          </button>
+          
+          <button (click)="addBlock('link')" class="add-btn link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="btn-icon">
+              <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            Interactive Link
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer Controls -->
+    <div class="editor-footer-actions">
+      <button class="cancel-btn" (click)="cancel()">Cancel & Discard</button>
+      <button class="save-btn" (click)="save()">Save & View Course</button>
+    </div>
+  </main>
+</div>

@@ -1,0 +1,68 @@
+.markdown-body {
+  font-family: var(--font-primary);
+  color: var(--text-primary);
+  line-height: 1.7;
+
+  ::ng-deep {
+    h1, h2, h3 {
+      color: var(--text-primary);
+      font-weight: 600;
+      margin-top: 24px;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 6px;
+    }
+
+    h2 {
+      font-size: 1.45rem;
+      margin-top: 20px;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      margin-top: 16px;
+    }
+
+    p {
+      margin-bottom: 16px;
+      color: var(--text-secondary);
+      font-size: 15px;
+    }
+
+    strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    code {
+      background: var(--surface-light);
+      border: 1px solid var(--border-color);
+      color: var(--accent-color);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    ul, ol {
+      margin-bottom: 16px;
+      padding-left: 20px;
+    }
+
+    li {
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+      font-size: 15px;
+      list-style-type: disc;
+    }
+  }
+}

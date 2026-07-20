@@ -1,0 +1,16 @@
+<div class="editor-group">
+  <label for="latexContent">LaTeX Formula (Do not include wrapping delimiters like `$`):</label>
+  <textarea id="latexContent" 
+            [ngModel]="block.content" 
+            (ngModelChange)="onContentChange($event)" 
+            class="custom-textarea font-mono" 
+            rows="3" 
+            placeholder="e.g. \int_{a}^{b} x^2 dx = \frac{b^3 - a^3}{3}"></textarea>
+  
+  <div class="latex-preview-box" *ngIf="block.content.trim()">
+    <div class="preview-label">Live Preview:</div>
+    <div class="preview-content">
+      <app-mathjax-viewer [expression]="'\\( ' + block.content + ' \\)'"></app-mathjax-viewer>
+    </div>
+  </div>
+</div>

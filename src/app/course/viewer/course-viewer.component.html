@@ -1,0 +1,46 @@
+<div class="container2 crystal-box">
+  <header class="course-header" *ngIf="course">
+    <div class="header-content">
+      <h1 class="title">{{ course.title }}</h1>
+      <p class="subtitle">{{ course.description }}</p>
+      
+      <!-- Author card -->
+      <div class="author-card" *ngIf="course.author">
+        <div class="author-avatar">
+          <!-- User SVG profile icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+        </div>
+        <div class="author-details">
+          <div class="author-name">{{ course.author.name }}</div>
+          <div class="author-bio">{{ course.author.bio }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="header-actions">
+      <button class="reset-btn" (click)="resetMock()" title="Restore the original template">Reset Course</button>
+      <a routerLink="/course/edit" class="edit-btn">Edit Course</a>
+    </div>
+  </header>
+
+  <main class="course-main" *ngIf="course">
+    <!-- Blocks Loop -->
+    <div class="course-body-card">
+      <div class="blocks-container">
+        <div class="block-wrapper fadeIn" *ngFor="let block of course.blocks">
+          <app-block-viewer-text *ngIf="block.type === 'text'" [content]="block.content"></app-block-viewer-text>
+          
+          <app-block-viewer-latex *ngIf="block.type === 'latex'" [content]="block.content"></app-block-viewer-latex>
+          
+          <app-block-viewer-image *ngIf="block.type === 'image'" [content]="block.content" [metadata]="block.metadata"></app-block-viewer-image>
+          
+          <app-block-viewer-link *ngIf="block.type === 'link'" [content]="block.content" [metadata]="block.metadata"></app-block-viewer-link>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
