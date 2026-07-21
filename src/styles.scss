@@ -61,3 +61,20 @@
     backdrop-filter: blur(100px);
     -webkit-backdrop-filter: blur(10px);
 }
+
+.container2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  padding: 32px 5%;
+  font-family: var(--font-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-y: auto;
+
+  @media (min-width: 1200px) {
+    padding: 32px 10%;
+  }
+}
