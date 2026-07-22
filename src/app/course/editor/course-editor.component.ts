@@ -58,6 +58,26 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
     } else if (type === 'callout') {
       newBlock.content = 'Write important definition or theorem statement here.';
       newBlock.metadata = { variant: 'definition', title: '' };
+    } else if (type === 'graph') {
+      newBlock.content = 'y = A \\sin(B x)';
+      newBlock.metadata = {
+        title: 'Interactive Wave Equation',
+        variables: [
+          { name: 'A', min: -5, max: 5, step: 0.1, value: 2 },
+          { name: 'B', min: 0.1, max: 10, step: 0.1, value: 1 }
+        ]
+      };
+    } else if (type === 'exercise') {
+      newBlock.content = 'What is the derivative of $f(x) = \\sin(x)$?';
+      newBlock.metadata = {
+        type: 'choice',
+        options: ['$\\sin(x)$', '$\\cos(x)$', '$-\\sin(x)$', '$-\\cos(x)$'],
+        correctIndex: 1,
+        feedback: 'Correct! The derivative of sine is cosine.'
+      };
+    } else if (type === 'code') {
+      newBlock.content = 'def solve_ode(t, y):\n    return -2 * y + np.exp(t)';
+      newBlock.metadata = { language: 'python' };
     }
 
     this.courseCopy.blocks.push(newBlock);

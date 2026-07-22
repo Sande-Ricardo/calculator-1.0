@@ -1,0 +1,63 @@
+<div class="exercise-card">
+  <div class="exercise-header">
+    <div class="icon-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+      </svg>
+    </div>
+    <h3>Knowledge Check</h3>
+  </div>
+
+  <div class="exercise-question">
+    <!-- Using block-viewer-text internally to parse markdown in the question -->
+    <app-block-viewer-text [content]="content"></app-block-viewer-text>
+  </div>
+
+  <div class="exercise-body">
+    
+    <!-- Multiple Choice -->
+    <div class="options-list" *ngIf="metadata?.type === 'choice'">
+      <div class="option-item" 
+           *ngFor="let opt of metadata?.options; let i = index"
+           [class.selected]="selectedOptionIndex === i"
+           [class.disabled]="hasSubmitted"
+           (click)="selectOption(i)">
+        <div class="radio-circle">
+          <div class="radio-inner" *ngIf="selectedOptionIndex === i"></div>
+        </div>
+        <div class="option-text">{{ opt }}</div>
+      </div>
+    </div>
+
+    <!-- Symbolic Math Input -->
+    <div class="symbolic-input-container" *ngIf="metadata?.type === 'symbolic'">
+      <math-field #mathField 
+                  class="custom-math-field" 
+                  [disabled]="hasSubmitted"
+                  virtual-keyboard-mode="manual">
+      </math-field>
+    </div>
+
+    <!-- Action Button -->
+    <div class="exercise-actions">
+      <button class="submit-btn" 
+              (click)="submitAnswer()" 
+              [disabled]="hasSubmitted || (metadata?.type === 'choice' && selectedOptionIndex === null) || (metadata?.type === 'symbolic' && !mathInputValue)">
+        Check Answer
+      </button>
+    </div>
+
+    <!-- Feedback Area -->
+    <div class="feedback-area" *ngIf="hasSubmitted">
+      <div class="feedback-alert correct" *ngIf="isCorrect">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        <span>Correct! {{ metadata?.feedback }}</span>
+      </div>
+      <div class="feedback-alert incorrect" *ngIf="!isCorrect">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <span>Not quite right. Try again later!</span>
+      </div>
+    </div>
+    
+  </div>
+</div>

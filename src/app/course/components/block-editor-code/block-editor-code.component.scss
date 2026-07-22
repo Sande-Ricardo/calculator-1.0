@@ -1,0 +1,53 @@
+.editor-row {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.editor-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+}
+
+.custom-input, .custom-select, .custom-textarea {
+  background: var(--surface-light);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--text-primary);
+  padding: 10px 14px;
+  font-size: 14px;
+  width: 100%;
+  transition: all 0.15s ease;
+
+  &:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+  }
+}
+
+.custom-select {
+  cursor: pointer;
+  option {
+    background: #1e293b;
+    color: #fff;
+  }
+}
+
+.w-50 {
+  max-width: 50%;
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  white-space: pre;
+}

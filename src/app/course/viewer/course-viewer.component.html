@@ -41,6 +41,12 @@
           <app-block-viewer-link *ngIf="block.type === 'link'" [content]="block.content" [metadata]="block.metadata"></app-block-viewer-link>
 
           <app-block-viewer-callout *ngIf="block.type === 'callout'" [content]="block.content" [metadata]="block.metadata"></app-block-viewer-callout>
+
+          <app-block-viewer-graph *ngIf="block.type === 'graph'" [content]="block.content" [metadata]="block.metadata"></app-block-viewer-graph>
+
+          <app-block-viewer-exercise *ngIf="block.type === 'exercise'" [content]="block.content" [metadata]="block.metadata"></app-block-viewer-exercise>
+
+          <app-block-viewer-code *ngIf="block.type === 'code'" [content]="block.content" [metadata]="block.metadata"></app-block-viewer-code>
         </div>
       </div>
     </div>

@@ -1,0 +1,25 @@
+<div class="editor-row">
+  <div class="editor-group">
+    <label for="codeLanguage">Programming Language:</label>
+    <select id="codeLanguage" 
+            [ngModel]="block.metadata?.language || 'python'" 
+            (ngModelChange)="onLanguageChange($event)" 
+            class="custom-select w-50">
+      <option value="python">Python</option>
+      <option value="matlab">MATLAB</option>
+      <option value="cpp">C++</option>
+      <option value="javascript">JavaScript</option>
+      <option value="typescript">TypeScript</option>
+    </select>
+  </div>
+
+  <div class="editor-group">
+    <label for="codeSnippet">Code Snippet:</label>
+    <textarea id="codeSnippet" 
+              [ngModel]="block.content" 
+              (ngModelChange)="onContentChange($event)" 
+              class="custom-textarea font-mono" 
+              rows="6" 
+              placeholder="def hello():&#10;    print('Hello World')"></textarea>
+  </div>
+</div>

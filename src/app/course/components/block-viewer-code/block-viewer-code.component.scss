@@ -1,0 +1,69 @@
+@import 'highlight.js/styles/atom-one-dark.css';
+
+.code-block-container {
+  margin: 24px 0;
+  border-radius: 8px;
+  background: #282c34; // atom-one-dark bg
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+  background: rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+  .lang-badge {
+    font-size: 11px;
+    font-family: var(--font-mono);
+    color: #9ca3af;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
+  .copy-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    border: none;
+    color: #9ca3af;
+    font-size: 12px;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    &:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    &.copied {
+      color: #10b981;
+    }
+  }
+}
+
+pre {
+  margin: 0;
+  padding: 16px;
+  overflow-x: auto;
+  
+  code {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.5;
+    background: transparent;
+  }
+}

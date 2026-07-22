@@ -1,0 +1,81 @@
+<div class="editor-row">
+  <div class="editor-grid">
+    <div class="editor-group">
+      <label for="graphTitle">Graph Title / Section Header:</label>
+      <input type="text" 
+             id="graphTitle" 
+             [ngModel]="block.metadata?.title" 
+             (ngModelChange)="onTitleChange($event)" 
+             class="custom-input" 
+             placeholder="e.g. Interactive Wave: Amplitude & Frequency" />
+    </div>
+
+    <div class="editor-group">
+      <label for="graphEq">Base Equation (Desmos LaTeX format, e.g. `y = A \sin(B x)`):</label>
+      <input type="text" 
+             id="graphEq" 
+             [ngModel]="block.content" 
+             (ngModelChange)="onEquationChange($event)" 
+             class="custom-input font-mono" 
+             placeholder="y = A \sin(B x)" />
+    </div>
+  </div>
+
+  <!-- Sliders / Variable Bounds Manager -->
+  <div class="variables-section">
+    <div class="variables-header">
+      <label>Interactive Sliders / Parameter Bounds:</label>
+      <button type="button" (click)="addVariable()" class="add-var-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="icon">
+          <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+        Add Variable Slider
+      </button>
+    </div>
+
+    <div class="empty-vars" *ngIf="!block.metadata?.variables || block.metadata.variables.length === 0">
+      <span>No variables configured. Click above to add sliders like <code>A</code>, <code>B</code>, <code>k</code>.</span>
+    </div>
+
+    <div class="vars-list" *ngIf="block.metadata?.variables && block.metadata.variables.length > 0">
+      <div class="var-card" *ngFor="let v of block.metadata.variables; let i = index">
+        <div class="var-field name-field">
+          <label>Symbol</label>
+          <input type="text" [ngModel]="v.name" (ngModelChange)="updateVariable(i, 'name', $event)" class="custom-input font-mono" placeholder="A" />
+        </div>
+
+        <div class="var-field">
+          <label>Min</label>
+          <input type="number" [ngModel]="v.min" (ngModelChange)="updateVariable(i, 'min', $event)" class="custom-input" placeholder="-10" />
+        </div>
+
+        <div class="var-field">
+          <label>Max</label>
+          <input type="number" [ngModel]="v.max" (ngModelChange)="updateVariable(i, 'max', $event)" class="custom-input" placeholder="10" />
+        </div>
+
+        <div class="var-field">
+          <label>Step</label>
+          <input type="number" [ngModel]="v.step" (ngModelChange)="updateVariable(i, 'step', $event)" class="custom-input" placeholder="0.1" />
+        </div>
+
+        <div class="var-field">
+          <label>Initial</label>
+          <input type="number" [ngModel]="v.value" (ngModelChange)="updateVariable(i, 'value', $event)" class="custom-input" placeholder="1" />
+        </div>
+
+        <button type="button" (click)="removeVariable(i)" class="remove-var-btn" title="Remove slider variable">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live Preview inside Editor -->
+  <div class="editor-graph-preview" *ngIf="block.content.trim()">
+    <div class="preview-header font-mono">LIVE GRAPH PREVIEW:</div>
+    <app-block-viewer-graph [content]="block.content" [metadata]="block.metadata"></app-block-viewer-graph>
+  </div>
+</div>

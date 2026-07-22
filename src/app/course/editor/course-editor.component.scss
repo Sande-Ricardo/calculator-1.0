@@ -196,6 +196,15 @@
   &.callout {
     background: #d97706;
   }
+  &.graph {
+    background: #ec4899;
+  }
+  &.exercise {
+    background: #f97316;
+  }
+  &.code {
+    background: #64748b;
+  }
 }
 
 .block-header-actions {
@@ -299,6 +308,9 @@
     &.image { border-color: #059669; color: #34d399; }
     &.link { border-color: #0891b2; color: #22d3ee; }
     &.callout { border-color: #d97706; color: #fbbf24; }
+    &.graph { border-color: #ec4899; color: #f472b6; }
+    &.exercise { border-color: #f97316; color: #fdba74; }
+    &.code { border-color: #64748b; color: #94a3b8; }
   }
 
   &:active {

@@ -1,0 +1,88 @@
+<div class="editor-row">
+  <div class="editor-grid">
+    <div class="editor-group">
+      <label for="exerciseType">Exercise Type:</label>
+      <select id="exerciseType" 
+              [ngModel]="block.metadata?.type || 'choice'" 
+              (ngModelChange)="onTypeChange($event)" 
+              class="custom-select">
+        <option value="choice">Type A: Multiple Choice</option>
+        <option value="symbolic">Type B: Symbolic Math Input</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="editor-group">
+    <label for="exerciseQuestion">Question Prompt (Markdown supported):</label>
+    <textarea id="exerciseQuestion" 
+              [ngModel]="block.content" 
+              (ngModelChange)="onQuestionChange($event)" 
+              class="custom-textarea" 
+              rows="3" 
+              placeholder="E.g. What is the derivative of $f(x) = \sin(x)$?"></textarea>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Type A: Multiple Choice Editor -->
+  <div class="type-section" *ngIf="block.metadata?.type === 'choice'">
+    <div class="section-header">
+      <h4>Options Configuration</h4>
+      <button class="add-btn" (click)="addOption()">+ Add Option</button>
+    </div>
+
+    <div class="options-list">
+      <div class="option-row" *ngFor="let opt of block.metadata?.options; let i = index">
+        <input type="radio" 
+               name="correctOptionGroup" 
+               [checked]="block.metadata?.correctIndex === i" 
+               (change)="setCorrectIndex(i)" 
+               title="Mark as correct answer" />
+        
+        <input type="text" 
+               [ngModel]="opt" 
+               (ngModelChange)="updateOption(i, $event)" 
+               class="custom-input" 
+               placeholder="Option text..." />
+        
+        <button class="icon-btn remove-btn" (click)="removeOption(i)" [disabled]="block.metadata?.options?.length <= 2">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Type B: Symbolic Input Editor -->
+  <div class="type-section" *ngIf="block.metadata?.type === 'symbolic'">
+    <div class="editor-group">
+      <label>Target Correct Expression (LaTeX):</label>
+      <div class="input-with-icon">
+        <span class="prefix">f(x) = </span>
+        <input type="text" 
+               [ngModel]="block.metadata?.correctExpression" 
+               (ngModelChange)="onCorrectExpressionChange($event)" 
+               class="custom-input font-mono" 
+               placeholder="\cos(x)" />
+      </div>
+      <small class="hint-text">The backend will evaluate algebraic equivalence via SymPy.</small>
+    </div>
+  </div>
+
+  <div class="editor-group mt-3">
+    <label for="exerciseFeedback">Success Feedback Message (Optional):</label>
+    <input type="text" 
+           id="exerciseFeedback" 
+           [ngModel]="block.metadata?.feedback" 
+           (ngModelChange)="onFeedbackChange($event)" 
+           class="custom-input" 
+           placeholder="e.g. Great job! The derivative of sine is indeed cosine." />
+  </div>
+
+  <!-- Live Preview inside Editor -->
+  <div class="editor-preview" *ngIf="block.content">
+    <div class="preview-header">LIVE EXERCISE PREVIEW:</div>
+    <div class="preview-box">
+      <app-block-viewer-exercise [content]="block.content" [metadata]="block.metadata"></app-block-viewer-exercise>
+    </div>
+  </div>
+</div>

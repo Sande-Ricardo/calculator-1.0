@@ -104,6 +104,18 @@
             <app-block-editor-callout *ngIf="block.type === 'callout'" 
                                      [block]="block" 
                                      (blockChange)="updateBlock(i, $event)"></app-block-editor-callout>
+
+            <app-block-editor-graph *ngIf="block.type === 'graph'" 
+                                   [block]="block" 
+                                   (blockChange)="updateBlock(i, $event)"></app-block-editor-graph>
+
+            <app-block-editor-exercise *ngIf="block.type === 'exercise'" 
+                                      [block]="block" 
+                                      (blockChange)="updateBlock(i, $event)"></app-block-editor-exercise>
+
+            <app-block-editor-code *ngIf="block.type === 'code'" 
+                                   [block]="block" 
+                                   (blockChange)="updateBlock(i, $event)"></app-block-editor-code>
           </div>
         </div>
       </div>
@@ -131,6 +143,27 @@
               <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
             </svg>
             Theorem / Callout
+          </button>
+
+          <button (click)="addBlock('graph')" class="add-btn graph">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="btn-icon">
+              <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            Interactive Graph
+          </button>
+
+          <button (click)="addBlock('exercise')" class="add-btn exercise">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="btn-icon">
+              <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            Exercise / Quiz
+          </button>
+
+          <button (click)="addBlock('code')" class="add-btn code">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="btn-icon">
+              <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            Code Snippet
           </button>
           
           <button (click)="addBlock('image')" class="add-btn image">
