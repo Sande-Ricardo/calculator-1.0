@@ -55,6 +55,9 @@ export class CourseEditorComponent implements OnInit, OnDestroy {
       newBlock.content = '## New Heading\nWrite text here...';
     } else if (type === 'latex') {
       newBlock.content = 'f(x) = x^2';
+    } else if (type === 'callout') {
+      newBlock.content = 'Write important definition or theorem statement here.';
+      newBlock.metadata = { variant: 'definition', title: '' };
     }
 
     this.courseCopy.blocks.push(newBlock);

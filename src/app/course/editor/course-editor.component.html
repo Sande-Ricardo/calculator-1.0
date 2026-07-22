@@ -100,6 +100,10 @@
             <app-block-editor-link *ngIf="block.type === 'link'" 
                                   [block]="block" 
                                   (blockChange)="updateBlock(i, $event)"></app-block-editor-link>
+
+            <app-block-editor-callout *ngIf="block.type === 'callout'" 
+                                     [block]="block" 
+                                     (blockChange)="updateBlock(i, $event)"></app-block-editor-callout>
           </div>
         </div>
       </div>
@@ -120,6 +124,13 @@
               <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
             </svg>
             LaTeX Formula
+          </button>
+
+          <button (click)="addBlock('callout')" class="add-btn callout">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="btn-icon">
+              <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            Theorem / Callout
           </button>
           
           <button (click)="addBlock('image')" class="add-btn image">

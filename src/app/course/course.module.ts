@@ -11,12 +11,14 @@ import { BlockViewerTextComponent } from './components/block-viewer-text/block-v
 import { BlockViewerLatexComponent } from './components/block-viewer-latex/block-viewer-latex.component';
 import { BlockViewerImageComponent } from './components/block-viewer-image/block-viewer-image.component';
 import { BlockViewerLinkComponent } from './components/block-viewer-link/block-viewer-link.component';
+import { BlockViewerCalloutComponent } from './components/block-viewer-callout/block-viewer-callout.component';
 
 // Editor Blocks
 import { BlockEditorTextComponent } from './components/block-editor-text/block-editor-text.component';
 import { BlockEditorLatexComponent } from './components/block-editor-latex/block-editor-latex.component';
 import { BlockEditorImageComponent } from './components/block-editor-image/block-editor-image.component';
 import { BlockEditorLinkComponent } from './components/block-editor-link/block-editor-link.component';
+import { BlockEditorCalloutComponent } from './components/block-editor-callout/block-editor-callout.component';
 
 import { MathjaxViewerComponent } from 'src/app/components/mathjax-viewer/mathjax-viewer.component';
 
@@ -30,12 +32,14 @@ import { MathjaxViewerComponent } from 'src/app/components/mathjax-viewer/mathja
     BlockViewerLatexComponent,
     BlockViewerImageComponent,
     BlockViewerLinkComponent,
+    BlockViewerCalloutComponent,
     
     // Editors
     BlockEditorTextComponent,
     BlockEditorLatexComponent,
     BlockEditorImageComponent,
-    BlockEditorLinkComponent
+    BlockEditorLinkComponent,
+    BlockEditorCalloutComponent
   ],
   imports: [
     CommonModule,

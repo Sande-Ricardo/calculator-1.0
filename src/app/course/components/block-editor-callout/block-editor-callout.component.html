@@ -1,0 +1,35 @@
+<div class="editor-row">
+  <div class="editor-grid">
+    <div class="editor-group">
+      <label for="calloutVariant">Callout Variant:</label>
+      <select id="calloutVariant" 
+              [ngModel]="block.metadata?.variant || 'definition'" 
+              (ngModelChange)="onVariantChange($event)" 
+              class="custom-select">
+        <option value="definition">Definition (Blue)</option>
+        <option value="theorem">Theorem / Formula (Green)</option>
+        <option value="warning">Warning / Common Pitfall (Red)</option>
+      </select>
+    </div>
+
+    <div class="editor-group">
+      <label for="calloutTitle">Custom Title (Optional):</label>
+      <input type="text" 
+             id="calloutTitle" 
+             [ngModel]="block.metadata?.title" 
+             (ngModelChange)="onTitleChange($event)" 
+             class="custom-input" 
+             placeholder="Leave empty for default" />
+    </div>
+  </div>
+
+  <div class="editor-group">
+    <label for="calloutContent">Callout Body Content:</label>
+    <textarea id="calloutContent" 
+              [ngModel]="block.content" 
+              (ngModelChange)="onContentChange($event)" 
+              class="custom-textarea" 
+              rows="4" 
+              placeholder="Write the theorem statement, definition, or warning message..."></textarea>
+  </div>
+</div>

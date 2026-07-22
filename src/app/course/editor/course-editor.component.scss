@@ -193,6 +193,9 @@
   &.link {
     background: #0891b2;
   }
+  &.callout {
+    background: #d97706;
+  }
 }
 
 .block-header-actions {
@@ -295,6 +298,7 @@
     &.latex { border-color: #7c3aed; color: #a78bfa; }
     &.image { border-color: #059669; color: #34d399; }
     &.link { border-color: #0891b2; color: #22d3ee; }
+    &.callout { border-color: #d97706; color: #fbbf24; }
   }
 
   &:active {

@@ -39,6 +39,8 @@
           <app-block-viewer-image *ngIf="block.type === 'image'" [content]="block.content" [metadata]="block.metadata"></app-block-viewer-image>
           
           <app-block-viewer-link *ngIf="block.type === 'link'" [content]="block.content" [metadata]="block.metadata"></app-block-viewer-link>
+
+          <app-block-viewer-callout *ngIf="block.type === 'callout'" [content]="block.content" [metadata]="block.metadata"></app-block-viewer-callout>
         </div>
       </div>
     </div>

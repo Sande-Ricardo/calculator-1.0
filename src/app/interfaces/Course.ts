@@ -1,4 +1,4 @@
-export type BlockType = 'text' | 'latex' | 'image' | 'link';
+export type BlockType = 'text' | 'latex' | 'image' | 'link' | 'callout' | 'graph' | 'exercise' | 'code';
 
 export interface CourseBlock {
   id: string;

@@ -21,14 +21,32 @@ export class CourseService {
         content: '# Introduction to ODEs\n\nAn ordinary differential equation (ODE) is an equation containing one or more functions of one independent variable and its derivatives. They are extremely useful in modeling physical phenomena such as population growth, cooling processes, and mechanical oscillations.'
       },
       {
+        id: 'b1_callout',
+        type: 'callout',
+        content: 'An **Ordinary Differential Equation (ODE)** is an equation involving an unknown function $y(x)$ and one or more of its derivatives with respect to a single independent variable $x$.',
+        metadata: { variant: 'definition', title: 'Fundamental Definition' }
+      },
+      {
         id: 'b2',
         type: 'latex',
         content: '\\frac{dy}{dx} = f(x, y)'
       },
       {
+        id: 'b2_theorem',
+        type: 'callout',
+        content: 'If $f(x, y)$ and $\\frac{\\partial f}{\\partial y}$ are continuous on a rectangle $R$, then there exists a unique solution $y(x)$ passing through any initial point $(x_0, y_0) \\in R$.',
+        metadata: { variant: 'theorem', title: 'Existence and Uniqueness Theorem' }
+      },
+      {
         id: 'b3',
         type: 'text',
         content: '### Slope Fields (Direction Fields)\n\nWhen an analytical solution is difficult to find, we can visualize the behavior of the differential equation using a **Slope Field**. At every point $(x, y)$ in the plane, we draw a small line segment whose slope is equal to the derivative $dy/dx$. This gives us a geometric view of all potential solution curves.'
+      },
+      {
+        id: 'b3_warning',
+        type: 'callout',
+        content: 'Do not confuse slope field direction segments with vector fields that indicate magnitude! Slope field segments represent **only the tangent slope** $dy/dx$ and have a fixed unit length.',
+        metadata: { variant: 'warning', title: 'Common Student Misconception' }
       },
       {
         id: 'b4',
