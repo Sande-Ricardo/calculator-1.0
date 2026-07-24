@@ -69,7 +69,9 @@ calculator-1.0/
 │   │   ├── course/                  # Educational course materials
 │   │   ├── equation/                # Equation solving module
 │   │   ├── graphing/                # Graph plotting and visualization
-│   │   ├── matrix/                  # Matrix operations module
+│   │   ├── matrix/                  # Matrix operations and linear algebra
+│   │   ├── stats/                   # Statistics and probability distributions
+│   │   ├── ode/                     # Ordinary differential equations solver
 │   │   ├── components/              # Shared UI components
 │   │   │   ├── scientific/          # Scientific calculator interface
 │   │   │   └── top-menu/            # Application header menu
@@ -111,7 +113,9 @@ The application implements a feature-based module structure with lazy loading fo
 - **CourseModule**: Educational content and learning materials
 - **EquationModule**: Equation solving and manipulation
 - **GraphingModule**: Visualization and plotting capabilities
-- **MatrixModule**: Matrix operations and linear algebra
+- **MatrixModule**: Matrix operations and linear algebra computations
+- **StatsModule**: Descriptive statistics, probability distributions, and statistical analysis
+- **OdeModule**: Analytical and numerical ordinary differential equations solver with multiple solution methods
 
 ### Layout Components
 
