@@ -1,0 +1,13 @@
+<div class="prefixes-box">
+  <div class="box-header">
+    <h3>SI Prefixes Reference</h3>
+  </div>
+
+  <div class="prefixes-grid">
+    <div class="prefix-card" *ngFor="let p of prefixes">
+      <span class="prefix-sym">{{ p.symbol }}</span>
+      <span class="prefix-name">{{ p.name }}</span>
+      <span class="prefix-factor">{{ p.factor }}</span>
+    </div>
+  </div>
+</div>

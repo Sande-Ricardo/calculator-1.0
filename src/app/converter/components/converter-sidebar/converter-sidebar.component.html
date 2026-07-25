@@ -1,0 +1,40 @@
+<aside class="sidebar-wrapper" [class.collapsed]="!isOpen">
+  <!-- Toggle Bar -->
+  <div class="sidebar-toggle-header">
+    <button class="toggle-btn" (click)="toggleSidebar()" title="Toggle Engineering Tools Sidebar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" [class.rotated]="!isOpen">
+        <polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/>
+      </svg>
+      <span *ngIf="isOpen">Engineering Toolbox</span>
+    </button>
+  </div>
+
+  <div class="sidebar-content" *ngIf="isOpen">
+    <!-- Tabs Navigation -->
+    <div class="sidebar-tabs">
+      <button class="tab-btn" [class.active]="activeTab === 'dimensional'" (click)="setTab('dimensional')" title="Dimensional Analysis">
+        Dimensional
+      </button>
+      <button class="tab-btn" [class.active]="activeTab === 'constants'" (click)="setTab('constants')" title="Physical Constants">
+        Constants
+      </button>
+      <button class="tab-btn" [class.active]="activeTab === 'prefixes'" (click)="setTab('prefixes')" title="SI Prefixes">
+        SI Prefixes
+      </button>
+      <button class="tab-btn" [class.active]="activeTab === 'favorites'" (click)="setTab('favorites')" title="Saved Favorites">
+        Favorites
+      </button>
+    </div>
+
+    <!-- Active Tab Panel -->
+    <div class="tab-panel">
+      <app-dimensional-inspector *ngIf="activeTab === 'dimensional'" [magnitude]="magnitude"></app-dimensional-inspector>
+
+      <app-physical-constants *ngIf="activeTab === 'constants'" (injectConstant)="onInjectConstant($event)"></app-physical-constants>
+
+      <app-si-prefixes *ngIf="activeTab === 'prefixes'"></app-si-prefixes>
+
+      <app-favorites *ngIf="activeTab === 'favorites'" (applyFavorite)="onApplyFavorite($event)"></app-favorites>
+    </div>
+  </div>
+</aside>

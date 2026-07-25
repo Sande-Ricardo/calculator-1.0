@@ -1,0 +1,31 @@
+<div class="dimensional-inspector-box" *ngIf="magnitude">
+  <div class="box-header">
+    <div class="icon-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 2v20M2 12h20"/>
+        <circle cx="12" cy="12" r="9"/>
+      </svg>
+    </div>
+    <h3>Dimensional Analysis Inspector</h3>
+  </div>
+
+  <div class="box-body">
+    <p class="description">
+      Buckingham Pi Theorem Dimensional Formula for <strong>{{ magnitude.name }}</strong>:
+    </p>
+
+    <div class="formula-card">
+      <span class="label">Dimension:</span>
+      <span class="formula-text">{{ magnitude.dimensionalFormula }}</span>
+    </div>
+
+    <div class="base-unit-info">
+      <span class="info-label">SI Base Unit:</span>
+      <span class="info-val">{{ magnitude.base }}</span>
+    </div>
+
+    <div class="dimensions-legend">
+      <small><strong>Legend:</strong> [M] Mass, [L] Length, [T] Time, [I] Current, [Θ] Temp</small>
+    </div>
+  </div>
+</div>

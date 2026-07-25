@@ -1,0 +1,77 @@
+<div class="converter-page-container container2">
+  <!-- TOP TOOLBAR & UNIVERSAL SEARCH BAR -->
+  <div class="converter-header-card">
+    <div class="smart-search-bar">
+      <div class="search-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </div>
+      <input type="text" 
+             class="smart-search-input" 
+             placeholder="Universal Smart Search... (e.g., '15 psi to kpa', '100 C in F', '5 km -> m')" 
+             [(ngModel)]="searchQuery" 
+             (keyup.enter)="onSmartSearch()" />
+      <button class="search-action-btn" (click)="onSmartSearch()">Parse</button>
+    </div>
+
+    <!-- PRECISION & SETTINGS -->
+    <div class="precision-control">
+      <label for="precisionSelect">Decimal Precision:</label>
+      <select id="precisionSelect" [(ngModel)]="decimalPrecision" (ngModelChange)="recalculate()" class="precision-select">
+        <option [ngValue]="2">2 Dec (0.00)</option>
+        <option [ngValue]="4">4 Dec (0.0000)</option>
+        <option [ngValue]="6">6 Dec (0.000000)</option>
+        <option [ngValue]="8">8 Dec (0.00000000)</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- CATEGORY TABS -->
+  <div class="categories-nav">
+    <button *ngFor="let cat of categories" 
+            class="cat-tab-btn" 
+            [class.active]="selectedCategory === cat" 
+            (click)="onCategoryChange(cat)">
+      {{ cat }}
+    </button>
+  </div>
+
+  <!-- MAGNITUDE SELECTOR PILLS -->
+  <div class="magnitudes-pills-row">
+    <button *ngFor="let mag of dataService.getMagnitudesByCategory(selectedCategory)" 
+            class="mag-pill-btn" 
+            [class.active]="selectedMagnitudeKey === mag.key" 
+            (click)="selectMagnitude(mag.key)">
+      {{ mag.definition.name }}
+    </button>
+  </div>
+
+  <!-- MAIN LAYOUT GRID (Panels + Sidebar) -->
+  <div class="converter-layout-grid" [class.sidebar-closed]="!isSidebarOpen">
+    <div class="main-panels-area">
+      <app-converter-panels [magnitude]="dataService.MAGNITUDES[selectedMagnitudeKey]"
+                            [sourceValue]="sourceValue"
+                            [sourceUnitKey]="sourceUnitKey"
+                            [targetUnitKey]="targetUnitKey"
+                            [targetValue]="targetValue"
+                            [decimalPrecision]="decimalPrecision"
+                            [isFavorite]="isCurrentFavorite()"
+                            (sourceValueChange)="onSourceValueChange($event)"
+                            (sourceUnitChange)="onSourceUnitChange($event)"
+                            (targetUnitChange)="onTargetUnitChange($event)"
+                            (swap)="swapUnits()"
+                            (favoriteToggle)="toggleFavorite()">
+      </app-converter-panels>
+    </div>
+
+    <div class="sidebar-area">
+      <app-converter-sidebar [magnitude]="dataService.MAGNITUDES[selectedMagnitudeKey]"
+                             [(isOpen)]="isSidebarOpen"
+                             [(activeTab)]="activeSidebarTab"
+                             (injectConstant)="injectConstant($event)"
+                             (applyFavorite)="applyFavorite($event)">
+      </app-converter-sidebar>
+    </div>
+  </div>
+</div>

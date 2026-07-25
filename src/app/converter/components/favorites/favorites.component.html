@@ -1,0 +1,27 @@
+<div class="favorites-box">
+  <div class="box-header">
+    <h3>Saved Conversions</h3>
+    <small class="hint">Click to load favorite conversion</small>
+  </div>
+
+  <div class="favorites-list" *ngIf="favoritesService.getFavorites().length > 0; else emptyState">
+    <div class="favorite-item" *ngFor="let fav of favoritesService.getFavorites()" (click)="onApply(fav)">
+      <div class="fav-info">
+        <span class="mag-name">{{ getMagnitudeName(fav.magnitudeKey) }}</span>
+        <span class="pair">{{ fav.sourceUnitKey }} &rarr; {{ fav.targetUnitKey }}</span>
+      </div>
+      <button class="remove-btn" (click)="onRemove(fav.id, $event)" title="Remove from favorites">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <ng-template #emptyState>
+    <div class="empty-fav">
+      <p>No favorites saved yet.</p>
+      <small>Click the star icon on any conversion to save it here.</small>
+    </div>
+  </ng-template>
+</div>

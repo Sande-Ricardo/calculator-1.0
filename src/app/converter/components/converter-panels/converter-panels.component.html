@@ -1,0 +1,87 @@
+<div class="converter-panels-container" *ngIf="magnitude">
+  <div class="panels-header">
+    <div class="magnitude-info">
+      <h2>{{ magnitude.name }}</h2>
+      <span class="category-badge">{{ magnitude.category }}</span>
+    </div>
+    <div class="panel-actions">
+      <button class="favorite-btn" [class.active]="isFavorite" (click)="onFavoriteClick()" title="Save conversion to favorites">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="panels-grid">
+    <!-- SOURCE PANEL -->
+    <div class="panel-box source">
+      <div class="panel-label">From (Source)</div>
+      
+      <div class="unit-selector-wrapper">
+        <input type="text" 
+               class="unit-search-input" 
+               placeholder="Search source unit..." 
+               [(ngModel)]="sourceUnitSearch" />
+        
+        <select class="unit-select" [ngModel]="sourceUnitKey" (ngModelChange)="onSourceSelect($event)">
+          <option *ngFor="let u of getFilteredUnits(sourceUnitSearch)" [value]="u.key">
+            {{ u.name }} ({{ u.symbol }})
+          </option>
+        </select>
+      </div>
+
+      <div class="value-input-wrapper">
+        <input type="text" 
+               class="numeric-input" 
+               [ngModel]="sourceInputText" 
+               (ngModelChange)="onSourceInput($event)" 
+               placeholder="e.g. 15, 1.5e-3, 1/3" />
+      </div>
+      <small class="hint-text">Supports scientific notation (1e-3) & fractions (1/3)</small>
+    </div>
+
+    <!-- SWAP ACTION BUTTON -->
+    <div class="swap-action-container">
+      <button class="swap-btn" (click)="onSwap()" title="Swap Units">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M7 16V4M7 4L3 8M7 4L11 8M17 8V20M17 20L21 16M17 20L13 16"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- TARGET PANEL -->
+    <div class="panel-box target">
+      <div class="panel-label-row">
+        <span class="panel-label">To (Target)</span>
+        <button class="copy-btn" (click)="copyTargetResult()" [class.copied]="copiedTarget" title="Copy result to clipboard">
+          <svg *ngIf="!copiedTarget" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+          <svg *ngIf="copiedTarget" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <span>{{ copiedTarget ? 'Copied!' : 'Copy' }}</span>
+        </button>
+      </div>
+
+      <div class="unit-selector-wrapper">
+        <input type="text" 
+               class="unit-search-input" 
+               placeholder="Search target unit..." 
+               [(ngModel)]="targetUnitSearch" />
+        
+        <select class="unit-select" [ngModel]="targetUnitKey" (ngModelChange)="onTargetSelect($event)">
+          <option *ngFor="let u of getFilteredUnits(targetUnitSearch)" [value]="u.key">
+            {{ u.name }} ({{ u.symbol }})
+          </option>
+        </select>
+      </div>
+
+      <div class="value-display-wrapper">
+        <div class="result-display">{{ getFormattedTargetValue() }}</div>
+        <span class="symbol-tag">{{ getTargetSymbol() }}</span>
+      </div>
+    </div>
+  </div>
+</div>

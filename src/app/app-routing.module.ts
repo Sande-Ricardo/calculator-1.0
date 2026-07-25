@@ -40,6 +40,10 @@ const routes: Routes = [
         loadChildren: () => import('./ode/ode.module').then(m => m.OdeModule)
       },
       {
+        path: 'converter',
+        loadChildren: () => import('./converter/converter.module').then(m => m.ConverterModule)
+      },
+      {
         path: '',
         loadChildren: () => import('./calculator/calculator.module').then(m => m.CalculatorModule)
       }

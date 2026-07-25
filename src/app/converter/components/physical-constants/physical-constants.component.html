@@ -1,0 +1,19 @@
+<div class="constants-box">
+  <div class="box-header">
+    <h3>Physical & Chemical Constants</h3>
+    <small class="hint">Click any constant to inject value into converter</small>
+  </div>
+
+  <div class="constants-list">
+    <div class="constant-item" *ngFor="let c of constants" (click)="onInject(c.value)">
+      <div class="constant-main">
+        <span class="symbol">{{ c.symbol }}</span>
+        <span class="name">{{ c.name }}</span>
+      </div>
+      <div class="constant-val">
+        <span class="num">{{ c.value }}</span>
+        <span class="unit">{{ c.unit }}</span>
+      </div>
+    </div>
+  </div>
+</div>
