@@ -1,0 +1,29 @@
+<div class="financial-dashboard crystal-box animate-fade-in">
+  <header class="dashboard-header">
+    <div class="header-title">
+      <h1>Financial Mathematics</h1>
+      <p class="subtitle">Complete toolset for financial analysis and evaluation</p>
+    </div>
+  </header>
+
+  <nav class="finance-tabs">
+    <button class="tab-btn" [class.active]="activeTab === 'interest'" (click)="setTab('interest')">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
+      Interest Calculator
+    </button>
+    <button class="tab-btn" [class.active]="activeTab === 'amortization'" (click)="setTab('amortization')">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      Loan Amortization
+    </button>
+    <button class="tab-btn" [class.active]="activeTab === 'project'" (click)="setTab('project')">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      Project Evaluation (NPV & IRR)
+    </button>
+  </nav>
+
+  <main class="dashboard-content">
+    <app-interest-calculator *ngIf="activeTab === 'interest'"></app-interest-calculator>
+    <app-amortization *ngIf="activeTab === 'amortization'"></app-amortization>
+    <app-project-evaluation *ngIf="activeTab === 'project'"></app-project-evaluation>
+  </main>
+</div>

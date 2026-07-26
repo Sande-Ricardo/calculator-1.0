@@ -1,0 +1,115 @@
+<div class="amortization-container animate-fade-in printable-area">
+  
+  <div class="top-section no-print">
+    <!-- Left: Settings Form -->
+    <div class="settings-card crystal-box">
+      <h3>Amortization Settings</h3>
+      <form [formGroup]="form" class="calc-form">
+        <div class="form-group">
+          <label>Amortization System</label>
+          <select formControlName="system" class="form-control">
+            <option value="french">French (Constant Installment)</option>
+            <option value="german">German (Constant Principal)</option>
+            <option value="american">American (Interest Only, Principal at End)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Principal (Loan Amount)</label>
+          <div class="input-with-icon">
+            <span class="currency-symbol">$</span>
+            <input type="number" formControlName="principal" class="form-control" placeholder="10000">
+          </div>
+        </div>
+
+        <div class="form-row flex-row">
+          <div class="form-group flex-1">
+            <label>Interest Rate (per period)</label>
+            <div class="input-with-icon right-icon">
+              <input type="number" formControlName="rate" class="form-control" placeholder="5">
+              <span class="percent-symbol">%</span>
+            </div>
+          </div>
+
+          <div class="form-group flex-1">
+            <label>Periods (n)</label>
+            <input type="number" formControlName="periods" class="form-control" placeholder="12">
+          </div>
+        </div>
+      </form>
+      
+      <div class="export-actions">
+        <button class="btn btn-outline" (click)="exportCsv()" [disabled]="!tableData.length">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Export CSV
+        </button>
+        <button class="btn btn-outline" (click)="exportPdf()" [disabled]="!tableData.length">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Print PDF
+        </button>
+      </div>
+    </div>
+
+    <!-- Right: Visualizations -->
+    <div class="visuals-card crystal-box">
+      <div class="chart-container pie-chart-container" [ngStyle]="{'display': tableData.length > 0 ? 'block' : 'none'}">
+        <h4>Cost Breakdown</h4>
+        <canvas id="pieChart"></canvas>
+      </div>
+      <div class="empty-state" *ngIf="!tableData.length">
+        <p>No valid data to generate charts</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom: Full width line chart -->
+  <div class="line-chart-section crystal-box no-print" [ngStyle]="{'display': tableData.length > 0 ? 'block' : 'none'}">
+    <h4>Balance Decay Over Time</h4>
+    <div class="chart-container line-chart-container">
+       <canvas id="lineChart"></canvas>
+    </div>
+  </div>
+
+  <!-- Bottom: Data Table -->
+  <div class="table-section crystal-box">
+    <div class="table-header printable-only">
+      <h2>Amortization Schedule</h2>
+      <p>System: {{ form.value.system | titlecase }} | Principal: ${{ form.value.principal | number:'1.2-2' }} | Rate: {{ form.value.rate }}% | Periods: {{ form.value.periods }}</p>
+    </div>
+    
+    <div class="table-responsive">
+      <table class="financial-table">
+        <thead>
+          <tr>
+            <th>Period</th>
+            <th>Initial Balance</th>
+            <th>Installment (A)</th>
+            <th>Interest (I)</th>
+            <th>Principal (K)</th>
+            <th>Final Balance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of tableData">
+            <td>{{ row.period }}</td>
+            <td>${{ row.initialBalance | number:'1.2-2' }}</td>
+            <td class="highlight-col">${{ row.installment | number:'1.2-2' }}</td>
+            <td>${{ row.interest | number:'1.2-2' }}</td>
+            <td>${{ row.principalPayment | number:'1.2-2' }}</td>
+            <td>${{ row.finalBalance | number:'1.2-2' }}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2" class="text-right"><strong>Totals:</strong></td>
+            <td><strong>${{ (totalPrincipal + totalInterest) | number:'1.2-2' }}</strong></td>
+            <td><strong>${{ totalInterest | number:'1.2-2' }}</strong></td>
+            <td><strong>${{ totalPrincipal | number:'1.2-2' }}</strong></td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+</div>

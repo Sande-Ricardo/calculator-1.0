@@ -1,0 +1,106 @@
+<div class="project-container animate-fade-in">
+  
+  <!-- Left Side: Cash Flows and Settings -->
+  <div class="form-card crystal-box">
+    <h3>Investment Parameters</h3>
+    <form [formGroup]="form" class="calc-form">
+      
+      <div class="form-row flex-row">
+        <div class="form-group flex-1">
+          <label>Initial Investment (I₀)</label>
+          <div class="input-with-icon">
+            <span class="currency-symbol">$</span>
+            <input type="number" formControlName="initialInvestment" class="form-control text-red" placeholder="e.g. 10000">
+          </div>
+          <small class="hint-text">Usually an outflow (negative by definition).</small>
+        </div>
+        
+        <div class="form-group flex-1">
+          <label>Discount Rate (k)</label>
+          <div class="input-with-icon right-icon">
+            <input type="number" formControlName="discountRate" class="form-control" placeholder="e.g. 10">
+            <span class="percent-symbol">%</span>
+          </div>
+          <small class="hint-text">Required rate of return.</small>
+        </div>
+      </div>
+
+      <hr class="divider">
+      
+      <div class="cash-flows-header">
+        <h4>Cash Flows (FCₜ)</h4>
+        <button type="button" class="btn btn-small" (click)="addCashFlow()">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Period
+        </button>
+      </div>
+
+      <div formArrayName="cashFlows" class="cash-flows-list">
+        <div class="cash-flow-item" *ngFor="let control of cashFlowsControls; let i = index">
+          <div class="period-badge">Year {{ i + 1 }}</div>
+          <div class="form-group mb-0 flex-1">
+            <div class="input-with-icon">
+              <span class="currency-symbol">$</span>
+              <input type="number" [formControlName]="i" class="form-control" placeholder="0">
+            </div>
+          </div>
+          <button type="button" class="btn-icon text-danger" (click)="removeCashFlow(i)" [disabled]="cashFlowsControls.length <= 1" title="Remove Period">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Right Side: Evaluation Results -->
+  <div class="results-container">
+    
+    <!-- NPV Card -->
+    <div class="result-card crystal-box" [ngClass]="{'positive': npv !== null && npv >= 0, 'negative': npv !== null && npv < 0}">
+      <div class="result-header">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        <h3>Net Present Value (NPV)</h3>
+      </div>
+      
+      <div class="result-content" *ngIf="npv !== null; else noResult">
+        <div class="result-value-container">
+          <span class="result-value">${{ npv | number:'1.2-2' }}</span>
+        </div>
+        <div class="verdict">
+          <span class="badge" [class.badge-success]="npv > 0" [class.badge-danger]="npv < 0" [class.badge-neutral]="npv === 0">
+            <span *ngIf="npv > 0">✓ Profitable Project</span>
+            <span *ngIf="npv < 0">✗ Unprofitable Project</span>
+            <span *ngIf="npv === 0">Neutral Project</span>
+          </span>
+        </div>
+      </div>
+      <ng-template #noResult>
+        <p class="empty-text">Fill all inputs to evaluate NPV.</p>
+      </ng-template>
+    </div>
+
+    <!-- IRR Card -->
+    <div class="result-card crystal-box" [ngClass]="{'positive': irr !== null && irr >= form.value.discountRate, 'negative': irr !== null && irr < form.value.discountRate}">
+      <div class="result-header">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <h3>Internal Rate of Return (IRR)</h3>
+      </div>
+      
+      <div class="result-content" *ngIf="irr !== null; else noIrrResult">
+        <div class="result-value-container">
+          <span class="result-value">{{ irr | number:'1.2-2' }}%</span>
+        </div>
+        <div class="verdict">
+          <span class="badge" [class.badge-success]="irr >= form.value.discountRate" [class.badge-danger]="irr < form.value.discountRate">
+            <span *ngIf="irr >= form.value.discountRate">✓ Exceeds Discount Rate</span>
+            <span *ngIf="irr < form.value.discountRate">✗ Below Discount Rate</span>
+          </span>
+        </div>
+      </div>
+      <ng-template #noIrrResult>
+        <p class="empty-text">Need varying cash flows to find IRR.</p>
+      </ng-template>
+    </div>
+
+  </div>
+</div>

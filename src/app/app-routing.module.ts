@@ -44,6 +44,10 @@ const routes: Routes = [
         loadChildren: () => import('./converter/converter.module').then(m => m.ConverterModule)
       },
       {
+        path: 'finance',
+        loadChildren: () => import('./financial-math/financial-math.module').then(m => m.FinancialMathModule)
+      },
+      {
         path: '',
         loadChildren: () => import('./calculator/calculator.module').then(m => m.CalculatorModule)
       }

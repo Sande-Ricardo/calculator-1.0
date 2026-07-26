@@ -1,0 +1,114 @@
+<div class="interest-container animate-fade-in">
+  
+  <!-- Left Side: Form -->
+  <div class="form-card crystal-box">
+    <h3>Calculator Settings</h3>
+    <form [formGroup]="form" class="calc-form">
+      
+      <!-- Selectors -->
+      <div class="form-row flex-row">
+        <div class="form-group flex-1">
+          <label>Interest Regime</label>
+          <select formControlName="interestType" class="form-control">
+            <option value="simple">Simple Interest</option>
+            <option value="compound">Compound Interest</option>
+          </select>
+        </div>
+        
+        <div class="form-group flex-1">
+          <label>Solve for (Missing Variable)</label>
+          <select formControlName="targetVariable" class="form-control">
+            <option value="vf">Future Value (FV)</option>
+            <option value="vp">Present Value (PV)</option>
+            <option value="i">Interest Rate (i)</option>
+            <option value="n">Periods (n)</option>
+          </select>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- Inputs -->
+      <div class="inputs-grid">
+        <div class="form-group" [class.disabled-group]="form.get('targetVariable')?.value === 'vp'">
+          <label>Present Value (PV)</label>
+          <div class="input-with-icon">
+            <span class="currency-symbol">$</span>
+            <input type="number" formControlName="vp" class="form-control" placeholder="e.g. 1000">
+          </div>
+        </div>
+
+        <div class="form-group" [class.disabled-group]="form.get('targetVariable')?.value === 'vf'">
+          <label>Future Value (FV)</label>
+          <div class="input-with-icon">
+            <span class="currency-symbol">$</span>
+            <input type="number" formControlName="vf" class="form-control" placeholder="e.g. 1500">
+          </div>
+        </div>
+
+        <div class="form-group" [class.disabled-group]="form.get('targetVariable')?.value === 'i'">
+          <label>Interest Rate (i) per period</label>
+          <div class="input-with-icon right-icon">
+            <input type="number" formControlName="i" class="form-control" placeholder="e.g. 5">
+            <span class="percent-symbol">%</span>
+          </div>
+        </div>
+
+        <div class="form-group" [class.disabled-group]="form.get('targetVariable')?.value === 'n'">
+          <label>Periods (n)</label>
+          <div class="input-with-icon right-icon">
+            <input type="number" formControlName="n" class="form-control" placeholder="e.g. 12">
+            <span class="percent-symbol">per.</span>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <!-- Right Side: Result -->
+  <div class="result-card crystal-box" [class.has-result]="result !== null">
+    <div class="result-header">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
+      <h3>Calculation Result</h3>
+    </div>
+    
+    <div class="result-content" *ngIf="result !== null; else noResult">
+      <p class="result-label">The calculated {{resultLabel}} is:</p>
+      
+      <div class="result-value-container">
+        <!-- Show currency if it's monetary, % if rate, or just number if periods -->
+        <span class="result-value">
+          <ng-container *ngIf="form.get('targetVariable')?.value === 'vp' || form.get('targetVariable')?.value === 'vf'">$</ng-container>
+          {{ result | number:'1.2-4' }}
+          <ng-container *ngIf="form.get('targetVariable')?.value === 'i'">%</ng-container>
+        </span>
+      </div>
+
+      <div class="result-formula">
+        <p class="formula-text" *ngIf="form.get('interestType')?.value === 'simple'">
+          Formula used: 
+          <span *ngIf="form.get('targetVariable')?.value === 'vf'">FV = PV * (1 + i * n)</span>
+          <span *ngIf="form.get('targetVariable')?.value === 'vp'">PV = FV / (1 + i * n)</span>
+          <span *ngIf="form.get('targetVariable')?.value === 'i'">i = (FV/PV - 1) / n</span>
+          <span *ngIf="form.get('targetVariable')?.value === 'n'">n = (FV/PV - 1) / i</span>
+        </p>
+        <p class="formula-text" *ngIf="form.get('interestType')?.value === 'compound'">
+          Formula used: 
+          <span *ngIf="form.get('targetVariable')?.value === 'vf'">FV = PV * (1 + i)^n</span>
+          <span *ngIf="form.get('targetVariable')?.value === 'vp'">PV = FV / (1 + i)^n</span>
+          <span *ngIf="form.get('targetVariable')?.value === 'i'">i = (FV/PV)^(1/n) - 1</span>
+          <span *ngIf="form.get('targetVariable')?.value === 'n'">n = log(FV/PV) / log(1 + i)</span>
+        </p>
+      </div>
+    </div>
+
+    <ng-template #noResult>
+      <div class="empty-state">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <p>Please fill out the enabled fields with valid numbers to see the result.</p>
+      </div>
+    </ng-template>
+  </div>
+
+</div>
