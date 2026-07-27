@@ -8,10 +8,14 @@
   flex-direction: column;
 
   &.collapsed {
-    width: 48px;
-    
     .sidebar-toggle-header {
       border-bottom: none;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    &.collapsed {
+      width: 48px;
     }
   }
 }
