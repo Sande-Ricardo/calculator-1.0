@@ -6,7 +6,7 @@
 
   <div class="constants-list">
     <div class="constant-item" *ngFor="let c of constants" (click)="onInject(c.value)">
-      <div class="constant-main">
+      <div class="constant-header">
         <span class="symbol">{{ c.symbol }}</span>
         <span class="name">{{ c.name }}</span>
       </div>
