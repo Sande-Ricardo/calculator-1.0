@@ -1,0 +1,39 @@
+<div class="history-card crystal-box">
+  <div class="history-header">
+    <div class="header-left">
+      <svg class="header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <polyline points="12 6 12 12 16 14"/>
+      </svg>
+      <div>
+        <h3>Evaluation History</h3>
+        <span class="sub-text">Last 10 evaluated sessions (saved in browser)</span>
+      </div>
+    </div>
+
+    <button type="button" class="btn-clear" (click)="onClear()" *ngIf="history.length > 0">Clear History</button>
+  </div>
+
+  <div class="history-list" *ngIf="history.length > 0; else emptyState">
+    <div class="history-item" *ngFor="let item of history" (click)="onSelect(item)">
+      <div class="item-top">
+        <span class="expr-code"><code>{{ item.expression }}</code></span>
+        <span class="timestamp">{{ item.timestamp }}</span>
+      </div>
+      <div class="item-bottom">
+        <span class="scope-info">{{ getVariableScopeString(item.variables) }}</span>
+        <span class="result-badge">= {{ item.result }}</span>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #emptyState>
+    <div class="empty-history-state">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="12" cy="12" r="10"/>
+        <polyline points="12 6 12 12 16 14"/>
+      </svg>
+      <span>No session history recorded yet. Successfully evaluated formulas will appear here.</span>
+    </div>
+  </ng-template>
+</div>

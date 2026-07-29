@@ -1,0 +1,139 @@
+.history-card {
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.history-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .header-icon {
+      width: 22px;
+      height: 22px;
+      color: var(--primary-color);
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0;
+    }
+
+    .sub-text {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+  }
+
+  .btn-clear {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: var(--error-color);
+      color: #fca5a5;
+    }
+  }
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 320px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.history-item {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: var(--primary-color);
+    background: rgba(59, 130, 246, 0.08);
+  }
+
+  .item-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .expr-code {
+      code {
+        font-family: var(--font-mono);
+        color: var(--text-primary);
+        font-weight: 600;
+        font-size: 0.9rem;
+      }
+    }
+
+    .timestamp {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+  }
+
+  .item-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .scope-info {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+    }
+
+    .result-badge {
+      font-size: 0.85rem;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: #60a5fa;
+    }
+  }
+}
+
+.empty-history-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 24px 16px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px dashed var(--border-color);
+  border-radius: 8px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  text-align: center;
+
+  .icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+}

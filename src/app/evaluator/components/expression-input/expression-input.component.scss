@@ -1,0 +1,226 @@
+.expression-input-card {
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.input-header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .header-title {
+    h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+
+    .hint {
+      font-size: 0.825rem;
+      color: var(--text-muted);
+
+      code {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 2px 6px;
+        border-radius: 4px;
+        color: #60a5fa;
+        font-family: var(--font-mono);
+      }
+    }
+  }
+}
+
+.controls-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.unit-toggle-group {
+  display: flex;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 2px;
+
+  .toggle-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    padding: 4px 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &.active {
+      background: var(--primary-color);
+      color: #fff;
+    }
+  }
+}
+
+.precision-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+  }
+
+  .precision-select {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-primary);
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    cursor: pointer;
+
+    option {
+      background: var(--surface-dark);
+      color: #fff;
+    }
+  }
+}
+
+.smart-input-container {
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 8px 14px;
+  transition: all 0.3s ease;
+
+  &:focus-within {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+  }
+
+  &.has-error {
+    border-color: var(--error-color);
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+  }
+
+  .search-icon {
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .smart-input {
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-size: 1.05rem;
+    font-family: var(--font-mono);
+    width: 100%;
+    outline: none;
+
+    &::placeholder {
+      color: var(--text-muted);
+      font-family: var(--font-primary);
+    }
+  }
+}
+
+.presets-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+
+  .preset-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .preset-pill {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 3px 10px;
+    border-radius: 14px;
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: rgba(59, 130, 246, 0.15);
+      border-color: var(--primary-color);
+      color: #60a5fa;
+    }
+  }
+}
+
+.latex-preview-section {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px 16px;
+
+  .preview-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+
+  .latex-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 48px;
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    overflow-x: auto;
+  }
+}
+
+.error-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid var(--error-color);
+  color: #fca5a5;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+
+  .error-icon {
+    width: 18px;
+    height: 18px;
+    color: var(--error-color);
+    flex-shrink: 0;
+  }
+
+  .pos-info {
+    color: #f87171;
+    margin-left: 6px;
+    font-weight: 500;
+  }
+}

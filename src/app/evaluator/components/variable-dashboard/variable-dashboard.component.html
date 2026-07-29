@@ -1,0 +1,101 @@
+<div class="variable-dashboard-container">
+  
+  <!-- Left Side: Variables Controls Dashboard -->
+  <div class="dashboard-card crystal-box">
+    <div class="dashboard-header">
+      <div class="header-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="4" y="4" width="16" height="16" rx="2"/>
+          <line x1="9" y1="9" x2="15" y2="9"/>
+          <line x1="9" y1="15" x2="15" y2="15"/>
+          <line x1="12" y1="9" x2="12" y2="15"/>
+        </svg>
+      </div>
+      <div>
+        <h3>Variable Dashboard</h3>
+        <span class="sub-text">Assign numeric values and drag sliders for real-time evaluation</span>
+      </div>
+    </div>
+
+    <!-- Empty State: Constant Expression -->
+    <div class="empty-vars-box" *ngIf="variableControls.length === 0">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+      </svg>
+      <span>No free algebraic variables detected in expression (Constant calculation mode).</span>
+    </div>
+
+    <!-- Dynamic Variable Sliders & Inputs Grid -->
+    <div class="variables-grid" *ngIf="variableControls.length > 0">
+      <div class="variable-control-card" *ngFor="let ctrl of variableControls">
+        <div class="var-header">
+          <div class="var-name-badge">{{ ctrl.name }}</div>
+          <div class="var-num-input-wrap">
+            <span class="eq-symbol">=</span>
+            <input 
+              type="number" 
+              [ngModel]="ctrl.value" 
+              (ngModelChange)="onVariableValueChange(ctrl, $event)" 
+              step="any"
+              class="var-number-input" />
+            <button type="button" class="btn-reset-var" (click)="resetVariable(ctrl)" title="Reset to default (1)">↺</button>
+          </div>
+        </div>
+
+        <!-- Range Slider -->
+        <div class="slider-container">
+          <input 
+            type="range" 
+            [min]="ctrl.min" 
+            [max]="ctrl.max" 
+            [step]="ctrl.step" 
+            [value]="ctrl.value" 
+            (input)="onSliderInput(ctrl, $event)" 
+            class="var-slider" />
+          <div class="slider-bounds">
+            <span>{{ ctrl.min }}</span>
+            <span>{{ ctrl.max }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Side: Prominent Real-Time Solution Card -->
+  <div class="solution-card crystal-box" [class.has-error]="evaluationResult && !evaluationResult.success">
+    <div class="solution-header">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/>
+        <path d="M12 18V6"/>
+      </svg>
+      <h3>Evaluation Result</h3>
+    </div>
+
+    <div class="solution-body" *ngIf="evaluationResult && evaluationResult.success; else noSolution">
+      <div class="result-label">Computed Value:</div>
+      <div class="big-result-value">
+        {{ evaluationResult.formattedResult }}
+      </div>
+      <div class="scope-summary" *ngIf="variableControls.length > 0">
+        <span class="summary-title">Evaluated Scope:</span>
+        <span class="scope-pill" *ngFor="let ctrl of variableControls">
+          {{ ctrl.name }} = <strong>{{ ctrl.value }}</strong>
+        </span>
+      </div>
+    </div>
+
+    <ng-template #noSolution>
+      <div class="solution-empty-state">
+        <div *ngIf="evaluationResult && !evaluationResult.success" class="eval-error-msg">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span>{{ evaluationResult.error }}</span>
+        </div>
+        <div *ngIf="!evaluationResult" class="placeholder-msg">
+          <span>Enter a valid mathematical expression to view live evaluation results.</span>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+
+</div>

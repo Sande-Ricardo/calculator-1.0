@@ -1,0 +1,47 @@
+<div class="plot-card crystal-box">
+  <div class="plot-header">
+    <div class="header-left">
+      <svg class="header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+      </svg>
+      <div>
+        <h3>1D Function Plot Preview</h3>
+        <span class="sub-text">Numerical curve visualization powered by Chart.js</span>
+      </div>
+    </div>
+
+    <!-- Domain Controls -->
+    <div class="domain-controls" *ngIf="isValidPlotable">
+      <label>Domain [{{ targetVariable }}]:</label>
+      <div class="range-inputs">
+        <input 
+          type="number" 
+          [(ngModel)]="xMin" 
+          (change)="onDomainChange()" 
+          class="domain-input" 
+          placeholder="-10" />
+        <span class="range-sep">to</span>
+        <input 
+          type="number" 
+          [(ngModel)]="xMax" 
+          (change)="onDomainChange()" 
+          class="domain-input" 
+          placeholder="10" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Chart Canvas Container -->
+  <div class="canvas-container" *ngIf="isValidPlotable; else noPlot">
+    <canvas #chartCanvas></canvas>
+  </div>
+
+  <ng-template #noPlot>
+    <div class="no-plot-state">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      <span>Enter an expression containing at least one variable (e.g. <code>f(x) = x^2 - 4</code>) to generate a plot preview.</span>
+    </div>
+  </ng-template>
+</div>

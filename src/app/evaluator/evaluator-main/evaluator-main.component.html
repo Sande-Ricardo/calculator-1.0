@@ -1,0 +1,37 @@
+<div class="evaluator-page-container container2">
+  <!-- Header Card -->
+  <div class="evaluator-header-card crystal-box">
+    <h1>Numerical Expression Evaluator & Interpreter</h1>
+    <p>Parse, analyze, and evaluate dynamic mathematical functions instantaneously in your browser.</p>
+  </div>
+
+  <!-- Primary Expression Input Box -->
+  <app-expression-input (parsed)="onExpressionParsed($event)"></app-expression-input>
+
+  <!-- Variable Dashboard (Located directly below expression box) -->
+  <app-variable-dashboard 
+    [variablesList]="detectedVariables" 
+    [parsedNode]="parsedNode" 
+    [precision]="decimalPrecision" 
+    [angleUnit]="angleUnit" 
+    [currentExpression]="currentExpression"
+    (evaluated)="onEvaluated($event)">
+  </app-variable-dashboard>
+
+  <!-- Engineering Tools Grid: 1D Plot Preview & Root Finder -->
+  <div class="engineering-tools-grid">
+    <app-plot-preview 
+      [expression]="currentExpression" 
+      [variables]="detectedVariables" 
+      [fixedScope]="lastScope">
+    </app-plot-preview>
+
+    <app-root-finder 
+      [expression]="currentExpression" 
+      [variables]="detectedVariables">
+    </app-root-finder>
+  </div>
+
+  <!-- Session History Panel -->
+  <app-history-panel (selectEntry)="onHistorySelect($event)"></app-history-panel>
+</div>

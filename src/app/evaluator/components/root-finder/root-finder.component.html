@@ -1,0 +1,64 @@
+<div class="root-card crystal-box">
+  <div class="root-header">
+    <div class="header-title">
+      <svg class="header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="16"/>
+        <line x1="8" y1="12" x2="16" y2="12"/>
+      </svg>
+      <div>
+        <h3>Numerical Root Finder ($f(x) = 0$)</h3>
+        <span class="sub-text">Newton-Raphson client-side iterative root approximation</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="solver-controls" *ngIf="variables.length > 0; else noVarsState">
+    <!-- Variable Selection -->
+    <div class="control-group" *ngIf="variables.length > 1">
+      <label>Target Variable:</label>
+      <select [(ngModel)]="targetVariable" class="select-input">
+        <option *ngFor="let v of variables" [value]="v">{{ v }}</option>
+      </select>
+    </div>
+
+    <!-- Initial Guess Input -->
+    <div class="control-group">
+      <label>Initial Guess ($x_0$):</label>
+      <input 
+        type="number" 
+        [(ngModel)]="initialGuess" 
+        step="any" 
+        class="num-input" 
+        placeholder="1.0" />
+    </div>
+
+    <button type="button" class="btn-solve" (click)="solveRoot()" [disabled]="isSolving">
+      <span *ngIf="!isSolving">Find Root</span>
+      <span *ngIf="isSolving">Solving...</span>
+    </button>
+  </div>
+
+  <ng-template #noVarsState>
+    <div class="empty-state">
+      <span>Enter an expression containing at least one variable to approximate roots.</span>
+    </div>
+  </ng-template>
+
+  <!-- Result Banner -->
+  <div class="root-result-banner animate-fade-in" *ngIf="result" [class.success]="result.converged" [class.failed]="!result.converged">
+    <div class="result-top">
+      <div class="badge" [class.badge-success]="result.converged" [class.badge-danger]="!result.converged">
+        {{ result.converged ? 'CONVERGED' : 'FAILED' }}
+      </div>
+      <span class="iter-info">{{ result.iterations }} iterations</span>
+    </div>
+
+    <div class="root-value-row" *ngIf="result.root !== null">
+      <span class="root-label">Approximated Root:</span>
+      <span class="root-val">{{ targetVariable }} = {{ result.root }}</span>
+    </div>
+
+    <div class="result-message">{{ result.message }}</div>
+  </div>
+</div>

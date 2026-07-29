@@ -1,0 +1,84 @@
+<div class="expression-input-card crystal-box">
+  <div class="input-header">
+    <div class="header-title">
+      <h3>Expression Input</h3>
+      <span class="hint">Type any formula (e.g. <code>3 * sin(x) + log(y) / 2</code>)</span>
+    </div>
+
+    <!-- Toolbar Controls -->
+    <div class="controls-toolbar">
+      <!-- Angle Unit Toggle -->
+      <div class="unit-toggle-group">
+        <button 
+          type="button" 
+          class="toggle-btn" 
+          [class.active]="angleUnit === 'rad'" 
+          (click)="onAngleUnitToggle('rad')">Rad</button>
+        <button 
+          type="button" 
+          class="toggle-btn" 
+          [class.active]="angleUnit === 'deg'" 
+          (click)="onAngleUnitToggle('deg')">Deg</button>
+      </div>
+
+      <!-- Precision Selector -->
+      <div class="precision-group">
+        <label for="precisionSelect">Precision:</label>
+        <select 
+          id="precisionSelect" 
+          [(ngModel)]="decimalPrecision" 
+          (change)="onPrecisionChange()" 
+          class="precision-select">
+          <option [ngValue]="2">2 Dec</option>
+          <option [ngValue]="4">4 Dec</option>
+          <option [ngValue]="6">6 Dec</option>
+          <option [ngValue]="8">8 Dec</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Primary Input Box -->
+  <div class="smart-input-container" [class.has-error]="errorMessage !== null">
+    <div class="search-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4 4h16v16H4z"/>
+        <path d="M8 8h3v8H8"/>
+        <path d="M13 12h3"/>
+      </svg>
+    </div>
+    <input 
+      type="text" 
+      [formControl]="expressionControl" 
+      class="smart-input" 
+      placeholder="Enter expression e.g. f(x,y) = x^2 + sqrt(y)..." />
+  </div>
+
+  <!-- Presets Bar -->
+  <div class="presets-bar">
+    <span class="preset-label">Quick Presets:</span>
+    <button type="button" class="preset-pill" (click)="setPresetExpression('3 * sin(x) + cos(x)')">3·sin(x) + cos(x)</button>
+    <button type="button" class="preset-pill" (click)="setPresetExpression('x^2 - 4')">x² - 4</button>
+    <button type="button" class="preset-pill" (click)="setPresetExpression('A * exp(-k * t)')">A·e^(-k·t)</button>
+    <button type="button" class="preset-pill" (click)="setPresetExpression('(x^2 + y) / sqrt(z)')">(x²+y)/√z</button>
+  </div>
+
+  <!-- Live LaTeX Render Area -->
+  <div class="latex-preview-section" *ngIf="latexOutput">
+    <div class="preview-label">Live Math Preview (WYSIWYG):</div>
+    <div class="latex-box">
+      <app-mathjax-viewer [expression]="latexOutput"></app-mathjax-viewer>
+    </div>
+  </div>
+
+  <!-- Syntax Error Alert -->
+  <div class="error-banner animate-fade-in" *ngIf="errorMessage">
+    <svg class="error-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+    </svg>
+    <div class="error-details">
+      <strong>Syntax Error:</strong> {{ errorMessage }}
+      <span *ngIf="errorPosition !== null" class="pos-info">(Position {{ errorPosition }})</span>
+    </div>
+  </div>
+</div>
