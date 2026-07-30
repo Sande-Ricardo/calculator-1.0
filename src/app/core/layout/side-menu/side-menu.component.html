@@ -1,145 +1,147 @@
 <div class="sidebar crystal-box">
-  <div class="logo-container">
-    <img src="assets/img/logo-w.png" alt="Calculato Logo" class="brand-logo" />
-  </div>
   <div class="menu-items">
     
-    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="menu-item" title="Standard Calculator">
-      <div class="icon-wrapper">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="4" y="2" width="16" height="20" rx="2" ry="2"/>
-          <line x1="9" y1="22" x2="15" y2="22"/>
-          <line x1="8" y1="6" x2="16" y2="6"/>
-          <circle cx="8" cy="11" r="1"/>
-          <circle cx="12" cy="11" r="1"/>
-          <circle cx="16" cy="11" r="1"/>
-          <circle cx="8" cy="15" r="1"/>
-          <circle cx="12" cy="15" r="1"/>
-          <circle cx="16" cy="15" r="1"/>
-          <circle cx="8" cy="19" r="1"/>
-          <circle cx="12" cy="19" r="1"/>
-          <circle cx="16" cy="19" r="1"/>
-        </svg>
-      </div>
-      <span class="menu-text">Calculator</span>
-    </a>
+    <div class="menu-section">
+      <div class="section-title">Basic Math</div>
+      
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="menu-item" title="Standard Calculator">
+        <div class="icon-wrapper">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="2" width="16" height="20" rx="2" ry="2"/>
+            <line x1="9" y1="22" x2="15" y2="22"/>
+            <line x1="8" y1="6" x2="16" y2="6"/>
+            <circle cx="8" cy="11" r="1"/>
+            <circle cx="12" cy="11" r="1"/>
+            <circle cx="16" cy="11" r="1"/>
+            <circle cx="8" cy="15" r="1"/>
+            <circle cx="12" cy="15" r="1"/>
+            <circle cx="16" cy="15" r="1"/>
+            <circle cx="8" cy="19" r="1"/>
+            <circle cx="12" cy="19" r="1"/>
+            <circle cx="16" cy="19" r="1"/>
+          </svg>
+        </div>
+        <span class="menu-text">Calculator</span>
+      </a>
 
-    <a routerLink="/equation" routerLinkActive="active" class="menu-item" title="Equation Solver">
-      <div class="icon-wrapper">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-          <line x1="5" y1="9" x2="19" y2="9" />
-          <line x1="5" y1="15" x2="19" y2="15" />
-        </svg>
-      </div>
-      <span class="menu-text">Equations</span>
-    </a>
+      <a routerLink="/evaluator" routerLinkActive="active" class="menu-item" title="Expression Evaluator">
+        <div class="icon-wrapper">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16v16H4z"/>
+            <path d="M8 8h3v8H8"/>
+            <path d="M13 12h3"/>
+          </svg>
+        </div>
+        <span class="menu-text">Evaluator</span>
+      </a>
+    </div>
 
-    <a routerLink="/graph" routerLinkActive="active" class="menu-item" title="Graphing">
-      <div class="icon-wrapper">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-        </svg>
-      </div>
-      <span class="menu-text">Graphing</span>
-    </a>
+    <div class="menu-section">
+      <div class="section-title">Algebra & Matrices</div>
+      
+      <a routerLink="/equation" routerLinkActive="active" class="menu-item" title="Equation Solver">
+        <div class="icon-wrapper">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <line x1="5" y1="9" x2="19" y2="9" />
+            <line x1="5" y1="15" x2="19" y2="15" />
+          </svg>
+        </div>
+        <span class="menu-text">Equations</span>
+      </a>
 
-    <a routerLink="/matrix" routerLinkActive="active" class="menu-item" title="Matrices">
-      <div class="icon-wrapper">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-          <line x1="9" y1="3" x2="9" y2="21"/>
-          <line x1="15" y1="3" x2="15" y2="21"/>
-          <line x1="3" y1="9" x2="21" y2="9"/>
-          <line x1="3" y1="15" x2="21" y2="15"/>
-        </svg>
-      </div>
-      <span class="menu-text">Matrices</span>
-    </a>
+      <a routerLink="/matrix" routerLinkActive="active" class="menu-item" title="Matrices">
+        <div class="icon-wrapper">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+            <line x1="9" y1="3" x2="9" y2="21"/>
+            <line x1="15" y1="3" x2="15" y2="21"/>
+            <line x1="3" y1="9" x2="21" y2="9"/>
+            <line x1="3" y1="15" x2="21" y2="15"/>
+          </svg>
+        </div>
+        <span class="menu-text">Matrices</span>
+      </a>
+    </div>
 
-    <a routerLink="/stats" routerLinkActive="active" class="menu-item" title="Statistics">
-      <div class="icon-wrapper">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="18" y1="20" x2="18" y2="10" />
-          <line x1="12" y1="20" x2="12" y2="4" />
-          <line x1="6" y1="20" x2="6" y2="14" />
-        </svg>
-      </div>
-      <span class="menu-text">Statistics</span>
-    </a>
+    <div class="menu-section">
+      <div class="section-title">Calculus</div>
+      
+      <a routerLink="/graph" routerLinkActive="active" class="menu-item" title="Graphing">
+        <div class="icon-wrapper">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+        </div>
+        <span class="menu-text">Graphing</span>
+      </a>
 
-    <a routerLink="/ode" routerLinkActive="active" class="menu-item" title="Differential Equations">
-      <div class="icon-wrapper">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M2 20h20" />
-          <path d="M4 20c2-6 6-16 10-16s8 10 8 10" />
-        </svg>
-      </div>
-      <span class="menu-text">ODEs</span>
-    </a>
+      <a routerLink="/ode" routerLinkActive="active" class="menu-item" title="Differential Equations">
+        <div class="icon-wrapper">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 20h20" />
+            <path d="M4 20c2-6 6-16 10-16s8 10 8 10" />
+          </svg>
+        </div>
+        <span class="menu-text">ODEs</span>
+      </a>
 
-    <a routerLink="/derivate" routerLinkActive="active" class="menu-item" title="Derivatives">
-      <div class="icon-wrapper">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-          <path d="M12 5v14M5 12h14"/>
-          <!-- Little tick mark for prime -->
-          <path d="M14 6l2-2" stroke-width="2.5"/>
-        </svg>
-      </div>
-      <span class="menu-text">Derivatives</span>
-    </a>
+      <a routerLink="/derivate" routerLinkActive="active" class="menu-item" title="Derivatives">
+        <div class="icon-wrapper">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M12 5v14M5 12h14"/>
+            <path d="M14 6l2-2" stroke-width="2.5"/>
+          </svg>
+        </div>
+        <span class="menu-text">Derivatives</span>
+      </a>
 
-    <a routerLink="/integrate" routerLinkActive="active" class="menu-item" title="Integrals">
-      <div class="icon-wrapper">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-          <path d="M14.5 5c0-1.5-1.5-2.5-3-2.5S8.5 3.8 8.5 5.5v13c0 1.7 1.5 3 3 3s3-1 3-2.5"/>
-        </svg>
-      </div>
-      <span class="menu-text">Integrals</span>
-    </a>
+      <a routerLink="/integrate" routerLinkActive="active" class="menu-item" title="Integrals">
+        <div class="icon-wrapper">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <path d="M14.5 5c0-1.5-1.5-2.5-3-2.5S8.5 3.8 8.5 5.5v13c0 1.7 1.5 3 3 3s3-1 3-2.5"/>
+          </svg>
+        </div>
+        <span class="menu-text">Integrals</span>
+      </a>
+    </div>
 
-    <a routerLink="/converter" routerLinkActive="active" class="menu-item" title="Unit Converter">
-      <div class="icon-wrapper">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M16 3h5v5"/>
-          <path d="M4 20L21 3"/>
-          <path d="M21 16v5h-5"/>
-          <path d="M15 15l6 6"/>
-          <path d="M4 4l5 5"/>
-        </svg>
-      </div>
-      <span class="menu-text">Converter</span>
-    </a>
+    <div class="menu-section">
+      <div class="section-title">Applied Math</div>
 
-    <a routerLink="/finance" routerLinkActive="active" class="menu-item" title="Financial Math">
-      <div class="icon-wrapper">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="12" y1="1" x2="12" y2="23"/>
-          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-        </svg>
-      </div>
-      <span class="menu-text">Finance</span>
-    </a>
+      <a routerLink="/stats" routerLinkActive="active" class="menu-item" title="Statistics">
+        <div class="icon-wrapper">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10" />
+            <line x1="12" y1="20" x2="12" y2="4" />
+            <line x1="6" y1="20" x2="6" y2="14" />
+          </svg>
+        </div>
+        <span class="menu-text">Statistics</span>
+      </a>
 
-    <a routerLink="/evaluator" routerLinkActive="active" class="menu-item" title="Expression Evaluator">
-      <div class="icon-wrapper">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 4h16v16H4z"/>
-          <path d="M8 8h3v8H8"/>
-          <path d="M13 12h3"/>
-        </svg>
-      </div>
-      <span class="menu-text">Evaluator</span>
-    </a>
+      <a routerLink="/converter" routerLinkActive="active" class="menu-item" title="Unit Converter">
+        <div class="icon-wrapper">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 3h5v5"/>
+            <path d="M4 20L21 3"/>
+            <path d="M21 16v5h-5"/>
+            <path d="M15 15l6 6"/>
+            <path d="M4 4l5 5"/>
+          </svg>
+        </div>
+        <span class="menu-text">Converter</span>
+      </a>
 
-    <a routerLink="/course" routerLinkActive="active" class="menu-item" title="Courses">
-      <div class="icon-wrapper">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-        </svg>
-      </div>
-      <span class="menu-text">Courses</span>
-    </a>
+      <a routerLink="/finance" routerLinkActive="active" class="menu-item" title="Financial Math">
+        <div class="icon-wrapper">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="1" x2="12" y2="23"/>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+          </svg>
+        </div>
+        <span class="menu-text">Finance</span>
+      </a>
+    </div>
 
   </div>
 </div>
