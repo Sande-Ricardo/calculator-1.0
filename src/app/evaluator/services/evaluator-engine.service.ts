@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as math from 'mathjs';
-import { EvaluationResult, PlotPoint, RootFindingResult } from '../models/evaluator.model';
+import { EvaluationResult, FoundRoot, PlotPoint, RootFindingResult } from '../models/evaluator.model';
 
 @Injectable({
   providedIn: 'root'
@@ -109,62 +109,189 @@ export class EvaluatorEngineService {
   }
 
   /**
-   * Solves f(varName) = 0 using Newton-Raphson method.
+   * Solves f(variable) = 0 for single or multi-root discovery using a hybrid sampling & Newton-Raphson approach.
    */
-  findRootNewtonRaphson(
+  findRoots(
     expression: string,
     variable: string,
+    mode: 'interval' | 'single' = 'interval',
+    range: [number, number] = [-10, 10],
     initialGuess: number = 1.0,
-    maxIterations: number = 25,
-    tolerance: number = 1e-7
+    fixedScope: Record<string, number> = {},
+    tolerance: number = 1e-7,
+    residualTolerance: number = 1e-5
   ): RootFindingResult {
     try {
       const parsedNode = math.parse(expression);
-      const derivativeNode = math.derivative(parsedNode, variable);
-
-      const fCompiled = parsedNode.compile();
-      const dfCompiled = derivativeNode.compile();
-
-      let x = initialGuess;
-      for (let i = 0; i < maxIterations; i++) {
-        const y = Number(fCompiled.evaluate({ [variable]: x }));
-        const dy = Number(dfCompiled.evaluate({ [variable]: x }));
-
-        if (Math.abs(dy) < 1e-12) {
-          return {
-            root: null,
-            iterations: i,
-            converged: false,
-            message: `Derivative near zero at x = ${x}. Convergence failed.`
-          };
-        }
-
-        const xNext = x - y / dy;
-
-        if (Math.abs(xNext - x) < tolerance) {
-          return {
-            root: Number(xNext.toFixed(6)),
-            iterations: i + 1,
-            converged: true,
-            message: `Converged successfully in ${i + 1} iterations.`
-          };
-        }
-
-        x = xNext;
+      let derivativeNode: math.MathNode | null = null;
+      try {
+        derivativeNode = math.derivative(parsedNode, variable);
+      } catch {
+        // Symbolic derivative not supported for all expressions
       }
 
-      return {
-        root: Number(x.toFixed(6)),
-        iterations: maxIterations,
-        converged: false,
-        message: `Maximum iterations (${maxIterations}) reached without full convergence.`
+      const fCompiled = parsedNode.compile();
+      const dfCompiled = derivativeNode ? derivativeNode.compile() : null;
+
+      const evalF = (val: number): number => {
+        try {
+          const res = Number(fCompiled.evaluate({ ...fixedScope, [variable]: val }));
+          return isNaN(res) ? NaN : res;
+        } catch {
+          return NaN;
+        }
       };
+
+      const evalDF = (val: number): number => {
+        if (dfCompiled) {
+          try {
+            const res = Number(dfCompiled.evaluate({ ...fixedScope, [variable]: val }));
+            if (!isNaN(res) && isFinite(res)) return res;
+          } catch {}
+        }
+        // Central finite difference numerical approximation
+        const h = 1e-6;
+        const yPlus = evalF(val + h);
+        const yMinus = evalF(val - h);
+        return (yPlus - yMinus) / (2 * h);
+      };
+
+      const tryRefineRoot = (seed: number, maxIter: number = 30): FoundRoot | null => {
+        let x = seed;
+        for (let i = 0; i < maxIter; i++) {
+          const y = evalF(x);
+          if (isNaN(y) || !isFinite(y)) return null;
+
+          if (Math.abs(y) < residualTolerance) {
+            return {
+              value: Number(x.toFixed(6)),
+              residual: Math.abs(y),
+              iterations: i + 1
+            };
+          }
+
+          const dy = evalDF(x);
+          if (isNaN(dy) || Math.abs(dy) < 1e-12) return null;
+
+          const xNext = x - y / dy;
+          if (isNaN(xNext) || !isFinite(xNext)) return null;
+
+          if (Math.abs(xNext - x) < tolerance) {
+            const yNext = evalF(xNext);
+            if (!isNaN(yNext) && isFinite(yNext) && Math.abs(yNext) < residualTolerance) {
+              return {
+                value: Number(xNext.toFixed(6)),
+                residual: Math.abs(yNext),
+                iterations: i + 1
+              };
+            }
+          }
+          x = xNext;
+        }
+
+        const yFinal = evalF(x);
+        if (!isNaN(yFinal) && isFinite(yFinal) && Math.abs(yFinal) < residualTolerance) {
+          return {
+            value: Number(x.toFixed(6)),
+            residual: Math.abs(yFinal),
+            iterations: maxIter
+          };
+        }
+        return null;
+      };
+
+      if (mode === 'single') {
+        const root = tryRefineRoot(initialGuess, 40);
+        if (root) {
+          return {
+            roots: [root],
+            mode: 'single',
+            converged: true,
+            message: `Root converged at ${variable} = ${root.value} in ${root.iterations} iterations.`,
+            targetVariable: variable
+          };
+        } else {
+          return {
+            roots: [],
+            mode: 'single',
+            converged: false,
+            message: `No root converged starting from initial guess ${variable}₀ = ${initialGuess}.`,
+            targetVariable: variable
+          };
+        }
+      }
+
+      // Interval Mode: Multi-root sampling across [min, max]
+      const [start, end] = range[0] < range[1] ? range : [range[1], range[0]];
+      const steps = 200;
+      const stepSize = (end - start) / steps;
+      const seeds: number[] = [];
+
+      let prevX = start;
+      let prevY = evalF(prevX);
+
+      for (let i = 1; i <= steps; i++) {
+        const currX = start + i * stepSize;
+        const currY = evalF(currX);
+
+        if (!isNaN(prevY) && !isNaN(currY) && isFinite(prevY) && isFinite(currY)) {
+          // Check for sign change
+          if (prevY * currY <= 0) {
+            seeds.push((prevX + currX) / 2);
+          } else {
+            // Check for local minimum near zero
+            const midX = (prevX + currX) / 2;
+            const midY = evalF(midX);
+            if (!isNaN(midY) && Math.abs(midY) < Math.abs(prevY) && Math.abs(midY) < Math.abs(currY) && Math.abs(midY) < 0.5) {
+              seeds.push(midX);
+            }
+          }
+        }
+        prevX = currX;
+        prevY = currY;
+      }
+
+      // Refine roots from all discovered seeds
+      const candidates: FoundRoot[] = [];
+      for (const seed of seeds) {
+        const r = tryRefineRoot(seed, 25);
+        if (r && r.value >= start - 1e-4 && r.value <= end + 1e-4) {
+          const isDuplicate = candidates.some(c => Math.abs(c.value - r.value) < 1e-3);
+          if (!isDuplicate) {
+            candidates.push(r);
+          }
+        }
+      }
+
+      candidates.sort((a, b) => a.value - b.value);
+
+      if (candidates.length > 0) {
+        return {
+          roots: candidates,
+          searchedRange: [start, end],
+          mode: 'interval',
+          converged: true,
+          message: `Found ${candidates.length} real root(s) in range [${start}, ${end}].`,
+          targetVariable: variable
+        };
+      } else {
+        return {
+          roots: [],
+          searchedRange: [start, end],
+          mode: 'interval',
+          converged: false,
+          message: `No real roots found in range [${start}, ${end}].`,
+          targetVariable: variable
+        };
+      }
     } catch (err: any) {
       return {
-        root: null,
-        iterations: 0,
+        roots: [],
+        mode,
+        searchedRange: range,
         converged: false,
-        message: err.message || 'Error during Newton-Raphson root finding.'
+        message: err.message || 'Error during numerical root finding.',
+        targetVariable: variable
       };
     }
   }

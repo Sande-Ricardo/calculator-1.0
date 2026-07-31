@@ -24,11 +24,19 @@ export interface HistoryEntry {
   timestamp: string;
 }
 
-export interface RootFindingResult {
-  root: number | null;
+export interface FoundRoot {
+  value: number;
+  residual: number;
   iterations: number;
+}
+
+export interface RootFindingResult {
+  roots: FoundRoot[];
+  searchedRange?: [number, number];
+  mode: 'interval' | 'single';
   converged: boolean;
   message: string;
+  targetVariable: string;
 }
 
 export interface PlotPoint {

@@ -12,6 +12,9 @@ export class RootFinderComponent implements OnChanges {
   @Input() variables: string[] = [];
 
   targetVariable: string = 'x';
+  searchMode: 'interval' | 'single' = 'interval';
+  rangeMin: number = -10;
+  rangeMax: number = 10;
   initialGuess: number = 1.0;
 
   result: RootFindingResult | null = null;
@@ -28,6 +31,13 @@ export class RootFinderComponent implements OnChanges {
     this.result = null;
   }
 
+  setSearchMode(mode: 'interval' | 'single'): void {
+    if (this.searchMode !== mode) {
+      this.searchMode = mode;
+      this.result = null;
+    }
+  }
+
   solveRoot(): void {
     if (!this.expression || !this.targetVariable) return;
 
@@ -35,12 +45,14 @@ export class RootFinderComponent implements OnChanges {
     this.result = null;
 
     setTimeout(() => {
-      this.result = this.engineService.findRootNewtonRaphson(
+      this.result = this.engineService.findRoots(
         this.expression,
         this.targetVariable,
+        this.searchMode,
+        [this.rangeMin, this.rangeMax],
         this.initialGuess
       );
       this.isSolving = false;
-    }, 100);
+    }, 80);
   }
 }

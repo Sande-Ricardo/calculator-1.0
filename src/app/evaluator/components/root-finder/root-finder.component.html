@@ -8,13 +8,31 @@
       </svg>
       <div>
         <h3>Numerical Root Finder ($f(x) = 0$)</h3>
-        <span class="sub-text">Newton-Raphson client-side iterative root approximation</span>
+        <span class="sub-text">Hybrid bracket sampling & Newton-Raphson solver</span>
       </div>
     </div>
   </div>
 
   <div class="solver-controls" *ngIf="variables.length > 0; else noVarsState">
-    <!-- Variable Selection -->
+    <!-- Search Mode Selector -->
+    <div class="mode-selector">
+      <button 
+        type="button" 
+        class="mode-btn" 
+        [class.active]="searchMode === 'interval'" 
+        (click)="setSearchMode('interval')">
+        Range Search
+      </button>
+      <button 
+        type="button" 
+        class="mode-btn" 
+        [class.active]="searchMode === 'single'" 
+        (click)="setSearchMode('single')">
+        Initial Guess
+      </button>
+    </div>
+
+    <!-- Target Variable Selection (if multiple variables exist) -->
     <div class="control-group" *ngIf="variables.length > 1">
       <label>Target Variable:</label>
       <select [(ngModel)]="targetVariable" class="select-input">
@@ -22,8 +40,28 @@
       </select>
     </div>
 
-    <!-- Initial Guess Input -->
-    <div class="control-group">
+    <!-- Interval Range Inputs -->
+    <div class="control-row" *ngIf="searchMode === 'interval'">
+      <div class="control-group flex-1">
+        <label>Range Min ($x_{{ '{' }}min{{ '}' }}$):</label>
+        <input 
+          type="number" 
+          [(ngModel)]="rangeMin" 
+          step="any" 
+          class="num-input" />
+      </div>
+      <div class="control-group flex-1">
+        <label>Range Max ($x_{{ '{' }}max{{ '}' }}$):</label>
+        <input 
+          type="number" 
+          [(ngModel)]="rangeMax" 
+          step="any" 
+          class="num-input" />
+      </div>
+    </div>
+
+    <!-- Initial Guess Input (Single Mode) -->
+    <div class="control-group" *ngIf="searchMode === 'single'">
       <label>Initial Guess ($x_0$):</label>
       <input 
         type="number" 
@@ -34,7 +72,7 @@
     </div>
 
     <button type="button" class="btn-solve" (click)="solveRoot()" [disabled]="isSolving">
-      <span *ngIf="!isSolving">Find Root</span>
+      <span *ngIf="!isSolving">Find Roots</span>
       <span *ngIf="isSolving">Solving...</span>
     </button>
   </div>
@@ -49,14 +87,23 @@
   <div class="root-result-banner animate-fade-in" *ngIf="result" [class.success]="result.converged" [class.failed]="!result.converged">
     <div class="result-top">
       <div class="badge" [class.badge-success]="result.converged" [class.badge-danger]="!result.converged">
-        {{ result.converged ? 'CONVERGED' : 'FAILED' }}
+        <span *ngIf="result.converged">{{ result.roots.length }} ROOT(S) FOUND</span>
+        <span *ngIf="!result.converged">NO REAL ROOTS FOUND</span>
       </div>
-      <span class="iter-info">{{ result.iterations }} iterations</span>
     </div>
 
-    <div class="root-value-row" *ngIf="result.root !== null">
-      <span class="root-label">Approximated Root:</span>
-      <span class="root-val">{{ targetVariable }} = {{ result.root }}</span>
+    <!-- Roots List (If Roots Found) -->
+    <div class="roots-list" *ngIf="result.converged && result.roots.length > 0">
+      <div class="root-item-card" *ngFor="let r of result.roots; let i = index">
+        <div class="root-item-left">
+          <span class="root-index">#{{ i + 1 }}</span>
+          <span class="root-val">{{ targetVariable }} = {{ r.value }}</span>
+        </div>
+        <div class="root-item-right">
+          <span class="residual-tag" title="Absolute residual |f(x)|">|f({{ targetVariable }})| &approx; {{ r.residual.toExponential(2) }}</span>
+          <span class="iter-tag">{{ r.iterations }} iter</span>
+        </div>
+      </div>
     </div>
 
     <div class="result-message">{{ result.message }}</div>

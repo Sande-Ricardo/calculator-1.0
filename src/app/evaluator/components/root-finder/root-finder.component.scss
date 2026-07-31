@@ -34,13 +34,54 @@
 
 .solver-controls {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  flex-direction: column;
+  align-items: stretch;
   gap: 14px;
   background: rgba(0, 0, 0, 0.2);
   border: 1px solid var(--border-color);
-  padding: 12px 16px;
+  padding: 14px 16px;
   border-radius: 10px;
+
+  .mode-selector {
+    display: flex;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 3px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    width: fit-content;
+
+    .mode-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        color: var(--text-primary);
+      }
+
+      &.active {
+        background: var(--primary-color);
+        color: #fff;
+        box-shadow: 0 2px 6px rgba(59, 130, 246, 0.3);
+      }
+    }
+  }
+
+  .control-row {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+
+    .flex-1 {
+      flex: 1;
+    }
+  }
 
   .control-group {
     display: flex;
@@ -50,6 +91,7 @@
     label {
       font-size: 0.8rem;
       color: var(--text-secondary);
+      white-space: nowrap;
     }
 
     .select-input, .num-input {
@@ -61,14 +103,11 @@
       font-size: 0.85rem;
       padding: 6px 10px;
       outline: none;
+      width: 100%;
 
       &:focus {
         border-color: var(--primary-color);
       }
-    }
-
-    .num-input {
-      width: 90px;
     }
   }
 
@@ -77,12 +116,13 @@
     color: #fff;
     border: none;
     border-radius: 6px;
-    padding: 8px 16px;
+    padding: 8px 18px;
     font-size: 0.85rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
-    margin-left: auto;
+    align-self: flex-end;
+    margin-top: 4px;
 
     &:hover:not(:disabled) {
       box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
@@ -113,7 +153,7 @@
   padding: 14px 16px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 
   &.success {
     border-color: var(--success-color);
@@ -133,8 +173,9 @@
     .badge {
       font-size: 0.7rem;
       font-weight: 700;
-      padding: 3px 8px;
+      padding: 3px 10px;
       border-radius: 12px;
+      letter-spacing: 0.5px;
 
       &.badge-success {
         background: rgba(16, 185, 129, 0.2);
@@ -146,28 +187,68 @@
         color: #fbbf24;
       }
     }
-
-    .iter-info {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
   }
 
-  .root-value-row {
+  .roots-list {
     display: flex;
-    align-items: center;
-    gap: 10px;
+    flex-direction: column;
+    gap: 8px;
 
-    .root-label {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-    }
+    .root-item-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 8px 12px;
+      transition: border-color 0.2s ease;
 
-    .root-val {
-      font-size: 1.3rem;
-      font-weight: 800;
-      font-family: var(--font-mono);
-      color: var(--success-color);
+      &:hover {
+        border-color: rgba(52, 211, 153, 0.3);
+      }
+
+      .root-item-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .root-index {
+          font-size: 0.75rem;
+          font-weight: 700;
+          color: var(--accent-color);
+          background: rgba(139, 92, 246, 0.15);
+          padding: 2px 6px;
+          border-radius: 4px;
+        }
+
+        .root-val {
+          font-size: 1.05rem;
+          font-weight: 700;
+          font-family: var(--font-mono);
+          color: #34d399;
+        }
+      }
+
+      .root-item-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .residual-tag {
+          font-size: 0.72rem;
+          font-family: var(--font-mono);
+          color: var(--text-muted);
+          background: rgba(255, 255, 255, 0.04);
+          padding: 2px 6px;
+          border-radius: 4px;
+        }
+
+        .iter-tag {
+          font-size: 0.72rem;
+          color: var(--text-secondary);
+        }
+      }
     }
   }
 
