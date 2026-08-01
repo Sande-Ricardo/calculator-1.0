@@ -1,4 +1,4 @@
-.container00{
+.container00 {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -12,6 +12,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 2rem 0 1.5rem;
+    z-index: 20;
 }
 
 .brand-section {
@@ -34,8 +35,29 @@
     }
 }
 
-.right-menu{
+.mobile-toggle-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
 
+    &:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .hamburger-icon {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+.right-menu {
     width: fit-content;
     height: 100%;
 
@@ -44,23 +66,49 @@
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
-    height: 100%;
 
     margin-right: 2rem;
-
-    // border: 1px solid red;
-
     gap: 1.5rem;
 }
 
-.right-menu li a{
+.right-menu li a {
     text-decoration: none;
     color: var(--text2);
-    
-    font-size: .8rem;
+    font-size: 0.8rem;
     letter-spacing: 1px;
 }
-.right-menu li a:hover{
+
+.right-menu li a:hover {
     color: var(--text1);
-    transition: .1s;
+    transition: 0.1s;
+}
+
+@media (max-width: 768px) {
+    .container00 {
+        padding: 0 1rem;
+    }
+
+    .mobile-toggle-btn {
+        display: flex;
+    }
+
+    .brand-section {
+        gap: 8px;
+        
+        .brand-name {
+            font-size: 1rem;
+        }
+        .top-logo {
+            height: 22px;
+        }
+    }
+
+    .right-menu {
+        gap: 0.8rem;
+        margin-right: 0;
+
+        li a {
+            font-size: 0.72rem;
+        }
+    }
 }

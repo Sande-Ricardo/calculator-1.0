@@ -1,10 +1,10 @@
-<div class="sidebar crystal-box">
+<div class="sidebar crystal-box" [class.mobile-open]="isMobileMenuOpen$ | async">
   <div class="menu-items">
     
     <div class="menu-section">
       <div class="section-title">Basic Math</div>
       
-      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="menu-item" title="Standard Calculator">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="menu-item" title="Standard Calculator" (click)="onNavItemClick()">
         <div class="icon-wrapper">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="4" y="2" width="16" height="20" rx="2" ry="2"/>
@@ -24,7 +24,7 @@
         <span class="menu-text">Calculator</span>
       </a>
 
-      <a routerLink="/evaluator" routerLinkActive="active" class="menu-item" title="Expression Evaluator">
+      <a routerLink="/evaluator" routerLinkActive="active" class="menu-item" title="Expression Evaluator" (click)="onNavItemClick()">
         <div class="icon-wrapper">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M4 4h16v16H4z"/>
@@ -39,7 +39,7 @@
     <div class="menu-section">
       <div class="section-title">Algebra & Matrices</div>
       
-      <a routerLink="/equation" routerLinkActive="active" class="menu-item" title="Equation Solver">
+      <a routerLink="/equation" routerLinkActive="active" class="menu-item" title="Equation Solver" (click)="onNavItemClick()">
         <div class="icon-wrapper">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
             <line x1="5" y1="9" x2="19" y2="9" />
@@ -49,7 +49,7 @@
         <span class="menu-text">Equations</span>
       </a>
 
-      <a routerLink="/matrix" routerLinkActive="active" class="menu-item" title="Matrices">
+      <a routerLink="/matrix" routerLinkActive="active" class="menu-item" title="Matrices" (click)="onNavItemClick()">
         <div class="icon-wrapper">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
@@ -66,7 +66,7 @@
     <div class="menu-section">
       <div class="section-title">Calculus</div>
       
-      <a routerLink="/graph" routerLinkActive="active" class="menu-item" title="Graphing">
+      <a routerLink="/graph" routerLinkActive="active" class="menu-item" title="Graphing" (click)="onNavItemClick()">
         <div class="icon-wrapper">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
@@ -75,7 +75,7 @@
         <span class="menu-text">Graphing</span>
       </a>
 
-      <a routerLink="/ode" routerLinkActive="active" class="menu-item" title="Differential Equations">
+      <a routerLink="/ode" routerLinkActive="active" class="menu-item" title="Differential Equations" (click)="onNavItemClick()">
         <div class="icon-wrapper">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M2 20h20" />
@@ -85,7 +85,7 @@
         <span class="menu-text">ODEs</span>
       </a>
 
-      <a routerLink="/derivate" routerLinkActive="active" class="menu-item" title="Derivatives">
+      <a routerLink="/derivate" routerLinkActive="active" class="menu-item" title="Derivatives" (click)="onNavItemClick()">
         <div class="icon-wrapper">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
             <path d="M12 5v14M5 12h14"/>
@@ -95,7 +95,7 @@
         <span class="menu-text">Derivatives</span>
       </a>
 
-      <a routerLink="/integrate" routerLinkActive="active" class="menu-item" title="Integrals">
+      <a routerLink="/integrate" routerLinkActive="active" class="menu-item" title="Integrals" (click)="onNavItemClick()">
         <div class="icon-wrapper">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
             <path d="M14.5 5c0-1.5-1.5-2.5-3-2.5S8.5 3.8 8.5 5.5v13c0 1.7 1.5 3 3 3s3-1 3-2.5"/>
@@ -108,7 +108,7 @@
     <div class="menu-section">
       <div class="section-title">Applied Math</div>
 
-      <a routerLink="/stats" routerLinkActive="active" class="menu-item" title="Statistics">
+      <a routerLink="/stats" routerLinkActive="active" class="menu-item" title="Statistics" (click)="onNavItemClick()">
         <div class="icon-wrapper">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="18" y1="20" x2="18" y2="10" />
@@ -119,7 +119,7 @@
         <span class="menu-text">Statistics</span>
       </a>
 
-      <a routerLink="/converter" routerLinkActive="active" class="menu-item" title="Unit Converter">
+      <a routerLink="/converter" routerLinkActive="active" class="menu-item" title="Unit Converter" (click)="onNavItemClick()">
         <div class="icon-wrapper">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M16 3h5v5"/>
@@ -132,7 +132,7 @@
         <span class="menu-text">Converter</span>
       </a>
 
-      <a routerLink="/finance" routerLinkActive="active" class="menu-item" title="Financial Math">
+      <a routerLink="/finance" routerLinkActive="active" class="menu-item" title="Financial Math" (click)="onNavItemClick()">
         <div class="icon-wrapper">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="12" y1="1" x2="12" y2="23"/>

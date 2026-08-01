@@ -4,6 +4,11 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+
+  @media (max-width: 768px) {
+    padding: 14px;
+    gap: 12px;
+  }
 }
 
 .plot-header {
@@ -89,6 +94,11 @@
   border: 1px solid var(--border-color);
   border-radius: 10px;
   padding: 12px;
+
+  @media (max-width: 768px) {
+    height: 220px;
+    padding: 6px;
+  }
 }
 
 .no-plot-state {

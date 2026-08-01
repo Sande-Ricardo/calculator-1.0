@@ -3,6 +3,11 @@
   flex-direction: column;
   gap: 20px;
   padding-bottom: 48px;
+
+  @media (max-width: 768px) {
+    gap: 14px;
+    padding-bottom: 24px;
+  }
 }
 
 .evaluator-header-card {
@@ -21,6 +26,18 @@
   p {
     color: var(--text-secondary);
     font-size: 0.95rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 16px;
+
+    h1 {
+      font-size: 1.3rem;
+    }
+
+    p {
+      font-size: 0.85rem;
+    }
   }
 }
 

@@ -2,6 +2,8 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  width: 100%;
+  max-width: 100%;
 }
 
 .top-section {
@@ -9,6 +11,10 @@
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
   align-items: stretch;
+
+  @media (max-width: 992px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .settings-card {
@@ -28,6 +34,10 @@
     display: flex;
     gap: 1rem;
     
+    @media (max-width: 600px) {
+      flex-direction: column;
+    }
+
     .btn {
       flex: 1;
       display: flex;
@@ -67,6 +77,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  max-width: 100%;
 
   h4 {
     margin-bottom: 1rem;
@@ -86,11 +98,18 @@
   
   &.line-chart-container {
     height: 300px;
+
+    @media (max-width: 600px) {
+      height: 220px;
+    }
   }
 }
 
 .table-section {
   padding: 1.5rem;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
 }
 
 .financial-table {
@@ -133,6 +152,8 @@
 
 .table-responsive {
   overflow-x: auto;
+  width: 100%;
+  max-width: 100%;
 }
 
 .printable-only {
@@ -197,9 +218,46 @@
   }
 }
 
-/* Shared form styles with interest calculator */
-.form-group { margin-bottom: 1rem; label { display: block; margin-bottom: 0.5rem; color: var(--text-secondary); font-size: 0.875rem; font-weight: 500; } }
-.form-control { width: 100%; padding: 0.75rem; background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary); transition: all 0.3s ease; }
-.flex-row { display: flex; gap: 1rem; }
+/* Shared form styles */
+.form-group { 
+  margin-bottom: 1rem; 
+  label { 
+    display: block; 
+    margin-bottom: 0.5rem; 
+    color: var(--text-secondary); 
+    font-size: 0.875rem; 
+    font-weight: 500; 
+  } 
+}
+.form-control { 
+  width: 100%; 
+  padding: 0.75rem; 
+  background: var(--bg-surface); 
+  border: 1px solid var(--border-color); 
+  border-radius: 8px; 
+  color: var(--text-primary); 
+  transition: all 0.3s ease; 
+}
+.flex-row { 
+  display: flex; 
+  gap: 1rem; 
+  @media (max-width: 600px) {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
 .flex-1 { flex: 1; }
-.input-with-icon { position: relative; display: flex; align-items: center; .currency-symbol, .percent-symbol { position: absolute; color: var(--text-secondary); pointer-events: none; } .currency-symbol { left: 0.75rem; } &.right-icon .percent-symbol { right: 0.75rem; } input { padding-left: 2rem; } &.right-icon input { padding-left: 0.75rem; padding-right: 2rem; } }
+.input-with-icon { 
+  position: relative; 
+  display: flex; 
+  align-items: center; 
+  .currency-symbol, .percent-symbol { 
+    position: absolute; 
+    color: var(--text-secondary); 
+    pointer-events: none; 
+  } 
+  .currency-symbol { left: 0.75rem; } 
+  &.right-icon .percent-symbol { right: 0.75rem; } 
+  input { padding-left: 2rem; } 
+  &.right-icon input { padding-left: 0.75rem; padding-right: 2rem; } 
+}

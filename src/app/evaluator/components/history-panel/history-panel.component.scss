@@ -4,6 +4,11 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+
+  @media (max-width: 768px) {
+    padding: 14px;
+    gap: 12px;
+  }
 }
 
 .history-header {
@@ -83,6 +88,11 @@
     align-items: center;
     justify-content: space-between;
 
+    @media (max-width: 768px) {
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
     .expr-code {
       code {
         font-family: var(--font-mono);
@@ -102,6 +112,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    @media (max-width: 768px) {
+      flex-wrap: wrap;
+      gap: 4px;
+    }
 
     .scope-info {
       font-size: 0.75rem;

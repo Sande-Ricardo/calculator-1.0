@@ -51,7 +51,15 @@
     --bg-body: var(--background-dark);
 }
 
-*{
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+    background-color: var(--back1);
+}
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -59,7 +67,7 @@
 }
 
 // glassmorphism
-.crystal-box{
+.crystal-box {
     background-color: rgba(0, 0, 0, 0.5);
     border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -80,7 +88,11 @@
   line-height: 1.6;
   overflow-y: auto;
 
+  @media (max-width: 768px) {
+    padding: 16px 12px;
+  }
+
   @media (min-width: 1200px) {
     padding: 32px 10%;
   }
-}
+}

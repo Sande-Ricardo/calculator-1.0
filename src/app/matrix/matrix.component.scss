@@ -386,3 +386,23 @@
   from { opacity: 0; }
   to { opacity: 1; }
 }
+
+@media (max-width: 768px) {
+  .container2 {
+    padding: 16px 12px;
+  }
+  .matrix-header {
+    margin-bottom: 20px;
+  }
+  .input-card,
+  .result-card,
+  .steps-card {
+    padding: 14px;
+  }
+  .matrix-grid-container,
+  .matrix-input-grid,
+  .matrix-display {
+    overflow-x: auto;
+    max-width: 100%;
+  }
+}

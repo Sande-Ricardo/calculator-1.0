@@ -520,3 +520,29 @@ input:checked + .slider::before {
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+@media (max-width: 768px) {
+  .container2 {
+    padding: 16px 12px;
+  }
+  .ode-header {
+    margin-bottom: 20px;
+  }
+  .view-toggle-container {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .analytical-grid,
+  .slope-field-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .input-card,
+  .result-card,
+  .steps-card,
+  .graph-card,
+  .controls-card {
+    padding: 14px;
+  }
+}

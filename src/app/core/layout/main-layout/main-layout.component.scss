@@ -1,4 +1,4 @@
-.container{
+.container {
     background-color: var(--back1);
     background-image:
                         radial-gradient(at 0% 0%, var(--back3) 0px, transparent 20%),
@@ -12,7 +12,7 @@
     align-items: center;
 }
 
-.logo{
+.logo {
     position: absolute;
     width: 70%;
     height: 50%;
@@ -25,7 +25,7 @@
         radial-gradient(at 100% 100%, var(--back3) 0px, transparent 50%);
 }
 
-.router{
+.router {
     position: fixed;
     top: 3rem;
     left: 68px;
@@ -35,10 +35,30 @@
     justify-content: center;
     align-items: center;
     z-index: 1;
+    transition: left 0.3s ease, width 0.3s ease;
+
+    @media (max-width: 768px) {
+        left: 0;
+        width: 100%;
+    }
 }
-.top-menu{
+
+.top-menu {
     position: fixed;
     top: 0;
     width: 100%;
     height: 3rem;
+    z-index: 20;
+}
+
+.mobile-backdrop {
+    position: fixed;
+    top: 3rem;
+    left: 0;
+    width: 100vw;
+    height: calc(100vh - 3rem);
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 12;
 }

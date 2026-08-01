@@ -531,3 +531,19 @@
 ::-webkit-scrollbar-thumb:hover {
     background: var(--border-light);
 }
+
+@media (max-width: 768px) {
+    .container3 {
+        padding: 16px 12px;
+    }
+    .integration-header {
+        margin-bottom: 24px;
+    }
+    .input-card,
+    .result-card,
+    .steps-card,
+    .graphics-card,
+    .info-card {
+        padding: 14px;
+    }
+}

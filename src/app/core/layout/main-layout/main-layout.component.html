@@ -9,4 +9,5 @@
   <div class="side-menu">
     <app-side-menu></app-side-menu>
   </div>
+  <div class="mobile-backdrop" *ngIf="isMobileMenuOpen$ | async" (click)="closeMobileMenu()"></div>
 </div>

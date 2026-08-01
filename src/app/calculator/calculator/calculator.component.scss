@@ -1,0 +1,12 @@
+.container3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: calc(100vh - 3rem);
+  padding: 24px;
+
+  @media (max-width: 768px) {
+    padding: 12px;
+  }
+}

@@ -175,3 +175,15 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .container2 {
+    padding: 16px 12px;
+  }
+  .converter-header {
+    margin-bottom: 20px;
+  }
+  .unit-card, .history-sidebar-card {
+    padding: 14px;
+  }
+}

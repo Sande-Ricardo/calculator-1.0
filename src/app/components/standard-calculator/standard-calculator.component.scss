@@ -10,11 +10,21 @@
   transition: max-width 0.3s ease;
   animation: fadeInUp 0.4s ease-out;
 
+  @media (max-width: 768px) {
+    padding: 14px;
+    max-width: 100%;
+    border-radius: 10px;
+  }
+
   /* If scientific mode is active, it expands slightly to accommodate more buttons */
   & .keypad-section.scientific-active {
     display: flex;
     flex-direction: column;
     gap: 12px;
+
+    @media (max-width: 768px) {
+      gap: 8px;
+    }
   }
 }
 
@@ -25,6 +35,11 @@
   margin-bottom: 16px;
   color: var(--text-secondary);
   font-size: 14px;
+
+  @media (max-width: 768px) {
+    margin-bottom: 12px;
+    font-size: 13px;
+  }
 }
 
 .toggle-wrapper {
@@ -105,6 +120,12 @@
   justify-content: flex-end;
   align-items: center;
   overflow-x: auto;
+
+  @media (max-width: 768px) {
+    padding: 12px;
+    margin-bottom: 16px;
+    min-height: 60px;
+  }
 }
 
 .expression-display {
@@ -121,6 +142,10 @@
   
   &::placeholder {
     color: var(--text-secondary);
+  }
+
+  @media (max-width: 768px) {
+    font-size: 20px;
   }
 }
 
@@ -139,6 +164,11 @@
   color: var(--text-primary);
   font-family: var(--font-primary);
 
+  @media (max-width: 768px) {
+    padding: 12px 8px;
+    font-size: 16px;
+  }
+
   &:hover {
     transform: translateY(-2px);
     filter: brightness(1.2);
@@ -154,6 +184,10 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
+
+  @media (max-width: 768px) {
+    gap: 8px;
+  }
 }
 
 .scientific-panel {
@@ -171,6 +205,11 @@
     margin-bottom: 12px;
     padding-bottom: 12px;
     border-bottom: 1px solid var(--border-color);
+
+    @media (max-width: 768px) {
+      margin-bottom: 8px;
+      padding-bottom: 8px;
+    }
   }
 
   .scientific-grid {
@@ -178,6 +217,10 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 12px;
+
+    @media (max-width: 768px) {
+      gap: 8px;
+    }
   }
 }
 
@@ -195,6 +238,10 @@
   background: var(--surface-light);
   color: var(--primary-color);
   font-size: 22px;
+
+  @media (max-width: 768px) {
+    font-size: 18px;
+  }
 }
 
 .func-btn {
@@ -202,12 +249,21 @@
   font-family: var(--font-mono);
   font-size: 14px;
   padding: 12px;
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+    padding: 10px 4px;
+  }
 }
 
 .action-btn {
   background: var(--surface-light);
   color: var(--warning-color);
   font-size: 16px;
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
 }
 
 .clear-btn {
@@ -217,6 +273,10 @@
 .eval-btn {
   background: var(--primary-color);
   font-size: 22px;
+
+  @media (max-width: 768px) {
+    font-size: 18px;
+  }
 }
 
 @keyframes fadeInUp {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LayoutService } from '../../core/services/layout.service';
 
 @Component({
   selector: 'app-top-menu',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TopMenuComponent implements OnInit {
 
-  constructor() { }
+  constructor(private layoutService: LayoutService) { }
 
   ngOnInit(): void {
+  }
+
+  toggleMobileMenu(): void {
+    this.layoutService.toggleMobileMenu();
   }
 
 }
