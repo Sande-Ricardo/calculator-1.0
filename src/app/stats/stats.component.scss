@@ -94,6 +94,13 @@
   .split-layout {
     grid-template-columns: 1fr 1.2fr;
   }
+
+  .split-layout > .control-panel:only-child {
+    grid-column: 1 / -1;
+    max-width: 680px;
+    width: 100%;
+    margin: 0 auto;
+  }
 }
 
 /* Panels & Cards */

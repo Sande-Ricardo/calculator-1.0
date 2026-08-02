@@ -51,8 +51,18 @@
         </section>
 
         <!-- Results summaries -->
-        <section class="results-panel" *ngIf="descriptiveData">
-          <div class="metrics-grid">
+        <section class="results-panel">
+          <div class="result-card" *ngIf="!descriptiveData">
+            <h2>Descriptive Summary</h2>
+            <div class="placeholder-container" *ngIf="!descriptiveLoading">
+              <p class="placeholder-text">Enter a dataset on the left and click Analyze Dataset to compute summary metrics, dispersion, and distribution charts.</p>
+            </div>
+            <div class="loading-spinner-container" *ngIf="descriptiveLoading">
+              <div class="spinner"></div>
+            </div>
+          </div>
+
+          <div class="metrics-grid" *ngIf="descriptiveData">
             <!-- Central Tendency -->
             <div class="metric-card">
               <h3>Central Tendency</h3>
