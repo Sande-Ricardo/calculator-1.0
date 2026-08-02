@@ -1,6 +1,6 @@
 # Calculator - Angular Client
 
-A comprehensive Angular-based mathematical calculation platform designed to provide advanced computational capabilities through an intuitive web interface. This client application serves as the frontend component of the broader Calculato ecosystem, offering features for derivatives, integrals, equation solving, graphing, and matrix operations.
+A comprehensive Angular-based mathematical calculation platform designed to provide advanced computational capabilities through an intuitive web interface. This client application serves as the frontend component of the broader Calculato ecosystem, offering features for derivatives, integrals, equation solving, graphing, matrix operations, financial mathematics, unit conversion, expression evaluation, and statistical analysis.
 
 ## Overview
 
@@ -8,17 +8,19 @@ Calculator is a feature-rich Angular 14 application built with TypeScript, lever
 
 ### Key Features
 
-- Basic and advanced calculation operations
-- Derivative computation and analysis
-- Integral and integration operations
-- Equation solving and manipulation
-- Graph plotting and visualization (Desmos API integration)
-- Matrix operations and linear algebra
-- Descriptive statistics and probability distribution modeling
-- Analytical ordinary differential equations (ODE) solver
-- Comprehensive course materials and learning resources
-- Responsive user interface with sidebar navigation and Glassmorphism design
-- Real-time calculation updates
+- **Basic and Scientific Calculation:** Standard and scientific calculation modes with real-time evaluation.
+- **Derivative Computation:** Symbolic and numerical derivative computation with step-by-step analysis.
+- **Integral Operations:** Definite and indefinite integration tools.
+- **Equation Solving:** Polynomial and systems of linear equations solver.
+- **Graph Plotting & Visualization:** 2D function graphing powered by Desmos API integration.
+- **Matrix Operations:** Matrix arithmetic, determinants, inverses, eigenvalues, and linear algebra solvers.
+- **Statistical Analysis & Modeling:** Descriptive statistics, dispersion metrics, outliers detection, and continuous/discrete probability distributions (Normal, Student-t, Binomial, Poisson).
+- **Differential Equations (ODE):** Analytical ordinary differential equations solver and interactive slope fields visualizer.
+- **Unit Converter:** Real-time conversion across physical quantities (length, mass, temperature, time, volume, speed, energy, pressure) and digital data storage.
+- **Financial Mathematics:** Simple and compound interest calculators, loan amortization schedule generators (French, German, American systems) with CSV/PDF exports, and investment project evaluation (NPV & IRR).
+- **Expression Evaluator & Interpreter:** Client-side mathematical AST sandbox with MathJax LaTeX rendering, live variable extraction with interactive sliders, 1D function plot preview, and hybrid interval sampling multi-root finder ($f(x) = 0$).
+- **Course Materials:** Educational resources and learning materials.
+- **Modern Responsive UI:** Glassmorphism design system, responsive navigation drawer, mobile-optimized viewports, and clean UI components without emoji dependencies.
 
 ## Project Context
 
@@ -38,21 +40,24 @@ This frontend application integrates with the Calculato REST API backend to prov
 | Angular | 14.0.x | Frontend framework |
 | TypeScript | 4.7.2 | Programming language |
 | RxJS | 7.5.x | Reactive programming |
-| Angular Router | 14.0.x | Client-side routing |
-| Angular Forms | 14.0.x | Form handling and validation |
+| Angular Router | 14.0.x | Client-side routing with lazy loading |
+| Angular Forms | 14.0.x | Reactive and template-driven form validation |
 
-### Mathematical Libraries
+### Mathematical and Visualization Libraries
 
 | Library | Version | Purpose |
 |---------|---------|---------|
-| mathjs | 15.1.0 | Mathematical expression parsing and evaluation |
+| mathjs | 15.1.0 | Mathematical expression parsing, AST evaluation, and symbolic differentiation |
 | mathjax-full | 3.2.2 | LaTeX and mathematical notation rendering |
+| Chart.js | 4.x | Interactive 2D data plotting and probability curve visualization |
+| Desmos API | Latest | Interactive 2D function graphing and coordinate grid canvas |
 
 ### Build and Development Tools
 
 | Tool | Version | Purpose |
 |------|---------|---------|
-| Angular CLI | 14.0.2 | Development and build automation |
+| Angular CLI | 14.0.2 | Development server and build automation |
+| pnpm | 8.x+ | Enforced package manager |
 | Karma | 6.3.0 | Unit test runner |
 | Jasmine | 4.1.0 | Testing framework |
 | TypeScript Compiler | 4.7.2 | TypeScript compilation |
@@ -63,66 +68,81 @@ This frontend application integrates with the Calculato REST API backend to prov
 calculator-1.0/
 ├── src/
 │   ├── app/
-│   │   ├── calculator/              # Basic calculator module
+│   │   ├── calculator/              # Basic & scientific calculator module
 │   │   ├── derivation/              # Derivative calculations module
 │   │   ├── integration/             # Integration calculations module
-│   │   ├── course/                  # Educational course materials
+│   │   ├── course/                  # Educational course materials module
 │   │   ├── equation/                # Equation solving module
-│   │   ├── graphing/                # Graph plotting and visualization
-│   │   ├── matrix/                  # Matrix operations and linear algebra
-│   │   ├── stats/                   # Statistics and probability distributions
-│   │   ├── ode/                     # Ordinary differential equations solver
+│   │   ├── graphing/                # Desmos 2D graph plotting & visualization
+│   │   ├── matrix/                  # Matrix operations & linear algebra
+│   │   ├── stats/                   # Statistics & probability distributions
+│   │   ├── ode/                     # ODE solver & slope fields visualizer
+│   │   ├── converter/               # Physical & digital unit converter module
+│   │   ├── financial-math/          # Financial math (Interest, Amortization, NPV/IRR)
+│   │   ├── evaluator/               # In-browser AST evaluator & root finder
 │   │   ├── components/              # Shared UI components
-│   │   │   ├── scientific/          # Scientific calculator interface
-│   │   │   └── top-menu/            # Application header menu
-│   │   ├── core/                    # Core application services and layout
+│   │   │   ├── standard-calculator/ # Standard calculator interface
+│   │   │   ├── top-menu/            # Navigation header bar
+│   │   │   └── function-viewer/     # LaTeX math rendering wrapper
+│   │   ├── core/                    # Core application services & layout
+│   │   │   ├── services/            # Layout and API management services
 │   │   │   └── layout/
-│   │   │       ├── main-layout/     # Main layout wrapper
-│   │   │       └── side-menu/       # Navigation sidebar
-│   │   ├── interfaces/              # TypeScript interfaces and types
-│   │   ├── shared/                  # Shared utilities and components
-│   │   ├── mocks/                   # Mock data for development
+│   │   │       ├── main-layout/     # Main layout wrapper & router container
+│   │   │       └── side-menu/       # Responsive navigation drawer
+│   │   ├── interfaces/              # TypeScript interfaces and data models
+│   │   ├── shared/                  # Shared utilities and reusable pipes
 │   │   ├── app.module.ts            # Root application module
-│   │   ├── app-routing.module.ts    # Routing configuration
+│   │   ├── app-routing.module.ts    # Central lazy-loaded routing module
 │   │   └── app.component.ts         # Root component
 │   ├── assets/                      # Static assets (images, icons)
 │   ├── environments/                # Environment configuration files
-│   ├── styles.scss                  # Global styling
+│   ├── styles.scss                  # Global SCSS styling & design tokens
 │   ├── main.ts                      # Application entry point
 │   ├── index.html                   # HTML template
 │   └── polyfills.ts                 # Browser compatibility polyfills
 ├── dist/                            # Build output directory
 ├── angular.json                     # Angular CLI configuration
 ├── tsconfig.json                    # TypeScript configuration
-├── tsconfig.app.json               # TypeScript app-specific config
-├── tsconfig.spec.json              # TypeScript testing config
-├── karma.conf.js                   # Karma test runner configuration
-├── package.json                     # Dependencies and scripts
-└── README.md                        # This file
+├── package.json                     # Dependencies and npm/pnpm scripts
+└── README.md                        # Project documentation
 ```
 
 ## Module Architecture
 
-The application implements a feature-based module structure with lazy loading for optimal performance:
+The application implements a feature-based modular structure with lazy-loaded Angular modules for optimal initial bundle sizes:
 
-### Core Modules
+### Feature Modules
 
-- **CalculatorModule**: Basic arithmetic and scientific calculations
-- **DerivationModule**: Derivative computation and analysis tools
-- **IntegrationModule**: Integration and integral calculations
-- **CourseModule**: Educational content and learning materials
-- **EquationModule**: Equation solving and manipulation
-- **GraphingModule**: Visualization and plotting capabilities
-- **MatrixModule**: Matrix operations and linear algebra computations
-- **StatsModule**: Descriptive statistics, probability distributions, and statistical analysis
-- **OdeModule**: Analytical and numerical ordinary differential equations solver with multiple solution methods
+- **CalculatorModule (`/`)**: Standard and scientific arithmetic calculator with angle unit toggles (DEG/RAD).
+- **DerivationModule (`/derivate`)**: Symbolic derivative evaluation, step-by-step breakdown, and rate-of-change analysis.
+- **IntegrationModule (`/integrate`)**: Definite and indefinite integrals computation with step-by-step normalizer.
+- **EquationModule (`/equation`)**: Polynomial equation solver and linear equation systems solver ($N \times N$).
+- **GraphingModule (`/graph`)**: Interactive 2D graph canvas powered by Desmos API with multi-function expression tracking.
+- **MatrixModule (`/matrix`)**: Matrix algebra (Addition, Multiplication, Transpose, Determinant, Inverse, Rank, Gaussian Elimination) with scrollable grid inputs.
+- **StatsModule (`/stats`)**:
+  - *Descriptive Statistics:* Mean, median, mode, variance, standard deviation, quartiles (Q1, Q2, Q3), IQR, and 1.5 IQR outlier detection.
+  - *Probability Distributions:* Probability density & cumulative distribution calculations (Normal, Student-t, Binomial, Poisson) with interactive curve plots.
+- **OdeModule (`/ode`)**: First-order and second-order Ordinary Differential Equations solver with step-by-step solution algorithms and interactive direction/slope fields visualizer.
+- **ConverterModule (`/converter`)**: Unit conversion across physical quantities (Length, Mass, Temperature, Time, Volume, Speed, Energy, Pressure) and digital Data Storage with customizable decimal precision.
+- **FinancialMathModule (`/finance`)**:
+  - *Interest Calculator:* Simple and compound interest solver with flexible compounding frequencies.
+  - *Loan Amortization:* French (constant payment), German (constant principal), and American (interest-only) amortization schedule generators with CSV and PDF print export.
+  - *Project Evaluation:* Net Present Value (NPV) and Internal Rate of Return (IRR) investment analysis.
+- **EvaluatorModule (`/evaluator`)**: Client-side mathematical sandbox executing entirely in the browser:
+  - AST parsing using `mathjs` with syntax error highlighting.
+  - Live LaTeX rendering via MathJax.
+  - Dynamic Variable Dashboard with auto-detected variables and real-time interactive sliders.
+  - 1D function plot preview using Chart.js.
+  - Hybrid Numerical Root Finder ($f(x) = 0$) combining bracket sampling and Newton-Raphson refinement with strict residual validation ($|f(r)| < 10^{-5}$).
+  - Session history persistence using `localStorage`.
+- **CourseModule (`/course`)**: Educational modules and interactive learning materials.
 
-### Layout Components
+### Layout & Core Components
 
-- **MainLayoutComponent**: Primary application layout wrapper
-- **SideMenuComponent**: Navigation sidebar for feature access
-- **TopMenuComponent**: Application header with branding
-- **ScientificComponent**: Enhanced calculator interface
+- **MainLayoutComponent**: Primary layout shell hosting the router outlet, top bar, sidebar drawer, and mobile backdrop.
+- **SideMenuComponent**: Categorized navigation sidebar (`Basic Math`, `Algebra & Matrices`, `Calculus`, `Applied Math`) with responsive sliding drawer behavior on mobile viewports.
+- **TopMenuComponent**: Top navigation header bar with branding and mobile hamburger toggle button.
+- **LayoutService**: RxJS `BehaviorSubject` service managing global responsive layout state and mobile drawer toggles.
 
 ## Getting Started
 
@@ -143,7 +163,7 @@ git clone https://github.com/Sande-Ricardo/calculator-1.0.git
 cd calculator-1.0
 ```
 
-2. Install dependencies:
+2. Install dependencies using `pnpm`:
 
 ```bash
 pnpm install
@@ -171,54 +191,28 @@ or
 npx ng serve
 ```
 
-The application will be available at `http://localhost:4200/`. Changes to source files will automatically refresh the application.
-
-### Development Configuration
-
-For development builds with source maps and optimization disabled:
-
-```bash
-ng serve --configuration development
-```
+The application will be available at `http://localhost:4200/`. Changes to source files will automatically trigger browser updates.
 
 ### Code Generation
 
-Generate new components, services, and other Angular artifacts:
+Generate new components, services, or modules using Angular CLI:
 
 ```bash
 # Generate a new component
-ng generate component component-name
+npx ng generate component component-name
 
 # Generate a new service
-ng generate service service-name
+npx ng generate service service-name
 
-# Generate a new module
-ng generate module module-name
-
-# Generate a new directive
-ng generate directive directive-name
-
-# Generate a new pipe
-ng generate pipe pipe-name
-
-# Generate a new class
-ng generate class class-name
-
-# Generate a new interface
-ng generate interface interface-name
-```
-
-For additional options and details:
-
-```bash
-ng generate --help
+# Generate a new feature module with routing
+npx ng generate module module-name --routing
 ```
 
 ## Building
 
 ### Production Build
 
-Create an optimized production build with all optimizations enabled:
+Create an optimized production build:
 
 ```bash
 pnpm build
@@ -230,48 +224,26 @@ or
 npx ng build
 ```
 
-Build artifacts will be stored in the `dist/calculator` directory. The build includes:
+Build artifacts will be stored in the `dist/` directory. The build includes:
 
-- Minified and uglified code
+- Minified JavaScript and CSS bundles
 - Tree-shaking for unused code elimination
-- Angular AOT (Ahead-of-Time) compilation
-- Output hashing for cache busting
+- Ahead-of-Time (AOT) compilation
+- Cache-busting output hashing
 
 ### Development Build
 
-Generate a development build with source maps and unminified code:
+Generate a development build with source maps enabled:
 
 ```bash
 npx ng build --configuration development
 ```
 
-### Watch Mode
-
-Rebuild automatically when source files change:
-
-```bash
-pnpm watch
-```
-
-Build artifacts will be regenerated in `dist/calculator` without rebuilding the entire project.
-
-### Build Configuration
-
-Build configurations are defined in `angular.json`:
-
-- **Production**: Full optimization, minimal bundle size, output hashing
-- **Development**: Source maps, no optimization, vendor chunk separation
-
-Build budgets are enforced:
-
-- Initial bundle: Maximum 1MB warning, 500KB error
-- Component styles: Maximum 20KB error, 10KB warning
-
 ## Testing
 
 ### Unit Tests
 
-Execute unit tests using Karma test runner and Jasmine testing framework:
+Execute unit tests using Karma and Jasmine:
 
 ```bash
 pnpm test
@@ -283,304 +255,44 @@ or
 npx ng test
 ```
 
-Tests run in watch mode by default. Modify test files and see results update automatically.
-
-### Test Configuration
-
-- Test runner: Karma
-- Testing framework: Jasmine
-- Coverage tool: Istanbul (via Karma Coverage)
-- Browser: Chrome (default)
-
 ### Coverage Reports
 
-Generate code coverage reports:
+Generate test code coverage reports:
 
 ```bash
 npx ng test --code-coverage
 ```
 
-Coverage reports will be generated in the `coverage/` directory. View detailed coverage metrics by opening `coverage/index.html` in your browser.
+Coverage reports are saved in the `coverage/` directory (`coverage/index.html`).
 
-### End-to-End Tests
+## Styling & Responsive Design System
 
-To run end-to-end tests, add an e2e testing package:
+### SCSS & Glassmorphism Tokens
 
-```bash
-npx ng e2e
-```
+Styles are built using SCSS with global CSS custom properties defined in `src/styles.scss`:
 
-Note: E2E testing package must be added separately as it is not included in the default Angular CLI setup.
-
-## Configuration
-
-### TypeScript Configuration
-
-The project uses strict TypeScript settings for enhanced type safety:
-
-- Strict mode enabled
-- No implicit overrides allowed
-- No property access from index signature
-- Implicit returns required
-- No fallthrough switch cases
-
-Configuration file: `tsconfig.json`
-
-### Environment Configuration
-
-Environment-specific variables can be configured in:
-
-- Development: `src/environments/environment.ts`
-- Production: `src/environments/environment.prod.ts`
-
-Environment files are swapped during the build process:
-
-```typescript
-// src/environments/environment.ts
-export const environment = {
-  production: false
-};
-
-// src/environments/environment.prod.ts
-export const environment = {
-  production: true
-};
-```
-
-### Routing Configuration
-
-Routes are defined in `src/app/app-routing.module.ts` with lazy-loaded modules:
-
-```typescript
-const routes: Routes = [
-  {
-    path: '',
-    component: MainLayoutComponent,
-    children: [
-      { path: 'derivate', loadChildren: () => import('./derivation/derivation.module')... },
-      { path: 'integrate', loadChildren: () => import('./integration/integration.module')... },
-      { path: 'course', loadChildren: () => import('./course/course.module')... },
-      { path: 'equation', loadChildren: () => import('./equation/equation.module')... },
-      { path: 'graph', loadChildren: () => import('./graphing/graphing.module')... },
-      { path: 'matrix', loadChildren: () => import('./matrix/matrix.module')... },
-      { path: 'stats', loadChildren: () => import('./stats/stats.module')... },
-      { path: 'ode', loadChildren: () => import('./ode/ode.module')... },
-      { path: '', loadChildren: () => import('./calculator/calculator.module')... }
-    ]
-  },
-  { path: '**', redirectTo: '', pathMatch: 'full' }
-];
-```
-
-## API Integration
-
-This frontend application communicates with the Calculato REST API backend. Ensure the API server is running and accessible before starting the development server.
-
-### HTTP Client Setup
-
-The application includes `HttpClientModule` for backend communication:
-
-```typescript
-// src/app/app.module.ts
-imports: [
-  HttpClientModule
-]
-```
-
-Use Angular's `HttpClient` service to make requests to the backend API:
-
-```typescript
-import { HttpClient } from '@angular/common/http';
-
-constructor(private http: HttpClient) {}
-```
-
-## Scripts Reference
-
-All available scripts defined in `package.json` (execute using `pnpm <script>`):
-
-| Script | Command | Purpose |
-|--------|---------|---------|
-| `start` | `ng serve` | Run development server |
-| `build` | `ng build` | Create production build |
-| `watch` | `ng build --watch --configuration development` | Watch and rebuild on changes |
-| `test` | `ng test` | Execute unit tests |
-| `ng` | `ng` | Access Angular CLI directly |
-
-## Performance Optimization
-
-The application implements several performance optimization strategies:
-
-### Lazy Loading
-
-Feature modules are lazy-loaded to reduce initial bundle size:
-
-```typescript
-{
-  path: 'derivate',
-  loadChildren: () => import('./derivation/derivation.module').then(m => m.DerivationModule)
-}
-```
-
-### Change Detection
-
-Angular's default change detection strategy is used. Optimize with `OnPush` strategy when appropriate.
-
-### Bundle Size Management
-
-Build budgets are configured to enforce bundle size limits:
-
-- Initial bundle: 1MB maximum
-- Component styles: 20KB maximum
-
-Monitor bundle size:
-
-```bash
-ng build --stats-json
-webpack-bundle-analyzer dist/calculator/stats.json
-```
-
-## Code Quality
-
-### ESLint Integration
-
-The project includes Angular ESLint for code quality:
-
-```bash
-ng lint
-```
-
-### TypeScript Strict Mode
-
-Strict TypeScript checking is enabled to catch errors during development.
-
-### Code Formatting
-
-Use a code formatter like Prettier:
-
-```bash
-npm install --save-dev prettier
-```
-
-## Styling
-
-### SCSS Preprocessing
-
-Styles are written in SCSS (Sass):
-
-- Global styles: `src/styles.scss`
-- Component styles: `*.component.scss` (scoped)
-
-SCSS is automatically compiled during build.
-
-### Style Conventions
-
-- Use SCSS variables for colors and dimensions
-- Scope component styles to prevent conflicts
-- Follow BEM (Block Element Modifier) naming when appropriate
-
-## Dependencies and Maintenance
-
-### Checking Outdated Dependencies
-
-```bash
-npm outdated
-```
-
-### Updating Dependencies
-
-```bash
-npm update
-```
-
-### Auditing Security Vulnerabilities
-
-```bash
-npm audit
-npm audit fix
-```
-
-## Troubleshooting
-
-### Common Issues
-
-**Issue**: Port 4200 already in use
-
-```bash
-ng serve --port 4300
-```
-
-**Issue**: Module not found errors
-
-```bash
-# Clear node_modules and reinstall
-rm -rf node_modules
-npm install
-```
-
-**Issue**: TypeScript compilation errors
-
-```bash
-# Check TypeScript version
-tsc --version
-
-# Update TypeScript if needed
-npm install --save-dev typescript@4.7.2
-```
-
-**Issue**: Build size exceeds budget
-
-Review and optimize:
-- Lazy load unnecessary features
-- Remove unused dependencies
-- Implement tree-shaking
-
-## Contributing
-
-When contributing to this project:
-
-1. Follow the established module structure
-2. Maintain TypeScript strict mode compliance
-3. Write unit tests for new features
-4. Run `ng lint` before committing
-5. Use semantic commit messages
+- **Design System:** Glassmorphism backdrop filters (`backdrop-filter: blur()`), glowing borders, and curated dark palette (`#0e0f25`, `#1e293b`, `#3b82f6`).
+- **Responsive Layout:** All modules implement responsive flexbox and CSS grid layouts with mobile breakpoints (`@media (max-width: 768px)`).
+- **Overflow Protection:** Global horizontal overflow protection (`overflow-x: hidden`) with scrollable inner containers for wide data tables and matrix grids.
+- **Typography & Icons:** Modern web fonts (`Inter`, `JetBrains Mono`) and SVG icons without emoji dependencies.
 
 ## Browser Support
 
-The application targets modern browsers with ES2020 support:
+The application targets modern web browsers with ES2020 support:
 
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
+- Google Chrome (latest)
+- Mozilla Firefox (latest)
+- Apple Safari (latest)
+- Microsoft Edge (latest)
 
-Polyfills are included in `src/polyfills.ts` for broader compatibility if needed.
+## Related Repositories
 
-## Additional Resources
-
-### Official Documentation
-
-- [Angular Documentation](https://angular.io)
-- [Angular CLI Reference](https://angular.io/cli)
-- [TypeScript Handbook](https://www.typescriptlang.org/docs)
-- [RxJS Documentation](https://rxjs.dev)
-- [mathjs Documentation](https://mathjs.org)
-- [MathJax Documentation](https://docs.mathjax.org)
-
-### Related Repositories
-
-- [Calculato REST API](https://github.com/Sande-Ricardo/calculato-rest_api) - Main backend API
+- [Calculato REST API](https://github.com/Sande-Ricardo/calculato-rest_api) - Main backend API gateway
 
 ## License
 
-Check the repository for license information.
-
-## Support
-
-For issues, feature requests, or documentation improvements, please refer to the main repository:
-
-[Calculato REST API Repository Issues](https://github.com/Sande-Ricardo/calculato-rest_api/issues)
+Refer to the repository for license information.
 
 ---
 
-Last Updated: July 2026
+Last Updated: August 2026
