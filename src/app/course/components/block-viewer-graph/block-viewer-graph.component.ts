@@ -49,6 +49,11 @@ export class BlockViewerGraphComponent implements AfterViewInit, OnChanges, OnDe
       this.isLoading = false;
       if (!this.calculatorContainer || !this.calculatorContainer.nativeElement) return;
 
+      if (typeof Desmos === 'undefined') {
+        this.loadError = true;
+        return;
+      }
+
       if (!this.calculator) {
         this.calculator = Desmos.GraphingCalculator(this.calculatorContainer.nativeElement, {
           keypad: true,
@@ -78,7 +83,7 @@ export class BlockViewerGraphComponent implements AfterViewInit, OnChanges, OnDe
       this.calculator.setExpression({
         id: 'main_fn',
         latex: this.content,
-        color: Desmos.Colors ? Desmos.Colors.BLUE : '#3b82f6'
+        color: (typeof Desmos !== 'undefined' && Desmos.Colors) ? Desmos.Colors.BLUE : '#3b82f6'
       });
     }
 
