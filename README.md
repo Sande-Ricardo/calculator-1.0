@@ -16,6 +16,7 @@ Calculator is a feature-rich Angular 14 application built with TypeScript, lever
 - **Matrix Operations:** Matrix arithmetic, determinants, inverses, eigenvalues, and linear algebra solvers.
 - **Statistical Analysis & Modeling:** Descriptive statistics, dispersion metrics, outliers detection, and continuous/discrete probability distributions (Normal, Student-t, Binomial, Poisson).
 - **Differential Equations (ODE):** Analytical ordinary differential equations solver and interactive slope fields visualizer.
+- **Chemistry Calculations:** Molar mass calculator with nested stoichiometric parsing, pedagogical isotopes, empirical formula evaluation, and dynamic composition visualizations.
 - **Unit Converter:** Real-time conversion across physical quantities (length, mass, temperature, time, volume, speed, energy, pressure) and digital data storage.
 - **Financial Mathematics:** Simple and compound interest calculators, loan amortization schedule generators (French, German, American systems) with CSV/PDF exports, and investment project evaluation (NPV & IRR).
 - **Expression Evaluator & Interpreter:** Client-side mathematical AST sandbox with MathJax LaTeX rendering, live variable extraction with interactive sliders, 1D function plot preview, and hybrid interval sampling multi-root finder ($f(x) = 0$).
@@ -128,6 +129,12 @@ The application implements a feature-based modular structure with lazy-loaded An
   - *Interest Calculator:* Simple and compound interest solver with flexible compounding frequencies.
   - *Loan Amortization:* French (constant payment), German (constant principal), and American (interest-only) amortization schedule generators with CSV and PDF print export.
   - *Project Evaluation:* Net Present Value (NPV) and Internal Rate of Return (IRR) investment analysis.
+- **ChemistryModule (`/chemistry`)**:
+  - *Molar Mass Calculator:* Formula syntax parsing with support for parentheses and hydrates.
+  - *Isotopes Support:* Configurable use of pedagogical isotopes (D, T, U235, etc.).
+  - *Quick Converter:* Real-time grams, moles, and molecules conversion.
+  - *Empirical Evaluator:* True molecular formula determination based on experimental mass.
+  - *Data Visualization:* Interactive Chart.js donut chart for elemental mass percentage.
 - **EvaluatorModule (`/evaluator`)**: Client-side mathematical sandbox executing entirely in the browser:
   - AST parsing using `mathjs` with syntax error highlighting.
   - Live LaTeX rendering via MathJax.
