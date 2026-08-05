@@ -1,163 +1,157 @@
-<div class="calculator-container split-layout">
-  <!-- Left Panel: Input & Table -->
-  <div class="control-panel crystal-box">
-    <div class="panel-header">
-      <div class="title-row">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M10 2v7.31M14 9.31V2M8.5 2h7M14 9.31l6.5 11.17c.37.66-.11 1.52-.88 1.52H4.38c-.77 0-1.25-.86-.88-1.52L10 9.31"/>
-          <path d="M10 9.31l-2.5 4.5h9l-2.5-4.5"/>
-        </svg>
-        <h2>Molar Mass Calculator</h2>
-      </div>
-      <p class="subtitle">Enter a chemical formula to analyze its molar mass and composition.</p>
-    </div>
+<div class="container2 crystal-box">
+  <header class="stats-header">
+    <h1 class="title">Molar Mass Calculator</h1>
+    <p class="subtitle">Analyze chemical formula mass, composition, and empirical evaluations.</p>
+  </header>
 
-    <div class="input-section">
-      <div class="input-group">
-        <label for="formula">Chemical Formula</label>
-        <input 
-          id="formula"
-          type="text" 
-          [(ngModel)]="formulaInput" 
-          (ngModelChange)="onFormulaChange()"
-          class="calculator-input formula-input" 
-          placeholder="e.g. CuSO4*5H2O"
-          autocomplete="off">
-      </div>
-      
-      <div class="toggle-group">
-        <label class="switch">
-          <input type="checkbox" [(ngModel)]="useIsotopes" (change)="onToggleIsotopes()">
-          <span class="slider round"></span>
-        </label>
-        <span class="toggle-label">Enable Isotopes (e.g., U235, D, T)</span>
-      </div>
-    </div>
-
-    <!-- Error State -->
-    <div *ngIf="result?.isValid === false" class="error-banner">
-      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="12" cy="12" r="10"></circle>
-        <line x1="12" y1="8" x2="12" y2="12"></line>
-        <line x1="12" y1="16" x2="12.01" y2="16"></line>
-      </svg>
-      <span>{{ result?.error }}</span>
-    </div>
-
-    <!-- Results Section -->
-    <div *ngIf="result?.isValid" class="results-section">
-      
-      <!-- WYSIWYG Preview & Molar Mass -->
-      <div class="formula-preview-card">
-        <div class="preview-header">Target Compound</div>
-        <div class="formatted-formula" [innerHTML]="result?.formattedFormula"></div>
-        <div class="molar-mass-value">
-          <span class="value">{{ result?.totalMolarMass | number:'1.2-4' }}</span>
-          <span class="unit">g/mol</span>
-        </div>
-      </div>
-
-      <!-- Elemental Breakdown Table -->
-      <div class="table-container custom-scrollbar">
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th>Symbol</th>
-              <th>Element</th>
-              <th class="num">Count</th>
-              <th class="num">Atomic Mass</th>
-              <th class="num">Total Mass</th>
-              <th class="num">Mass %</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let el of result?.elements">
-              <td class="symbol-col"><strong>{{ el.symbol }}</strong></td>
-              <td>{{ el.name }}</td>
-              <td class="num">{{ el.count }}</td>
-              <td class="num">{{ el.atomicMass | number:'1.2-4' }}</td>
-              <td class="num">{{ el.totalMass | number:'1.2-4' }}</td>
-              <td class="num percentage-col">{{ el.massPercentage | number:'1.2-2' }}%</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Right Panel: Chart & Advanced Tools -->
-  <div class="visualization-panel crystal-box">
-    
-    <div class="chart-container" *ngIf="result?.isValid">
-      <canvas #chartCanvas></canvas>
-    </div>
-    
-    <!-- Placeholder when empty/invalid -->
-    <div class="empty-state" *ngIf="!result?.isValid">
-      <div class="empty-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <circle cx="12" cy="12" r="10"></circle>
-          <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
-          <line x1="9" y1="9" x2="9.01" y2="9"></line>
-          <line x1="15" y1="9" x2="15.01" y2="9"></line>
-        </svg>
-      </div>
-      <p>Enter a valid formula to see its composition chart.</p>
-    </div>
-
-    <!-- Engineering Edge Tools -->
-    <div class="advanced-tools" *ngIf="result?.isValid">
-      
-      <!-- Quick Converter -->
-      <div class="tool-section">
-        <h3>Quick Mass/Mole Converter</h3>
-        <p class="tool-desc">Convert amounts for the current compound.</p>
-        <div class="converter-grid">
-          <div class="input-group">
-            <label>Grams (g)</label>
-            <input type="number" [(ngModel)]="gramsInput" (ngModelChange)="onGramsChange()" class="calculator-input">
-          </div>
-          <div class="input-group">
-            <label>Moles (mol)</label>
-            <input type="number" [(ngModel)]="molesInput" (ngModelChange)="onMolesChange()" class="calculator-input">
-          </div>
-          <div class="input-group">
-            <label>Molecules</label>
-            <input type="number" [(ngModel)]="moleculesInput" (ngModelChange)="onMoleculesChange()" class="calculator-input">
-          </div>
-        </div>
-      </div>
-
-      <!-- Empirical Evaluator -->
-      <div class="tool-section">
-        <h3>Empirical to Molecular Evaluator</h3>
-        <p class="tool-desc">Find molecular formula from empirical formula and mass.</p>
-        <div class="empirical-grid">
-          <div class="input-group">
-            <label>Empirical Formula</label>
-            <input type="text" [(ngModel)]="empiricalFormula" class="calculator-input" placeholder="e.g. CH2O">
-          </div>
-          <div class="input-group">
-            <label>Experimental Mass (g/mol)</label>
-            <input type="number" [(ngModel)]="experimentalMass" class="calculator-input" placeholder="e.g. 180">
-          </div>
-          <div class="btn-group">
-            <button class="calc-btn primary" (click)="onEmpiricalEvaluate()">Evaluate</button>
-          </div>
-        </div>
+  <main class="stats-main">
+    <div class="tab-view-container">
+      <div class="split-layout">
         
-        <div class="empirical-result" *ngIf="molecularFormulaResult || empiricalError">
-          <div *ngIf="molecularFormulaResult" class="success-result">
-            <strong>Molecular Formula: </strong> <span [innerHTML]="parser.formatFormulaHtml(molecularFormulaResult || '')"></span>
+        <!-- CONTROL PANEL (Left Column) -->
+        <section class="control-panel">
+          <!-- Formula Input Card -->
+          <div class="input-card">
+            <h2>Formula Input</h2>
+            
+            <div class="input-group">
+              <label for="formula">Chemical Formula</label>
+              <input 
+                id="formula"
+                type="text" 
+                [(ngModel)]="formulaInput" 
+                (ngModelChange)="onFormulaChange()"
+                class="custom-input formula-input" 
+                placeholder="e.g. CuSO4*5H2O"
+                autocomplete="off">
+            </div>
+            
+            <div class="toggle-group" style="margin-top: 1.25rem;">
+              <label class="switch-label">
+                <input type="checkbox" [(ngModel)]="useIsotopes" (change)="onToggleIsotopes()" />
+                <span class="slider"></span>
+              </label>
+              <span class="toggle-text">Enable Isotopes (e.g., U235, D, T)</span>
+            </div>
+            
+            <div class="error-container" *ngIf="result?.isValid === false" style="margin-top: 1rem;">
+              <p class="error-text">{{ result?.error }}</p>
+            </div>
           </div>
-          <div *ngIf="empiricalError" class="error-text">
-            {{ empiricalError }}
+          
+          <!-- Quick Converter Card -->
+          <div class="input-card" *ngIf="result?.isValid">
+            <h2>Quick Converter</h2>
+            <p class="subtitle" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Convert amounts based on the current molar mass.</p>
+            
+            <div class="parameters-grid">
+              <div class="input-group">
+                <label>Grams (g)</label>
+                <input type="number" [(ngModel)]="gramsInput" (ngModelChange)="onGramsChange()" class="custom-input" placeholder="0.0">
+              </div>
+              <div class="input-group">
+                <label>Moles (mol)</label>
+                <input type="number" [(ngModel)]="molesInput" (ngModelChange)="onMolesChange()" class="custom-input" placeholder="0.0">
+              </div>
+              <div class="input-group">
+                <label>Molecules</label>
+                <input type="number" [(ngModel)]="moleculesInput" (ngModelChange)="onMoleculesChange()" class="custom-input" placeholder="0.0">
+              </div>
+            </div>
           </div>
-        </div>
+
+          <!-- Empirical Evaluator Card -->
+          <div class="input-card" *ngIf="result?.isValid">
+            <h2>Empirical Evaluator</h2>
+            
+            <div class="parameters-grid">
+              <div class="input-group">
+                <label>Empirical Formula</label>
+                <input type="text" [(ngModel)]="empiricalFormula" class="custom-input" placeholder="e.g. CH2O">
+              </div>
+              <div class="input-group">
+                <label>Experimental Mass</label>
+                <input type="number" [(ngModel)]="experimentalMass" class="custom-input" placeholder="e.g. 180">
+              </div>
+            </div>
+            
+            <div class="action-buttons" style="margin-top: 1.5rem;">
+              <button class="calculate-btn" (click)="onEmpiricalEvaluate()">Evaluate Molecular Formula</button>
+            </div>
+            
+            <div class="empirical-result" *ngIf="molecularFormulaResult || empiricalError" style="margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--border-color);">
+              <div *ngIf="molecularFormulaResult" class="success-text" style="color: var(--success-color); font-size: 1.1rem;">
+                <strong style="color: var(--text-primary);">Molecular Formula: </strong> 
+                <span [innerHTML]="parser.formatFormulaHtml(molecularFormulaResult || '')" style="font-family: 'Times New Roman', serif; font-size: 1.2rem; font-weight: bold;"></span>
+              </div>
+              <div *ngIf="empiricalError" class="error-text">
+                {{ empiricalError }}
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- RESULTS PANEL (Right Column) -->
+        <section class="results-panel">
+          
+          <!-- Empty State -->
+          <div class="result-card" *ngIf="!result?.isValid">
+            <h2>Compound Overview</h2>
+            <div class="placeholder-container">
+              <p class="placeholder-text">Enter a valid chemical formula to view its molar mass, composition table, and interactive chart.</p>
+            </div>
+          </div>
+          
+          <ng-container *ngIf="result?.isValid">
+            <!-- Overview Card -->
+            <div class="result-card">
+              <h2>Compound Overview</h2>
+              <div class="result-display-box" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem;">
+                <div class="formatted-formula" [innerHTML]="result?.formattedFormula" style="font-size: 3rem; font-family: 'Times New Roman', serif; font-weight: bold; margin-bottom: 0.5rem; color: var(--text-primary);"></div>
+                <div class="molar-mass-value" style="font-size: 2rem; font-weight: bold; color: var(--primary-color);">
+                  {{ result?.totalMolarMass | number:'1.2-4' }} <span style="font-size: 1.1rem; color: var(--text-secondary); font-weight: normal;">g/mol</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Breakdown Table Card -->
+            <div class="result-card table-card">
+              <h2>Elemental Breakdown</h2>
+              <div class="table-container">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Symbol</th>
+                      <th>Element</th>
+                      <th class="num">Count</th>
+                      <th class="num">Total Mass</th>
+                      <th class="num">Mass %</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let el of result?.elements">
+                      <td class="symbol-col"><strong>{{ el.symbol }}</strong></td>
+                      <td>{{ el.name }}</td>
+                      <td class="num">{{ el.count }}</td>
+                      <td class="num">{{ el.totalMass | number:'1.2-4' }}</td>
+                      <td class="num percentage-col">{{ el.massPercentage | number:'1.2-2' }}%</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            
+            <!-- Chart Card -->
+            <div class="result-card">
+              <h2>Composition Chart</h2>
+              <div class="chart-container" style="position: relative; height: 350px; width: 100%; margin-top: 1rem;">
+                <canvas #chartCanvas></canvas>
+              </div>
+            </div>
+          </ng-container>
+          
+        </section>
       </div>
-
     </div>
-
-  </div>
+  </main>
 </div>
