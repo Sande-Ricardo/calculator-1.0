@@ -1,0 +1,14 @@
+<div class="visualizer-card result-card">
+  <div class="visualizer-header">
+    <h2>Interactive Geometric Visualization ({{ is2D ? '2D Canvas Plane' : '3D Spatial Graph' }})</h2>
+    <span class="hint-text" *ngIf="!is2D">Click and drag to rotate in 3D</span>
+  </div>
+
+  <div class="visualizer-canvas-wrapper">
+    <!-- 2D Canvas Renderer -->
+    <canvas #canvas2D *ngIf="is2D" class="vector-canvas-2d"></canvas>
+
+    <!-- 3D Plotly Renderer -->
+    <div #plotly3DContainer *ngIf="!is2D" class="vector-plotly-3d"></div>
+  </div>
+</div>

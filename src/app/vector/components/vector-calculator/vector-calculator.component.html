@@ -1,0 +1,319 @@
+<div class="container2 crystal-box">
+  <header class="stats-header">
+    <h1 class="title">Vector Calculus & Operations</h1>
+    <p class="subtitle">2D & 3D Vector Arithmetic, Dot/Cross Products, Projections, and Step-by-Step Derivations</p>
+  </header>
+
+  <main class="stats-main">
+    <div class="tab-view-container">
+      
+      <!-- MODE CONTROLS BAR -->
+      <div class="controls-bar">
+        <div class="mode-toggle-group">
+          <!-- 2D / 3D Toggle -->
+          <div class="segmented-btn-group">
+            <button 
+              class="segment-btn" 
+              [class.active]="dimensionMode === '2D'" 
+              (click)="setDimensionMode('2D')">
+              2D Workspace
+            </button>
+            <button 
+              class="segment-btn" 
+              [class.active]="dimensionMode === '3D'" 
+              (click)="setDimensionMode('3D')">
+              3D Workspace
+            </button>
+          </div>
+
+          <!-- Coordinate System Toggle -->
+          <div class="segmented-btn-group">
+            <button 
+              class="segment-btn" 
+              [class.active]="coordSystem === 'cartesian'" 
+              (click)="setCoordSystem('cartesian')">
+              Cartesian (x, y{{ dimensionMode === '3D' ? ', z' : '' }})
+            </button>
+            <button 
+              class="segment-btn" 
+              [class.active]="coordSystem === 'polar'" 
+              (click)="setCoordSystem('polar')">
+              {{ dimensionMode === '2D' ? 'Polar (r, θ)' : 'Spherical (r, θ, φ)' }}
+            </button>
+          </div>
+
+          <!-- Angle Unit Toggle -->
+          <div class="segmented-btn-group" *ngIf="coordSystem === 'polar' || operation === 'dot'">
+            <button 
+              class="segment-btn" 
+              [class.active]="angleUnit === 'deg'" 
+              (click)="setAngleUnit('deg')">
+              Degrees (°)
+            </button>
+            <button 
+              class="segment-btn" 
+              [class.active]="angleUnit === 'rad'" 
+              (click)="setAngleUnit('rad')">
+              Radians (rad)
+            </button>
+          </div>
+        </div>
+
+        <!-- Physics Template Dropdown -->
+        <div class="template-selector">
+          <label for="templateSelect">Physics Template:</label>
+          <select 
+            id="templateSelect" 
+            class="custom-select" 
+            [ngModel]="physicsTemplate" 
+            (ngModelChange)="applyPhysicsTemplate($event)">
+            <option value="none">Custom Vectors</option>
+            <option value="statics">Statics: Net Force (ΣF = 0)</option>
+            <option value="dynamics">Dynamics: Torque (τ = r × F)</option>
+            <option value="electromagnetism">Electromagnetism: Lorentz Force (F = q(v × B))</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- OPERATION TABS -->
+      <div class="tabs" style="margin-top: 1.5rem;">
+        <button 
+          class="tab-btn" 
+          [class.active]="operation === 'resultant'" 
+          (click)="setOperation('resultant')">
+          Vector Addition / Resultant
+        </button>
+        <button 
+          class="tab-btn" 
+          [class.active]="operation === 'dot'" 
+          (click)="setOperation('dot')">
+          Dot Product (u · v) & Angle
+        </button>
+        <button 
+          class="tab-btn" 
+          [class.active]="operation === 'cross'" 
+          (click)="setOperation('cross')">
+          Cross Product (u × v)
+        </button>
+        <button 
+          class="tab-btn" 
+          [class.active]="operation === 'projection'" 
+          (click)="setOperation('projection')">
+          Projection & Rejection (proj_v u)
+        </button>
+      </div>
+
+      <!-- MAIN SPLIT LAYOUT -->
+      <div class="split-layout" style="margin-top: 1.5rem;">
+        
+        <!-- LEFT COLUMN: VECTOR INPUTS -->
+        <section class="control-panel">
+          <form [formGroup]="vectorForm">
+            <div class="input-card">
+              <div class="card-header-flex">
+                <h2>Vector Inputs</h2>
+                <button 
+                  type="button" 
+                  class="add-btn" 
+                  (click)="addVector()" 
+                  *ngIf="operation === 'resultant'">
+                  + Add Vector
+                </button>
+              </div>
+
+              <div formArrayName="vectors">
+                <div 
+                  *ngFor="let vecGroup of vectorsArray.controls; let i = index" 
+                  [formGroupName]="i" 
+                  class="vector-input-row">
+                  
+                  <div class="vector-label-badge">
+                    <span class="symbol">u⃗_{{ i + 1 }}</span>
+                    <input 
+                      type="text" 
+                      formControlName="label" 
+                      class="custom-input label-input" 
+                      placeholder="Name">
+                  </div>
+
+                  <div class="vector-components-grid">
+                    <div class="input-group">
+                      <label>{{ getVal1Label() }}</label>
+                      <input 
+                        type="number" 
+                        formControlName="val1" 
+                        class="custom-input" 
+                        placeholder="0">
+                    </div>
+                    <div class="input-group">
+                      <label>{{ getVal2Label() }}</label>
+                      <input 
+                        type="number" 
+                        formControlName="val2" 
+                        class="custom-input" 
+                        placeholder="0">
+                    </div>
+                    <div class="input-group" *ngIf="dimensionMode === '3D'">
+                      <label>{{ getVal3Label() }}</label>
+                      <input 
+                        type="number" 
+                        formControlName="val3" 
+                        class="custom-input" 
+                        placeholder="0">
+                    </div>
+                  </div>
+
+                  <button 
+                    type="button" 
+                    class="remove-btn" 
+                    (click)="removeVector(i)" 
+                    *ngIf="vectorsArray.length > 2 || (operation === 'resultant' && vectorsArray.length > 1)"
+                    title="Remove Vector">
+                    &times;
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+
+          <!-- Input Vectors Summary Cards -->
+          <div class="input-card">
+            <h2>Parsed Vector Definitions</h2>
+            <div class="vector-list">
+              <div *ngFor="let item of parsedVectors" class="vector-definition-item">
+                <span class="vec-title">u⃗_{{ item.label }}:</span>
+                <span class="vec-cartesian">({{ item.vector.x }}, {{ item.vector.y }}{{ dimensionMode === '3D' ? ', ' + item.vector.z : '' }})</span>
+                <span class="vec-unit">{{ item.vector.toUnitVectorString(dimensionMode === '2D') }}</span>
+                <span class="vec-norm">||u⃗|| = {{ item.vector.magnitude() }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- INTERACTIVE GEOMETRIC VISUALIZER -->
+          <app-vector-visualizer
+            [vectors]="parsedVectors"
+            [resultant]="operation === 'resultant' ? (resultantData?.result || null) : (operation === 'cross' ? (crossData?.result || null) : null)"
+            [is2D]="dimensionMode === '2D'"
+            [operation]="operation"
+            [projectionResult]="projData?.result || null">
+          </app-vector-visualizer>
+        </section>
+
+        <!-- RIGHT COLUMN: COMPUTATIONAL RESULTS -->
+        <section class="results-panel">
+          
+          <!-- RESULTANT OUTPUT -->
+          <div class="result-card" *ngIf="operation === 'resultant' && resultantData">
+            <h2>Resultant Vector (R⃗ = Σ u⃗)</h2>
+            <div class="result-display-box">
+              <div class="molar-mass-value" style="font-size: 2.25rem; font-weight: bold; color: var(--primary-color);">
+                R⃗ = ({{ resultantData.result.x }}, {{ resultantData.result.y }}{{ dimensionMode === '3D' ? ', ' + resultantData.result.z : '' }})
+              </div>
+              <div class="canonical-format" style="font-size: 1.2rem; color: var(--text-secondary); margin-top: 0.5rem;">
+                {{ resultantData.result.toUnitVectorString(dimensionMode === '2D') }}
+              </div>
+              <div class="norm-badge" style="margin-top: 1rem; font-size: 1.1rem; color: var(--success-color);">
+                Magnitude ||R⃗|| = <strong>{{ resultantData.result.magnitude() }}</strong>
+              </div>
+              <div class="norm-badge" style="margin-top: 0.25rem; font-size: 0.95rem; color: var(--text-muted);" *ngIf="dimensionMode === '2D'">
+                Polar Angle θ = <strong>{{ resultantData.result.toPolar().theta }}°</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- DOT PRODUCT OUTPUT -->
+          <div class="result-card" *ngIf="operation === 'dot' && dotData">
+            <h2>Dot Product (u⃗ · v⃗) & Angle</h2>
+            <div class="result-display-box">
+              <div style="font-size: 2rem; font-weight: bold; color: var(--primary-color);">
+                u⃗ · v⃗ = {{ dotData.result.dotProduct }}
+              </div>
+              <div style="font-size: 1.25rem; color: var(--success-color); margin-top: 0.75rem;">
+                Angle θ = <strong>{{ dotData.result.angle }}{{ angleUnit === 'deg' ? '°' : ' rad' }}</strong>
+              </div>
+              <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">
+                ||u⃗|| = {{ dotData.result.magU }} | ||v⃗|| = {{ dotData.result.magV }}
+              </div>
+            </div>
+          </div>
+
+          <!-- CROSS PRODUCT OUTPUT -->
+          <div class="result-card" *ngIf="operation === 'cross' && crossData">
+            <h2>Cross Product (u⃗ × v⃗)</h2>
+            <div class="result-display-box">
+              <div style="font-size: 2rem; font-weight: bold; color: var(--primary-color);">
+                u⃗ × v⃗ = ({{ crossData.result.x }}, {{ crossData.result.y }}, {{ crossData.result.z }})
+              </div>
+              <div style="font-size: 1.1rem; color: var(--text-secondary); margin-top: 0.5rem;">
+                {{ crossData.result.toUnitVectorString(false) }}
+              </div>
+              <div style="font-size: 1.1rem; color: var(--success-color); margin-top: 1rem;">
+                Parallelogram Area = ||u⃗ × v⃗|| = <strong>{{ crossData.result.magnitude() }}</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- PROJECTION OUTPUT -->
+          <div class="result-card" *ngIf="operation === 'projection' && projData">
+            <h2>Vector Projection & Rejection</h2>
+            <div class="result-display-box">
+              <div style="font-size: 1.25rem; font-weight: bold; color: var(--primary-color);">
+                proj_v⃗ u⃗ = ({{ projData.result.projection.x }}, {{ projData.result.projection.y }}{{ dimensionMode === '3D' ? ', ' + projData.result.projection.z : '' }})
+              </div>
+              <div style="font-size: 1rem; color: var(--text-secondary); margin-top: 0.25rem;">
+                Parallel Component: ||proj|| = {{ projData.result.projection.magnitude() }}
+              </div>
+              <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 1rem 0;" />
+              <div style="font-size: 1.25rem; font-weight: bold; color: var(--accent-color);">
+                ort_v⃗ u⃗ = ({{ projData.result.rejection.x }}, {{ projData.result.rejection.y }}{{ dimensionMode === '3D' ? ', ' + projData.result.rejection.z : '' }})
+              </div>
+              <div style="font-size: 1rem; color: var(--text-secondary); margin-top: 0.25rem;">
+                Orthogonal Component: ||ort|| = {{ projData.result.rejection.magnitude() }}
+              </div>
+            </div>
+          </div>
+
+          <!-- SHOW YOUR WORK ACCORDION -->
+          <div class="result-card">
+            <div class="accordion-header" (click)="toggleShowSteps()">
+              <h2>Show Step-by-Step Derivation</h2>
+              <span class="accordion-icon">{{ showSteps ? '▲' : '▼' }}</span>
+            </div>
+
+            <div class="accordion-content" *ngIf="showSteps">
+              <!-- Resultant Steps -->
+              <ng-container *ngIf="operation === 'resultant' && resultantData">
+                <div *ngFor="let step of resultantData.latexSteps" class="step-math-row">
+                  <app-mathjax-viewer [expression]="'\\( ' + step + ' \\)'"></app-mathjax-viewer>
+                </div>
+              </ng-container>
+
+              <!-- Dot Steps -->
+              <ng-container *ngIf="operation === 'dot' && dotData">
+                <div *ngFor="let step of dotData.latexSteps" class="step-math-row">
+                  <app-mathjax-viewer [expression]="'\\( ' + step + ' \\)'"></app-mathjax-viewer>
+                </div>
+              </ng-container>
+
+              <!-- Cross Steps -->
+              <ng-container *ngIf="operation === 'cross' && crossData">
+                <div *ngFor="let step of crossData.latexSteps" class="step-math-row">
+                  <app-mathjax-viewer [expression]="'\\( ' + step + ' \\)'"></app-mathjax-viewer>
+                </div>
+              </ng-container>
+
+              <!-- Projection Steps -->
+              <ng-container *ngIf="operation === 'projection' && projData">
+                <div *ngFor="let step of projData.latexSteps" class="step-math-row">
+                  <app-mathjax-viewer [expression]="'\\( ' + step + ' \\)'"></app-mathjax-viewer>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+
+        </section>
+
+      </div>
+    </div>
+  </main>
+</div>

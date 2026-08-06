@@ -56,6 +56,10 @@ const routes: Routes = [
         loadChildren: () => import('./chemistry/chemistry.module').then(m => m.ChemistryModule)
       },
       {
+        path: 'vector',
+        loadChildren: () => import('./vector/vector.module').then(m => m.VectorModule)
+      },
+      {
         path: '',
         loadChildren: () => import('./calculator/calculator.module').then(m => m.CalculatorModule)
       }

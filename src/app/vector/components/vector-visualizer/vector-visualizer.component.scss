@@ -1,0 +1,49 @@
+:host {
+  display: block;
+}
+
+.visualizer-card {
+  margin-top: 1.5rem;
+}
+
+.visualizer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  
+  h2 {
+    margin: 0;
+    font-size: 1.2rem;
+  }
+  
+  .hint-text {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+}
+
+.visualizer-canvas-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 350px;
+  background-color: #0e0f25;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.vector-canvas-2d {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.vector-plotly-3d {
+  width: 100%;
+  height: 400px;
+}

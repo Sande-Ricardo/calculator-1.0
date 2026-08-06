@@ -14,6 +14,7 @@ Calculator is a feature-rich Angular 14 application built with TypeScript, lever
 - **Equation Solving:** Polynomial and systems of linear equations solver.
 - **Graph Plotting & Visualization:** 2D function graphing powered by Desmos API integration.
 - **Matrix Operations:** Matrix arithmetic, determinants, inverses, eigenvalues, and linear algebra solvers.
+- **Vector Calculus & Operations:** 2D/3D vector arithmetic, dot/cross products, projections, physics context templates (Statics, Dynamics, Electromagnetism), and dual 2D Canvas / 3D Plotly spatial visualizer.
 - **Statistical Analysis & Modeling:** Descriptive statistics, dispersion metrics, outliers detection, and continuous/discrete probability distributions (Normal, Student-t, Binomial, Poisson).
 - **Differential Equations (ODE):** Analytical ordinary differential equations solver and interactive slope fields visualizer.
 - **Chemistry Calculations:** Molar mass calculator with nested stoichiometric parsing, pedagogical isotopes, empirical formula evaluation, and dynamic composition visualizations.
@@ -120,6 +121,12 @@ The application implements a feature-based modular structure with lazy-loaded An
 - **EquationModule (`/equation`)**: Polynomial equation solver and linear equation systems solver ($N \times N$).
 - **GraphingModule (`/graph`)**: Interactive 2D graph canvas powered by Desmos API with multi-function expression tracking.
 - **MatrixModule (`/matrix`)**: Matrix algebra (Addition, Multiplication, Transpose, Determinant, Inverse, Rank, Gaussian Elimination) with scrollable grid inputs.
+- **VectorModule (`/vector`)**:
+  - *Vector Operations:* Addition, Subtraction, Scalar Multiplication, Norm, Unit Vector.
+  - *Advanced Products:* Dot Product & angle, Cross Product & parallelogram area, Parallel Projection & Orthogonal Rejection.
+  - *Coordinate Conversions:* Cartesian, Polar $(r, \theta)$, and Spherical $(r, \theta, \phi)$ systems in Degrees or Radians.
+  - *Physics Templates:* Pre-configured Statics ($\Sigma F = 0$), Dynamics ($\tau = r \times F$), and Electromagnetism ($F = q(v \times B)$) setups.
+  - *Interactive Visualizer:* HTML5 2D Canvas engine and Plotly 3D spatial plot with full camera rotation.
 - **StatsModule (`/stats`)**:
   - *Descriptive Statistics:* Mean, median, mode, variance, standard deviation, quartiles (Q1, Q2, Q3), IQR, and 1.5 IQR outlier detection.
   - *Probability Distributions:* Probability density & cumulative distribution calculations (Normal, Student-t, Binomial, Poisson) with interactive curve plots.
