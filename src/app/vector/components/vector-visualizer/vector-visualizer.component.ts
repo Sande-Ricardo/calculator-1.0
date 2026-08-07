@@ -173,12 +173,12 @@ export class VectorVisualizerComponent implements OnInit, AfterViewInit, OnChang
     // 3. Draw Input Vectors
     this.vectors.forEach((item, index) => {
       const color = this.palette[index % this.palette.length];
-      this.drawArrow2D(ctx, centerX, centerY, toScreenX(item.vector.x), toScreenY(item.vector.y), color, `u⃗_${item.label}`, false);
+      this.drawArrow2D(ctx, centerX, centerY, toScreenX(item.vector.x), toScreenY(item.vector.y), color, `v_${item.label}`, false);
     });
 
     // 4. Draw Resultant or Projection Vector
     if (this.operation === 'resultant' && this.resultant) {
-      this.drawArrow2D(ctx, centerX, centerY, toScreenX(this.resultant.x), toScreenY(this.resultant.y), '#38bdf8', 'R⃗ (Resultant)', true);
+      this.drawArrow2D(ctx, centerX, centerY, toScreenX(this.resultant.x), toScreenY(this.resultant.y), '#38bdf8', 'R (Resultant)', true);
     } else if (this.operation === 'projection' && this.projectionResult) {
       const proj = this.projectionResult.projection;
       const rej = this.projectionResult.rejection;
@@ -261,9 +261,9 @@ export class VectorVisualizerComponent implements OnInit, AfterViewInit, OnChang
         z: [0, item.vector.z],
         line: { color: color, width: 6 },
         marker: { size: [0, 5], color: color },
-        text: ['', `u⃗_${item.label}`],
+        text: ['', `v_${item.label}`],
         textposition: 'top center',
-        name: `u⃗_${item.label} (${item.vector.x}, ${item.vector.y}, ${item.vector.z})`
+        name: `v_${item.label} (${item.vector.x}, ${item.vector.y}, ${item.vector.z})`
       });
     });
 
@@ -277,9 +277,9 @@ export class VectorVisualizerComponent implements OnInit, AfterViewInit, OnChang
         z: [0, this.resultant.z],
         line: { color: '#38bdf8', width: 8, dash: 'dash' },
         marker: { size: [0, 7], color: '#38bdf8' },
-        text: ['', 'R⃗ (Resultant)'],
+        text: ['', 'R (Resultant)'],
         textposition: 'top center',
-        name: `R⃗ Resultant (${this.resultant.x}, ${this.resultant.y}, ${this.resultant.z})`
+        name: `R Resultant (${this.resultant.x}, ${this.resultant.y}, ${this.resultant.z})`
       });
     } else if (this.operation === 'cross' && this.resultant) {
       dataTraces.push({
@@ -290,9 +290,9 @@ export class VectorVisualizerComponent implements OnInit, AfterViewInit, OnChang
         z: [0, this.resultant.z],
         line: { color: '#f43f5e', width: 8, dash: 'dash' },
         marker: { size: [0, 7], color: '#f43f5e' },
-        text: ['', 'u⃗ × v⃗ (Cross Product)'],
+        text: ['', 'u × v (Cross Product)'],
         textposition: 'top center',
-        name: `u⃗ × v⃗ (${this.resultant.x}, ${this.resultant.y}, ${this.resultant.z})`
+        name: `u × v (${this.resultant.x}, ${this.resultant.y}, ${this.resultant.z})`
       });
     } else if (this.operation === 'projection' && this.projectionResult) {
       const proj = this.projectionResult.projection;

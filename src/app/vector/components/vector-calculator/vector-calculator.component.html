@@ -128,7 +128,7 @@
                   class="vector-input-row">
                   
                   <div class="vector-label-badge">
-                    <span class="symbol">u⃗_{{ i + 1 }}</span>
+                    <span class="symbol">v_{{ i + 1 }}</span>
                     <input 
                       type="text" 
                       formControlName="label" 
@@ -181,10 +181,16 @@
             <h2>Parsed Vector Definitions</h2>
             <div class="vector-list">
               <div *ngFor="let item of parsedVectors" class="vector-definition-item">
-                <span class="vec-title">u⃗_{{ item.label }}:</span>
+                <span class="vec-title">
+                  <app-mathjax-viewer [expression]="'\\( \\vec{v}_{' + item.label + '} \\)'"></app-mathjax-viewer>
+                </span>
                 <span class="vec-cartesian">({{ item.vector.x }}, {{ item.vector.y }}{{ dimensionMode === '3D' ? ', ' + item.vector.z : '' }})</span>
-                <span class="vec-unit">{{ item.vector.toUnitVectorString(dimensionMode === '2D') }}</span>
-                <span class="vec-norm">||u⃗|| = {{ item.vector.magnitude() }}</span>
+                <span class="vec-unit">
+                  <app-mathjax-viewer [expression]="'\\( ' + item.vector.toUnitVectorString(dimensionMode === '2D') + ' \\)'"></app-mathjax-viewer>
+                </span>
+                <span class="vec-norm">
+                  <app-mathjax-viewer [expression]="'\\( ||\\vec{v}|| = ' + item.vector.magnitude() + ' \\)'"></app-mathjax-viewer>
+                </span>
               </div>
             </div>
           </div>
@@ -204,51 +210,51 @@
           
           <!-- RESULTANT OUTPUT -->
           <div class="result-card" *ngIf="operation === 'resultant' && resultantData">
-            <h2>Resultant Vector (R⃗ = Σ u⃗)</h2>
+            <h2>Resultant Vector</h2>
             <div class="result-display-box">
-              <div class="molar-mass-value" style="font-size: 2.25rem; font-weight: bold; color: var(--primary-color);">
-                R⃗ = ({{ resultantData.result.x }}, {{ resultantData.result.y }}{{ dimensionMode === '3D' ? ', ' + resultantData.result.z : '' }})
+              <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">
+                <app-mathjax-viewer [expression]="'\\( \\vec{R} = \\sum \\vec{v} = (' + resultantData.result.x + ', ' + resultantData.result.y + (dimensionMode === '3D' ? ', ' + resultantData.result.z : '') + ') \\)'"></app-mathjax-viewer>
               </div>
-              <div class="canonical-format" style="font-size: 1.2rem; color: var(--text-secondary); margin-top: 0.5rem;">
-                {{ resultantData.result.toUnitVectorString(dimensionMode === '2D') }}
+              <div class="canonical-format" style="font-size: 1.2rem; margin-top: 0.5rem;">
+                <app-mathjax-viewer [expression]="'\\( \\vec{R} = ' + resultantData.result.toUnitVectorString(dimensionMode === '2D') + ' \\)'"></app-mathjax-viewer>
               </div>
-              <div class="norm-badge" style="margin-top: 1rem; font-size: 1.1rem; color: var(--success-color);">
-                Magnitude ||R⃗|| = <strong>{{ resultantData.result.magnitude() }}</strong>
+              <div class="norm-badge" style="margin-top: 1rem;">
+                <app-mathjax-viewer [expression]="'\\( ||\\vec{R}|| = ' + resultantData.result.magnitude() + ' \\)'"></app-mathjax-viewer>
               </div>
-              <div class="norm-badge" style="margin-top: 0.25rem; font-size: 0.95rem; color: var(--text-muted);" *ngIf="dimensionMode === '2D'">
-                Polar Angle θ = <strong>{{ resultantData.result.toPolar().theta }}°</strong>
+              <div class="norm-badge" style="margin-top: 0.25rem;" *ngIf="dimensionMode === '2D'">
+                <app-mathjax-viewer [expression]="'\\( \\theta = ' + resultantData.result.toPolar().theta + '^\\circ \\)'"></app-mathjax-viewer>
               </div>
             </div>
           </div>
 
           <!-- DOT PRODUCT OUTPUT -->
           <div class="result-card" *ngIf="operation === 'dot' && dotData">
-            <h2>Dot Product (u⃗ · v⃗) & Angle</h2>
+            <h2>Dot Product & Angle</h2>
             <div class="result-display-box">
-              <div style="font-size: 2rem; font-weight: bold; color: var(--primary-color);">
-                u⃗ · v⃗ = {{ dotData.result.dotProduct }}
+              <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">
+                <app-mathjax-viewer [expression]="'\\( \\vec{u} \\cdot \\vec{v} = ' + dotData.result.dotProduct + ' \\)'"></app-mathjax-viewer>
               </div>
-              <div style="font-size: 1.25rem; color: var(--success-color); margin-top: 0.75rem;">
-                Angle θ = <strong>{{ dotData.result.angle }}{{ angleUnit === 'deg' ? '°' : ' rad' }}</strong>
+              <div style="font-size: 1.2rem; margin-top: 0.75rem;">
+                <app-mathjax-viewer [expression]="'\\( \\theta = ' + dotData.result.angle + (angleUnit === 'deg' ? '^\\circ' : ' \\text{ rad}') + ' \\)'"></app-mathjax-viewer>
               </div>
-              <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">
-                ||u⃗|| = {{ dotData.result.magU }} | ||v⃗|| = {{ dotData.result.magV }}
+              <div style="font-size: 0.95rem; margin-top: 0.5rem;">
+                <app-mathjax-viewer [expression]="'\\( ||\\vec{u}|| = ' + dotData.result.magU + ' \\quad | \\quad ||\\vec{v}|| = ' + dotData.result.magV + ' \\)'"></app-mathjax-viewer>
               </div>
             </div>
           </div>
 
           <!-- CROSS PRODUCT OUTPUT -->
           <div class="result-card" *ngIf="operation === 'cross' && crossData">
-            <h2>Cross Product (u⃗ × v⃗)</h2>
+            <h2>Cross Product</h2>
             <div class="result-display-box">
-              <div style="font-size: 2rem; font-weight: bold; color: var(--primary-color);">
-                u⃗ × v⃗ = ({{ crossData.result.x }}, {{ crossData.result.y }}, {{ crossData.result.z }})
+              <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">
+                <app-mathjax-viewer [expression]="'\\( \\vec{u} \\times \\vec{v} = (' + crossData.result.x + ', ' + crossData.result.y + ', ' + crossData.result.z + ') \\)'"></app-mathjax-viewer>
               </div>
-              <div style="font-size: 1.1rem; color: var(--text-secondary); margin-top: 0.5rem;">
-                {{ crossData.result.toUnitVectorString(false) }}
+              <div style="font-size: 1.2rem; margin-top: 0.5rem;">
+                <app-mathjax-viewer [expression]="'\\( \\vec{u} \\times \\vec{v} = ' + crossData.result.toUnitVectorString(false) + ' \\)'"></app-mathjax-viewer>
               </div>
-              <div style="font-size: 1.1rem; color: var(--success-color); margin-top: 1rem;">
-                Parallelogram Area = ||u⃗ × v⃗|| = <strong>{{ crossData.result.magnitude() }}</strong>
+              <div style="font-size: 1.1rem; margin-top: 1rem;">
+                <app-mathjax-viewer [expression]="'\\( \\text{Parallelogram Area} = ||\\vec{u} \\times \\vec{v}|| = ' + crossData.result.magnitude() + ' \\)'"></app-mathjax-viewer>
               </div>
             </div>
           </div>
@@ -257,18 +263,18 @@
           <div class="result-card" *ngIf="operation === 'projection' && projData">
             <h2>Vector Projection & Rejection</h2>
             <div class="result-display-box">
-              <div style="font-size: 1.25rem; font-weight: bold; color: var(--primary-color);">
-                proj_v⃗ u⃗ = ({{ projData.result.projection.x }}, {{ projData.result.projection.y }}{{ dimensionMode === '3D' ? ', ' + projData.result.projection.z : '' }})
+              <div style="font-size: 1.2rem; margin-bottom: 0.25rem;">
+                <app-mathjax-viewer [expression]="'\\( \\text{proj}_{\\vec{v}} \\vec{u} = (' + projData.result.projection.x + ', ' + projData.result.projection.y + (dimensionMode === '3D' ? ', ' + projData.result.projection.z : '') + ') \\)'"></app-mathjax-viewer>
               </div>
-              <div style="font-size: 1rem; color: var(--text-secondary); margin-top: 0.25rem;">
-                Parallel Component: ||proj|| = {{ projData.result.projection.magnitude() }}
+              <div style="font-size: 0.95rem; margin-top: 0.25rem;">
+                <app-mathjax-viewer [expression]="'\\( ||\\text{proj}_{\\vec{v}} \\vec{u}|| = ' + projData.result.projection.magnitude() + ' \\)'"></app-mathjax-viewer>
               </div>
               <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 1rem 0;" />
-              <div style="font-size: 1.25rem; font-weight: bold; color: var(--accent-color);">
-                ort_v⃗ u⃗ = ({{ projData.result.rejection.x }}, {{ projData.result.rejection.y }}{{ dimensionMode === '3D' ? ', ' + projData.result.rejection.z : '' }})
+              <div style="font-size: 1.2rem; margin-bottom: 0.25rem;">
+                <app-mathjax-viewer [expression]="'\\( \\text{ort}_{\\vec{v}} \\vec{u} = (' + projData.result.rejection.x + ', ' + projData.result.rejection.y + (dimensionMode === '3D' ? ', ' + projData.result.rejection.z : '') + ') \\)'"></app-mathjax-viewer>
               </div>
-              <div style="font-size: 1rem; color: var(--text-secondary); margin-top: 0.25rem;">
-                Orthogonal Component: ||ort|| = {{ projData.result.rejection.magnitude() }}
+              <div style="font-size: 0.95rem; margin-top: 0.25rem;">
+                <app-mathjax-viewer [expression]="'\\( ||\\text{ort}_{\\vec{v}} \\vec{u}|| = ' + projData.result.rejection.magnitude() + ' \\)'"></app-mathjax-viewer>
               </div>
             </div>
           </div>
