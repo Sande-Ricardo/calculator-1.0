@@ -1,7 +1,7 @@
 <div class="visualizer-card result-card">
   <div class="visualizer-header">
     <h2>Interactive Geometric Visualization ({{ is2D ? '2D Canvas Plane' : '3D Spatial Graph' }})</h2>
-    <span class="hint-text" *ngIf="!is2D">Click and drag to rotate in 3D</span>
+    <span class="hint-text" *ngIf="!is2D && !isDisabled3DSpherical">Click and drag to rotate in 3D</span>
   </div>
 
   <div class="visualizer-canvas-wrapper">
@@ -9,6 +9,25 @@
     <canvas #canvas2D *ngIf="is2D" class="vector-canvas-2d"></canvas>
 
     <!-- 3D Plotly Renderer -->
-    <div #plotly3DContainer *ngIf="!is2D" class="vector-plotly-3d"></div>
+    <div #plotly3DContainer *ngIf="!is2D && !isDisabled3DSpherical" class="vector-plotly-3d"></div>
+
+    <!-- Disabled 3D Spherical Notice -->
+    <div *ngIf="isDisabled3DSpherical" class="disabled-visualization-notice">
+      <div class="notice-icon-container">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+      </div>
+      <h3>3D Visualization Unavailable in Spherical Coordinates</h3>
+      <p>
+        Interactive 3D spatial graph rendering is temporarily disabled for the spherical coordinate system
+        <app-mathjax-viewer [expression]="'\\( (r, \\theta, \\phi) \\)'"></app-mathjax-viewer>.
+      </p>
+      <span class="notice-hint">
+        Suggestion: Select Cartesian coordinates \((x, y, z)\) for 3D graph interaction, or switch to 2D mode to view the Polar plane \((r, \theta)\).
+      </span>
+    </div>
   </div>
 </div>

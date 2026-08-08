@@ -16,6 +16,7 @@ export class VectorVisualizerComponent implements OnInit, AfterViewInit, OnChang
   @Input() resultant: Vector3D | null = null;
   @Input() is2D: boolean = true;
   @Input() operation: string = 'resultant';
+  @Input() coordSystem: 'cartesian' | 'polar' = 'cartesian';
   @Input() projectionResult: { projection: Vector3D; rejection: Vector3D } | null = null;
 
   isPlotlyLoaded: boolean = false;
@@ -32,7 +33,7 @@ export class VectorVisualizerComponent implements OnInit, AfterViewInit, OnChang
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (!changes['vectors']?.firstChange || !changes['is2D']?.firstChange) {
+    if (!changes['vectors']?.firstChange || !changes['is2D']?.firstChange || !changes['coordSystem']?.firstChange) {
       setTimeout(() => this.render(), 50);
     }
   }
@@ -72,7 +73,14 @@ export class VectorVisualizerComponent implements OnInit, AfterViewInit, OnChang
     }
   }
 
+  get isDisabled3DSpherical(): boolean {
+    return !this.is2D && this.coordSystem === 'polar';
+  }
+
   public render(): void {
+    if (this.isDisabled3DSpherical) {
+      return;
+    }
     if (this.is2D) {
       this.draw2DCanvas();
     } else {
@@ -132,43 +140,76 @@ export class VectorVisualizerComponent implements OnInit, AfterViewInit, OnChang
     ctx.lineWidth = 1;
     const step = Math.pow(10, Math.floor(Math.log10(maxVal))) || 1;
 
-    for (let x = -maxVal; x <= maxVal; x += step) {
-      const sx = toScreenX(x);
+    if (this.coordSystem === 'cartesian') {
+      for (let x = -maxVal; x <= maxVal; x += step) {
+        const sx = toScreenX(x);
+        ctx.beginPath();
+        ctx.moveTo(sx, 0);
+        ctx.lineTo(sx, height);
+        ctx.stroke();
+      }
+
+      for (let y = -maxVal; y <= maxVal; y += step) {
+        const sy = toScreenY(y);
+        ctx.beginPath();
+        ctx.moveTo(0, sy);
+        ctx.lineTo(width, sy);
+        ctx.stroke();
+      }
+
+      // 2. Draw Main Axes (X and Y)
+      ctx.strokeStyle = '#475569';
+      ctx.lineWidth = 2;
+
       ctx.beginPath();
-      ctx.moveTo(sx, 0);
-      ctx.lineTo(sx, height);
+      ctx.moveTo(0, centerY);
+      ctx.lineTo(width, centerY);
       ctx.stroke();
-    }
 
-    for (let y = -maxVal; y <= maxVal; y += step) {
-      const sy = toScreenY(y);
       ctx.beginPath();
-      ctx.moveTo(0, sy);
-      ctx.lineTo(width, sy);
+      ctx.moveTo(centerX, 0);
+      ctx.lineTo(centerX, height);
       ctx.stroke();
+
+      // Axis Labels
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '12px "Inter", sans-serif';
+      ctx.fillText('X', width - 15, centerY - 8);
+      ctx.fillText('Y', centerX + 8, 15);
+    } else {
+      // POLAR GRID
+      for (let r = step; r <= maxVal * 1.5; r += step) {
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, r * scale, 0, 2 * Math.PI);
+        ctx.stroke();
+      }
+
+      const angles = [0, 30, 45, 60, 90, 120, 135, 150, 180, 210, 225, 240, 270, 300, 315, 330];
+      angles.forEach(deg => {
+        const rad = deg * Math.PI / 180;
+        const outX = centerX + Math.cos(rad) * maxVal * 1.5 * scale;
+        const outY = centerY - Math.sin(rad) * maxVal * 1.5 * scale;
+        
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.lineTo(outX, outY);
+        ctx.stroke();
+
+        if (deg % 90 === 0 || deg % 45 === 0) {
+          ctx.fillStyle = '#94a3b8';
+          ctx.font = '11px "Inter", sans-serif';
+          const textX = centerX + Math.cos(rad) * (maxVal * 1.5 * scale + 15);
+          const textY = centerY - Math.sin(rad) * (maxVal * 1.5 * scale + 15);
+          ctx.fillText(`${deg}°`, textX - 8, textY + 4);
+        }
+      });
+      
+      // Main axes bolder
+      ctx.strokeStyle = '#475569';
+      ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(0, centerY); ctx.lineTo(width, centerY); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(centerX, 0); ctx.lineTo(centerX, height); ctx.stroke();
     }
-
-    // 2. Draw Main Axes (X and Y)
-    ctx.strokeStyle = '#475569';
-    ctx.lineWidth = 2;
-
-    // X Axis
-    ctx.beginPath();
-    ctx.moveTo(0, centerY);
-    ctx.lineTo(width, centerY);
-    ctx.stroke();
-
-    // Y Axis
-    ctx.beginPath();
-    ctx.moveTo(centerX, 0);
-    ctx.lineTo(centerX, height);
-    ctx.stroke();
-
-    // Axis Labels
-    ctx.fillStyle = '#94a3b8';
-    ctx.font = '12px "Inter", sans-serif';
-    ctx.fillText('X', width - 15, centerY - 8);
-    ctx.fillText('Y', centerX + 8, 15);
 
     // 3. Draw Input Vectors
     this.vectors.forEach((item, index) => {
@@ -234,6 +275,14 @@ export class VectorVisualizerComponent implements OnInit, AfterViewInit, OnChang
     ctx.restore();
   }
 
+  private format3DLabel(namePrefix: string, v: Vector3D): string {
+    if (this.coordSystem === 'polar') {
+      const sph = v.toSpherical();
+      return `${namePrefix} (r: ${sph.r}, θ: ${sph.theta}°, φ: ${sph.phi}°)`;
+    }
+    return `${namePrefix} (${v.x}, ${v.y}, ${v.z})`;
+  }
+
   // --- 3D PLOTLY RENDER ENGINE ---
   private draw3DPlotly(): void {
     if (!this.plotly3DRef || typeof Plotly === 'undefined') return;
@@ -263,7 +312,7 @@ export class VectorVisualizerComponent implements OnInit, AfterViewInit, OnChang
         marker: { size: [0, 5], color: color },
         text: ['', `v_${item.label}`],
         textposition: 'top center',
-        name: `v_${item.label} (${item.vector.x}, ${item.vector.y}, ${item.vector.z})`
+        name: this.format3DLabel(`v_${item.label}`, item.vector)
       });
     });
 
@@ -279,7 +328,7 @@ export class VectorVisualizerComponent implements OnInit, AfterViewInit, OnChang
         marker: { size: [0, 7], color: '#38bdf8' },
         text: ['', 'R (Resultant)'],
         textposition: 'top center',
-        name: `R Resultant (${this.resultant.x}, ${this.resultant.y}, ${this.resultant.z})`
+        name: this.format3DLabel('R Resultant', this.resultant)
       });
     } else if (this.operation === 'cross' && this.resultant) {
       dataTraces.push({
@@ -292,28 +341,36 @@ export class VectorVisualizerComponent implements OnInit, AfterViewInit, OnChang
         marker: { size: [0, 7], color: '#f43f5e' },
         text: ['', 'u × v (Cross Product)'],
         textposition: 'top center',
-        name: `u × v (${this.resultant.x}, ${this.resultant.y}, ${this.resultant.z})`
+        name: this.format3DLabel('u × v', this.resultant)
       });
     } else if (this.operation === 'projection' && this.projectionResult) {
       const proj = this.projectionResult.projection;
       const rej = this.projectionResult.rejection;
+      
       dataTraces.push({
         type: 'scatter3d',
         mode: 'lines+markers+text',
-        x: [0, proj.x], y: [0, proj.y], z: [0, proj.z],
-        line: { color: '#38bdf8', width: 7, dash: 'dash' },
-        marker: { size: [0, 6], color: '#38bdf8' },
+        x: [0, proj.x],
+        y: [0, proj.y],
+        z: [0, proj.z],
+        line: { color: '#38bdf8', width: 8, dash: 'dash' },
+        marker: { size: [0, 7], color: '#38bdf8' },
         text: ['', 'proj_v u'],
-        name: `proj_v u`
+        textposition: 'top center',
+        name: this.format3DLabel('proj_v u', proj)
       });
+
       dataTraces.push({
         type: 'scatter3d',
         mode: 'lines+markers+text',
-        x: [0, rej.x], y: [0, rej.y], z: [0, rej.z],
-        line: { color: '#a855f7', width: 7, dash: 'dash' },
-        marker: { size: [0, 6], color: '#a855f7' },
+        x: [0, rej.x],
+        y: [0, rej.y],
+        z: [0, rej.z],
+        line: { color: '#a855f7', width: 8, dash: 'dash' },
+        marker: { size: [0, 7], color: '#a855f7' },
         text: ['', 'ort_v u'],
-        name: `ort_v u`
+        textposition: 'top center',
+        name: this.format3DLabel('ort_v u', rej)
       });
     }
 

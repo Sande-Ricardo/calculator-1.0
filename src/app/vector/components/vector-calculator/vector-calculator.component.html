@@ -201,6 +201,7 @@
             [resultant]="operation === 'resultant' ? (resultantData?.result || null) : (operation === 'cross' ? (crossData?.result || null) : null)"
             [is2D]="dimensionMode === '2D'"
             [operation]="operation"
+            [coordSystem]="coordSystem"
             [projectionResult]="projData?.result || null">
           </app-vector-visualizer>
         </section>
