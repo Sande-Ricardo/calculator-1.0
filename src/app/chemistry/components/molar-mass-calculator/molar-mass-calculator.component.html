@@ -1,7 +1,7 @@
 <div class="container2 crystal-box">
   <header class="stats-header">
-    <h1 class="title">Molar Mass Calculator</h1>
-    <p class="subtitle">Analyze chemical formula mass, composition, and empirical evaluations.</p>
+    <h1 class="title">{{ 'CHEMISTRY.TITLE' | translate }}</h1>
+    <p class="subtitle">{{ 'CHEMISTRY.SUBTITLE' | translate }}</p>
   </header>
 
   <main class="stats-main">
@@ -12,10 +12,10 @@
         <section class="control-panel">
           <!-- Formula Input Card -->
           <div class="input-card">
-            <h2>Formula Input</h2>
+            <h2>{{ 'CHEMISTRY.FORMULA_INPUT' | translate }}</h2>
             
             <div class="input-group">
-              <label for="formula">Chemical Formula</label>
+              <label for="formula">{{ 'CHEMISTRY.FORMULA_LABEL' | translate }}</label>
               <input 
                 id="formula"
                 type="text" 
@@ -31,7 +31,7 @@
                 <input type="checkbox" [(ngModel)]="useIsotopes" (change)="onToggleIsotopes()" />
                 <span class="slider"></span>
               </label>
-              <span class="toggle-text">Enable Isotopes (e.g., U235, D, T)</span>
+              <span class="toggle-text">{{ 'CHEMISTRY.ISOTOPES_TOGGLE' | translate }}</span>
             </div>
             
             <div class="error-container" *ngIf="result?.isValid === false" style="margin-top: 1rem;">
@@ -41,20 +41,20 @@
           
           <!-- Quick Converter Card -->
           <div class="input-card" *ngIf="result?.isValid">
-            <h2>Quick Converter</h2>
-            <p class="subtitle" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Convert amounts based on the current molar mass.</p>
+            <h2>{{ 'CHEMISTRY.QUICK_CONVERTER' | translate }}</h2>
+            <p class="subtitle" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">{{ 'CHEMISTRY.CONVERTER_SUBTITLE' | translate }}</p>
             
             <div class="parameters-grid">
               <div class="input-group">
-                <label>Grams (g)</label>
+                <label>{{ 'CHEMISTRY.GRAMS' | translate }}</label>
                 <input type="number" [(ngModel)]="gramsInput" (ngModelChange)="onGramsChange()" class="custom-input" placeholder="0.0">
               </div>
               <div class="input-group">
-                <label>Moles (mol)</label>
+                <label>{{ 'CHEMISTRY.MOLES' | translate }}</label>
                 <input type="number" [(ngModel)]="molesInput" (ngModelChange)="onMolesChange()" class="custom-input" placeholder="0.0">
               </div>
               <div class="input-group">
-                <label>Molecules</label>
+                <label>{{ 'CHEMISTRY.MOLECULLES' | translate }}</label>
                 <input type="number" [(ngModel)]="moleculesInput" (ngModelChange)="onMoleculesChange()" class="custom-input" placeholder="0.0">
               </div>
             </div>
@@ -62,21 +62,21 @@
 
           <!-- Empirical Evaluator Card -->
           <div class="input-card" *ngIf="result?.isValid">
-            <h2>Empirical Evaluator</h2>
+            <h2>{{ 'CHEMISTRY.EMPIRICAL_EVALUATOR' | translate }}</h2>
             
             <div class="parameters-grid">
               <div class="input-group">
-                <label>Empirical Formula</label>
+                <label>{{ 'CHEMISTRY.EMPIRICAL_FORMULA' | translate }}</label>
                 <input type="text" [(ngModel)]="empiricalFormula" class="custom-input" placeholder="e.g. CH2O">
               </div>
               <div class="input-group">
-                <label>Experimental Mass</label>
+                <label>{{ 'CHEMISTRY.EXPERIMENTAL_MASS' | translate }}</label>
                 <input type="number" [(ngModel)]="experimentalMass" class="custom-input" placeholder="e.g. 180">
               </div>
             </div>
             
             <div class="action-buttons" style="margin-top: 1.5rem;">
-              <button class="calculate-btn" (click)="onEmpiricalEvaluate()">Evaluate Molecular Formula</button>
+              <button class="calculate-btn" (click)="onEmpiricalEvaluate()">{{ 'CHEMISTRY.EVALUATE_BTN' | translate }}</button>
             </div>
             
             <div class="empirical-result" *ngIf="molecularFormulaResult || empiricalError" style="margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--border-color);">
@@ -96,16 +96,16 @@
           
           <!-- Empty State -->
           <div class="result-card" *ngIf="!result?.isValid">
-            <h2>Compound Overview</h2>
+            <h2>{{ 'CHEMISTRY.COMPOUND_OVERVIEW' | translate }}</h2>
             <div class="placeholder-container">
-              <p class="placeholder-text">Enter a valid chemical formula to view its molar mass, composition table, and interactive chart.</p>
+              <p class="placeholder-text">{{ 'CHEMISTRY.COMPOUND_PLACEHOLDER' | translate }}</p>
             </div>
           </div>
           
           <ng-container *ngIf="result?.isValid">
             <!-- Overview Card -->
             <div class="result-card">
-              <h2>Compound Overview</h2>
+              <h2>{{ 'CHEMISTRY.COMPOUND_OVERVIEW' | translate }}</h2>
               <div class="result-display-box" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem;">
                 <div class="formatted-formula" [innerHTML]="result?.formattedFormula" style="font-size: 3rem; font-family: 'Times New Roman', serif; font-weight: bold; margin-bottom: 0.5rem; color: var(--text-primary);"></div>
                 <div class="molar-mass-value" style="font-size: 2rem; font-weight: bold; color: var(--primary-color);">
@@ -116,16 +116,16 @@
 
             <!-- Breakdown Table Card -->
             <div class="result-card table-card">
-              <h2>Elemental Breakdown</h2>
+              <h2>{{ 'CHEMISTRY.ELEMENTAL_BREAKDOWN' | translate }}</h2>
               <div class="table-container">
                 <table class="data-table">
                   <thead>
                     <tr>
-                      <th>Symbol</th>
-                      <th>Element</th>
-                      <th class="num">Count</th>
-                      <th class="num">Total Mass</th>
-                      <th class="num">Mass %</th>
+                      <th>{{ 'CHEMISTRY.SYMBOL' | translate }}</th>
+                      <th>{{ 'CHEMISTRY.ELEMENT' | translate }}</th>
+                      <th class="num">{{ 'CHEMISTRY.COUNT' | translate }}</th>
+                      <th class="num">{{ 'CHEMISTRY.TOTAL_MASS' | translate }}</th>
+                      <th class="num">{{ 'CHEMISTRY.MASS_PCT' | translate }}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -143,7 +143,7 @@
             
             <!-- Chart Card -->
             <div class="result-card">
-              <h2>Composition Chart</h2>
+              <h2>{{ 'CHEMISTRY.COMPOSITION_CHART' | translate }}</h2>
               <div class="chart-container" style="position: relative; height: 350px; width: 100%; margin-top: 1rem;">
                 <canvas #chartCanvas></canvas>
               </div>

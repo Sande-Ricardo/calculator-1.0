@@ -2,9 +2,9 @@
   <div class="menu-items">
     
     <div class="menu-section">
-      <div class="section-title">Basic Math</div>
+      <div class="section-title">{{ 'SIDEBAR.SECTIONS.BASIC_MATH' | translate }}</div>
       
-      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="menu-item" title="Standard Calculator" (click)="onNavItemClick()">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="menu-item" [title]="'SIDEBAR.ITEMS.CALCULATOR_TITLE' | translate" (click)="onNavItemClick()">
         <div class="icon-wrapper">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="4" y="2" width="16" height="20" rx="2" ry="2"/>
@@ -21,10 +21,10 @@
             <circle cx="16" cy="19" r="1"/>
           </svg>
         </div>
-        <span class="menu-text">Calculator</span>
+        <span class="menu-text">{{ 'SIDEBAR.ITEMS.CALCULATOR' | translate }}</span>
       </a>
 
-      <a routerLink="/evaluator" routerLinkActive="active" class="menu-item" title="Expression Evaluator" (click)="onNavItemClick()">
+      <a routerLink="/evaluator" routerLinkActive="active" class="menu-item" [title]="'SIDEBAR.ITEMS.EVALUATOR_TITLE' | translate" (click)="onNavItemClick()">
         <div class="icon-wrapper">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M4 4h16v16H4z"/>
@@ -32,24 +32,24 @@
             <path d="M13 12h3"/>
           </svg>
         </div>
-        <span class="menu-text">Evaluator</span>
+        <span class="menu-text">{{ 'SIDEBAR.ITEMS.EVALUATOR' | translate }}</span>
       </a>
     </div>
 
     <div class="menu-section">
-      <div class="section-title">Algebra & Matrices</div>
+      <div class="section-title">{{ 'SIDEBAR.SECTIONS.ALGEBRA_MATRICES' | translate }}</div>
       
-      <a routerLink="/equation" routerLinkActive="active" class="menu-item" title="Equation Solver" (click)="onNavItemClick()">
+      <a routerLink="/equation" routerLinkActive="active" class="menu-item" [title]="'SIDEBAR.ITEMS.EQUATIONS_TITLE' | translate" (click)="onNavItemClick()">
         <div class="icon-wrapper">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
             <line x1="5" y1="9" x2="19" y2="9" />
             <line x1="5" y1="15" x2="19" y2="15" />
           </svg>
         </div>
-        <span class="menu-text">Equations</span>
+        <span class="menu-text">{{ 'SIDEBAR.ITEMS.EQUATIONS' | translate }}</span>
       </a>
 
-      <a routerLink="/matrix" routerLinkActive="active" class="menu-item" title="Matrices" (click)="onNavItemClick()">
+      <a routerLink="/matrix" routerLinkActive="active" class="menu-item" [title]="'SIDEBAR.ITEMS.MATRICES_TITLE' | translate" (click)="onNavItemClick()">
         <div class="icon-wrapper">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
@@ -59,66 +59,66 @@
             <line x1="3" y1="15" x2="21" y2="15"/>
           </svg>
         </div>
-        <span class="menu-text">Matrices</span>
+        <span class="menu-text">{{ 'SIDEBAR.ITEMS.MATRICES' | translate }}</span>
       </a>
 
-      <a routerLink="/vector" routerLinkActive="active" class="menu-item" title="Vector Calculus" (click)="onNavItemClick()">
+      <a routerLink="/vector" routerLinkActive="active" class="menu-item" [title]="'SIDEBAR.ITEMS.VECTORS_TITLE' | translate" (click)="onNavItemClick()">
         <div class="icon-wrapper">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="5" y1="19" x2="19" y2="5"></line>
             <polyline points="12 5 19 5 19 12"></polyline>
           </svg>
         </div>
-        <span class="menu-text">Vectors</span>
+        <span class="menu-text">{{ 'SIDEBAR.ITEMS.VECTORS' | translate }}</span>
       </a>
     </div>
 
     <div class="menu-section">
-      <div class="section-title">Calculus</div>
+      <div class="section-title">{{ 'SIDEBAR.SECTIONS.CALCULUS' | translate }}</div>
       
-      <a routerLink="/graph" routerLinkActive="active" class="menu-item" title="Graphing" (click)="onNavItemClick()">
+      <a routerLink="/graph" routerLinkActive="active" class="menu-item" [title]="'SIDEBAR.ITEMS.GRAPHING_TITLE' | translate" (click)="onNavItemClick()">
         <div class="icon-wrapper">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
           </svg>
         </div>
-        <span class="menu-text">Graphing</span>
+        <span class="menu-text">{{ 'SIDEBAR.ITEMS.GRAPHING' | translate }}</span>
       </a>
 
-      <a routerLink="/ode" routerLinkActive="active" class="menu-item" title="Differential Equations" (click)="onNavItemClick()">
+      <a routerLink="/ode" routerLinkActive="active" class="menu-item" [title]="'SIDEBAR.ITEMS.ODES_TITLE' | translate" (click)="onNavItemClick()">
         <div class="icon-wrapper">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M2 20h20" />
             <path d="M4 20c2-6 6-16 10-16s8 10 8 10" />
           </svg>
         </div>
-        <span class="menu-text">ODEs</span>
+        <span class="menu-text">{{ 'SIDEBAR.ITEMS.ODES' | translate }}</span>
       </a>
 
-      <a routerLink="/derivate" routerLinkActive="active" class="menu-item" title="Derivatives" (click)="onNavItemClick()">
+      <a routerLink="/derivate" routerLinkActive="active" class="menu-item" [title]="'SIDEBAR.ITEMS.DERIVATIVES_TITLE' | translate" (click)="onNavItemClick()">
         <div class="icon-wrapper">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
             <path d="M12 5v14M5 12h14"/>
             <path d="M14 6l2-2" stroke-width="2.5"/>
           </svg>
         </div>
-        <span class="menu-text">Derivatives</span>
+        <span class="menu-text">{{ 'SIDEBAR.ITEMS.DERIVATIVES' | translate }}</span>
       </a>
 
-      <a routerLink="/integrate" routerLinkActive="active" class="menu-item" title="Integrals" (click)="onNavItemClick()">
+      <a routerLink="/integrate" routerLinkActive="active" class="menu-item" [title]="'SIDEBAR.ITEMS.INTEGRALS_TITLE' | translate" (click)="onNavItemClick()">
         <div class="icon-wrapper">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
             <path d="M14.5 5c0-1.5-1.5-2.5-3-2.5S8.5 3.8 8.5 5.5v13c0 1.7 1.5 3 3 3s3-1 3-2.5"/>
           </svg>
         </div>
-        <span class="menu-text">Integrals</span>
+        <span class="menu-text">{{ 'SIDEBAR.ITEMS.INTEGRALS' | translate }}</span>
       </a>
     </div>
 
     <div class="menu-section">
-      <div class="section-title">Applied Math</div>
+      <div class="section-title">{{ 'SIDEBAR.SECTIONS.APPLIED_MATH' | translate }}</div>
 
-      <a routerLink="/stats" routerLinkActive="active" class="menu-item" title="Statistics" (click)="onNavItemClick()">
+      <a routerLink="/stats" routerLinkActive="active" class="menu-item" [title]="'SIDEBAR.ITEMS.STATISTICS_TITLE' | translate" (click)="onNavItemClick()">
         <div class="icon-wrapper">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="18" y1="20" x2="18" y2="10" />
@@ -126,10 +126,10 @@
             <line x1="6" y1="20" x2="6" y2="14" />
           </svg>
         </div>
-        <span class="menu-text">Statistics</span>
+        <span class="menu-text">{{ 'SIDEBAR.ITEMS.STATISTICS' | translate }}</span>
       </a>
 
-      <a routerLink="/converter" routerLinkActive="active" class="menu-item" title="Unit Converter" (click)="onNavItemClick()">
+      <a routerLink="/converter" routerLinkActive="active" class="menu-item" [title]="'SIDEBAR.ITEMS.CONVERTER_TITLE' | translate" (click)="onNavItemClick()">
         <div class="icon-wrapper">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M16 3h5v5"/>
@@ -139,31 +139,31 @@
             <path d="M4 4l5 5"/>
           </svg>
         </div>
-        <span class="menu-text">Converter</span>
+        <span class="menu-text">{{ 'SIDEBAR.ITEMS.CONVERTER' | translate }}</span>
       </a>
 
-      <a routerLink="/finance" routerLinkActive="active" class="menu-item" title="Financial Math" (click)="onNavItemClick()">
+      <a routerLink="/finance" routerLinkActive="active" class="menu-item" [title]="'SIDEBAR.ITEMS.FINANCE_TITLE' | translate" (click)="onNavItemClick()">
         <div class="icon-wrapper">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="12" y1="1" x2="12" y2="23"/>
             <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
           </svg>
         </div>
-        <span class="menu-text">Finance</span>
+        <span class="menu-text">{{ 'SIDEBAR.ITEMS.FINANCE' | translate }}</span>
       </a>
     </div>
 
     <div class="menu-section">
-      <div class="section-title">Sciences</div>
+      <div class="section-title">{{ 'SIDEBAR.SECTIONS.SCIENCES' | translate }}</div>
 
-      <a routerLink="/chemistry" routerLinkActive="active" class="menu-item" title="Chemistry" (click)="onNavItemClick()">
+      <a routerLink="/chemistry" routerLinkActive="active" class="menu-item" [title]="'SIDEBAR.ITEMS.CHEMISTRY_TITLE' | translate" (click)="onNavItemClick()">
         <div class="icon-wrapper">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M10 2v7.31M14 9.31V2M8.5 2h7M14 9.31l6.5 11.17c.37.66-.11 1.52-.88 1.52H4.38c-.77 0-1.25-.86-.88-1.52L10 9.31"/>
             <path d="M10 9.31l-2.5 4.5h9l-2.5-4.5"/>
           </svg>
         </div>
-        <span class="menu-text">Chemistry</span>
+        <span class="menu-text">{{ 'SIDEBAR.ITEMS.CHEMISTRY' | translate }}</span>
       </a>
     </div>
 

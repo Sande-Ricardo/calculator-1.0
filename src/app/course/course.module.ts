@@ -1,6 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { CourseRoutingModule } from './course-routing.module';
 import { CourseViewerComponent } from './viewer/course-viewer.component';
@@ -57,7 +58,8 @@ import { MathjaxViewerComponent } from 'src/app/components/mathjax-viewer/mathja
     CommonModule,
     CourseRoutingModule,
     FormsModule,
-    MathjaxViewerComponent
+    MathjaxViewerComponent,
+    TranslateModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

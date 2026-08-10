@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { MathjaxViewerComponent } from "src/app/components/mathjax-viewer/mathjax-viewer.component";
 import { StepViewDerivativeComponent } from "src/app/components/step-view-derivative/step-view-derivative.component";
@@ -18,7 +19,8 @@ import { DerivationComponent } from './derivation/derivation.component';
     DerivationRoutingModule,
     MathjaxViewerComponent,
     FunctionViewerComponent,
-    StepViewDerivativeComponent
+    StepViewDerivativeComponent,
+    TranslateModule
 ]
 })
 export class DerivationModule { }

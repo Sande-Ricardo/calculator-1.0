@@ -1,7 +1,7 @@
 <div class="container2 crystal-box">
   <header class="graphing-header">
-    <h1 class="title">Graphing Functions</h1>
-    <p class="subtitle">Plot multiple functions, analyze roots, and generate value tables</p>
+    <h1 class="title">{{ 'GRAPHING.TITLE' | translate }}</h1>
+    <p class="subtitle">{{ 'GRAPHING.SUBTITLE' | translate }}</p>
   </header>
 
   <main class="graphing-main">
@@ -9,9 +9,9 @@
     <aside class="sidebar-panel">
       <!-- Tabs -->
       <div class="tabs">
-        <button class="tab-btn" [class.active]="activeTab === 'graph'" (click)="activeTab = 'graph'">Expressions</button>
-        <button class="tab-btn" [class.active]="activeTab === 'table'" (click)="activeTab = 'table'; generateTable()">Table</button>
-        <button class="tab-btn" [class.active]="activeTab === 'analysis'" (click)="activeTab = 'analysis'; analyzeFunctions()">Analysis</button>
+        <button class="tab-btn" [class.active]="activeTab === 'graph'" (click)="activeTab = 'graph'">{{ 'GRAPHING.TAB_EXPRESSIONS' | translate }}</button>
+        <button class="tab-btn" [class.active]="activeTab === 'table'" (click)="activeTab = 'table'; generateTable()">{{ 'GRAPHING.TAB_TABLE' | translate }}</button>
+        <button class="tab-btn" [class.active]="activeTab === 'analysis'" (click)="activeTab = 'analysis'; analyzeFunctions()">{{ 'GRAPHING.TAB_ANALYSIS' | translate }}</button>
       </div>
 
       <div class="tab-content">
@@ -38,12 +38,12 @@
               <input type="text" [(ngModel)]="func.latex" 
                      (ngModelChange)="onExpressionChange()" 
                      class="expression-input"
-                     placeholder="e.g., sin(x)" />
+                     [placeholder]="'GRAPHING.EXPRESSION_PLACEHOLDER' | translate" />
 
               <button class="remove-btn" (click)="removeFunction(func.id); $event.stopPropagation()">×</button>
             </div>
             
-            <button class="add-func-btn" (click)="addFunction()">+ Add Expression</button>
+            <button class="add-func-btn" (click)="addFunction()">{{ 'GRAPHING.ADD_EXPRESSION' | translate }}</button>
           </div>
 
           <!-- Keyboard Panels -->
@@ -71,15 +71,15 @@
         <div *ngIf="activeTab === 'table'" class="table-tab">
           <div class="table-settings">
             <div class="input-group">
-              <label>Min X:</label>
+              <label>{{ 'GRAPHING.MIN_X' | translate }}</label>
               <input type="number" [(ngModel)]="tableRangeMin" (change)="generateTable()" />
             </div>
             <div class="input-group">
-              <label>Max X:</label>
+              <label>{{ 'GRAPHING.MAX_X' | translate }}</label>
               <input type="number" [(ngModel)]="tableRangeMax" (change)="generateTable()" />
             </div>
             <div class="input-group">
-              <label>Step:</label>
+              <label>{{ 'GRAPHING.STEP' | translate }}</label>
               <input type="number" [(ngModel)]="tableStep" (change)="generateTable()" />
             </div>
           </div>
@@ -104,19 +104,19 @@
 
         <!-- ANALYSIS TAB -->
         <div *ngIf="activeTab === 'analysis'" class="analysis-tab">
-          <button class="action-btn" (click)="analyzeFunctions()">Analyze Now</button>
+          <button class="action-btn" (click)="analyzeFunctions()">{{ 'GRAPHING.ANALYZE_NOW' | translate }}</button>
           
           <div class="analysis-results">
             <div *ngFor="let res of analysisData" class="analysis-card">
               <h3 [style.color]="res.color || '#fff'">
-                Function: {{ res.funcId }}
+                {{ 'GRAPHING.FUNCTION' | translate }} {{ res.funcId }}
               </h3>
-              <p><strong>Roots (x-intercepts):</strong></p>
+              <p><strong>{{ 'GRAPHING.ROOTS' | translate }}</strong></p>
               <ul *ngIf="res.roots.length > 0; else noRoots">
                 <li *ngFor="let r of res.roots">x ≈ {{ r }}</li>
               </ul>
               <ng-template #noRoots>
-                <p class="empty-msg">No real roots found in [-10, 10]</p>
+                <p class="empty-msg">{{ 'GRAPHING.NO_ROOTS' | translate }}</p>
               </ng-template>
             </div>
           </div>

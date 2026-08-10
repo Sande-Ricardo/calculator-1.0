@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { VectorRoutingModule } from './vector-routing.module';
 import { VectorCalculatorComponent } from './components/vector-calculator/vector-calculator.component';
@@ -17,7 +18,8 @@ import { VectorVisualizerComponent } from './components/vector-visualizer/vector
     FormsModule,
     ReactiveFormsModule,
     VectorRoutingModule,
-    MathjaxViewerComponent
+    MathjaxViewerComponent,
+    TranslateModule
   ]
 })
 export class VectorModule { }

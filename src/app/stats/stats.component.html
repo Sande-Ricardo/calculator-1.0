@@ -1,16 +1,16 @@
 <div class="container2 crystal-box">
   <header class="stats-header">
-    <h1 class="title">Statistical Analysis</h1>
-    <p class="subtitle">Descriptive summary metrics and probability distributions</p>
+    <h1 class="title">{{ 'STATS.TITLE' | translate }}</h1>
+    <p class="subtitle">{{ 'STATS.SUBTITLE' | translate }}</p>
   </header>
 
   <!-- Navigation Tabs -->
   <div class="tabs">
     <button class="tab-btn" [class.active]="activeTab === 'descriptive'" (click)="onTabChange('descriptive')">
-      Descriptive Statistics
+      {{ 'STATS.TAB_DESCRIPTIVE' | translate }}
     </button>
     <button class="tab-btn" [class.active]="activeTab === 'probability'" (click)="onTabChange('probability')">
-      Probability Distributions
+      {{ 'STATS.TAB_PROBABILITY' | translate }}
     </button>
   </div>
 
@@ -22,9 +22,9 @@
         <!-- Inputs Card -->
         <section class="control-panel">
           <div class="input-card">
-            <h2>Dataset Input</h2>
+            <h2>{{ 'STATS.DATASET_INPUT' | translate }}</h2>
             <div class="input-group">
-              <label for="dataset">Enter numbers (separated by commas, spaces, or lines):</label>
+              <label for="dataset">{{ 'STATS.DATASET_LABEL' | translate }}</label>
               <textarea id="dataset" [(ngModel)]="datasetRaw" class="custom-textarea" rows="6" 
                         placeholder="e.g. 12.5, 14.2, 10.1, 15.6, 12.5"></textarea>
             </div>
@@ -34,13 +34,13 @@
                 <input type="checkbox" [(ngModel)]="isSample" (change)="calculateDescriptive()" />
                 <span class="slider"></span>
               </label>
-              <span class="toggle-text">Use Sample Statistics (n - 1 degrees of freedom)</span>
+              <span class="toggle-text">{{ 'STATS.SAMPLE_TOGGLE' | translate }}</span>
             </div>
 
             <div class="action-buttons">
               <button class="calculate-btn" (click)="calculateDescriptive()" [disabled]="descriptiveLoading">
-                <span *ngIf="!descriptiveLoading">Analyze Dataset</span>
-                <span *ngIf="descriptiveLoading">Analyzing...</span>
+                <span *ngIf="!descriptiveLoading">{{ 'STATS.ANALYZE_BTN' | translate }}</span>
+                <span *ngIf="descriptiveLoading">{{ 'STATS.ANALYZING' | translate }}</span>
               </button>
             </div>
 
@@ -53,9 +53,9 @@
         <!-- Results summaries -->
         <section class="results-panel">
           <div class="result-card" *ngIf="!descriptiveData">
-            <h2>Descriptive Summary</h2>
+            <h2>{{ 'STATS.SUMMARY_TITLE' | translate }}</h2>
             <div class="placeholder-container" *ngIf="!descriptiveLoading">
-              <p class="placeholder-text">Enter a dataset on the left and click Analyze Dataset to compute summary metrics, dispersion, and distribution charts.</p>
+              <p class="placeholder-text">{{ 'STATS.SUMMARY_PLACEHOLDER' | translate }}</p>
             </div>
             <div class="loading-spinner-container" *ngIf="descriptiveLoading">
               <div class="spinner"></div>
@@ -65,63 +65,63 @@
           <div class="metrics-grid" *ngIf="descriptiveData">
             <!-- Central Tendency -->
             <div class="metric-card">
-              <h3>Central Tendency</h3>
+              <h3>{{ 'STATS.CENTRAL_TENDENCY' | translate }}</h3>
               <div class="metric-row">
-                <span class="metric-label">Mean:</span>
+                <span class="metric-label">{{ 'STATS.MEAN' | translate }}</span>
                 <span class="metric-value">{{ descriptiveData.central_tendency.mean }}</span>
               </div>
               <div class="metric-row">
-                <span class="metric-label">Median:</span>
+                <span class="metric-label">{{ 'STATS.MEDIAN' | translate }}</span>
                 <span class="metric-value">{{ descriptiveData.central_tendency.median }}</span>
               </div>
               <div class="metric-row">
-                <span class="metric-label">Mode:</span>
-                <span class="metric-value">{{ descriptiveData.central_tendency.mode.join(', ') || 'No mode' }}</span>
+                <span class="metric-label">{{ 'STATS.MODE' | translate }}</span>
+                <span class="metric-value">{{ descriptiveData.central_tendency.mode.join(', ') || ('STATS.NO_MODE' | translate) }}</span>
               </div>
             </div>
 
             <!-- Dispersion -->
             <div class="metric-card">
-              <h3>Dispersion</h3>
+              <h3>{{ 'STATS.DISPERSION' | translate }}</h3>
               <div class="metric-row">
-                <span class="metric-label">Variance:</span>
+                <span class="metric-label">{{ 'STATS.VARIANCE' | translate }}</span>
                 <span class="metric-value">{{ descriptiveData.dispersion.variance }}</span>
               </div>
               <div class="metric-row">
-                <span class="metric-label">Std Deviation:</span>
+                <span class="metric-label">{{ 'STATS.STD_DEV' | translate }}</span>
                 <span class="metric-value">{{ descriptiveData.dispersion.standard_deviation }}</span>
               </div>
               <div class="metric-row">
-                <span class="metric-label">Range:</span>
+                <span class="metric-label">{{ 'STATS.RANGE' | translate }}</span>
                 <span class="metric-value">{{ descriptiveData.dispersion.range }}</span>
               </div>
             </div>
 
             <!-- Position -->
             <div class="metric-card">
-              <h3>Position</h3>
+              <h3>{{ 'STATS.POSITION' | translate }}</h3>
               <div class="metric-row">
-                <span class="metric-label">Min / Max:</span>
+                <span class="metric-label">{{ 'STATS.MIN_MAX' | translate }}</span>
                 <span class="metric-value">{{ descriptiveData.position.min }} / {{ descriptiveData.position.max }}</span>
               </div>
               <div class="metric-row">
-                <span class="metric-label">Quartiles (Q1, Q2, Q3):</span>
+                <span class="metric-label">{{ 'STATS.QUARTILES' | translate }}</span>
                 <span class="metric-value">{{ descriptiveData.position.q1 }}, {{ descriptiveData.position.q2 }}, {{ descriptiveData.position.q3 }}</span>
               </div>
               <div class="metric-row">
-                <span class="metric-label">IQR:</span>
+                <span class="metric-label">{{ 'STATS.IQR' | translate }}</span>
                 <span class="metric-value">{{ descriptiveData.position.iqr }}</span>
               </div>
             </div>
 
             <!-- Outliers -->
             <div class="metric-card">
-              <h3>Outliers</h3>
+              <h3>{{ 'STATS.OUTLIERS' | translate }}</h3>
               <div class="outliers-list" *ngIf="descriptiveData.outliers.length > 0; else noOutliers">
                 <span class="outlier-badge" *ngFor="let out of descriptiveData.outliers">{{ out }}</span>
               </div>
               <ng-template #noOutliers>
-                <p class="empty-msg">No outliers detected (1.5 IQR rule)</p>
+                <p class="empty-msg">{{ 'STATS.NO_OUTLIERS' | translate }}</p>
               </ng-template>
             </div>
           </div>
@@ -131,7 +131,7 @@
       <!-- Histogram visualization -->
       <section class="chart-section" *ngIf="descriptiveData">
         <div class="chart-card">
-          <h2>Frequency Histogram</h2>
+          <h2>{{ 'STATS.HISTOGRAM_TITLE' | translate }}</h2>
           <div class="chart-container">
             <canvas #histogramCanvas></canvas>
           </div>
@@ -145,11 +145,11 @@
         <!-- Controls Card -->
         <section class="control-panel">
           <div class="input-card">
-            <h2>Distribution Configuration</h2>
+            <h2>{{ 'STATS.DIST_CONFIG' | translate }}</h2>
 
             <!-- Distribution Selector -->
             <div class="input-group">
-              <label for="distribution">Distribution:</label>
+              <label for="distribution">{{ 'STATS.DISTRIBUTION' | translate }}</label>
               <select id="distribution" [(ngModel)]="selectedDistribution" (change)="onDistributionChange()" class="custom-select">
                 <option value="normal">Normal</option>
                 <option value="t_student">Student's t</option>
@@ -213,14 +213,14 @@
 
             <!-- Query Selector -->
             <div class="input-group">
-              <label for="queryType">Calculation Type:</label>
+              <label for="queryType">{{ 'STATS.CALC_TYPE' | translate }}</label>
               <select id="queryType" [(ngModel)]="queryType" class="custom-select">
                 <option value="exact" *ngIf="selectedDistribution === 'binomial' || selectedDistribution === 'poisson'">
-                  Exact P(X = x)
+                  {{ 'STATS.EXACT_P' | translate }}
                 </option>
-                <option value="cumulative_less">Cumulative P(X &le; x)</option>
-                <option value="cumulative_greater">Cumulative P(X &ge; x)</option>
-                <option value="between">Interval P(a &le; X &le; b)</option>
+                <option value="cumulative_less">{{ 'STATS.CUMULATIVE_LESS' | translate }}</option>
+                <option value="cumulative_greater">{{ 'STATS.CUMULATIVE_GREATER' | translate }}</option>
+                <option value="between">{{ 'STATS.INTERVAL_P' | translate }}</option>
               </select>
             </div>
 
@@ -228,17 +228,17 @@
             <div class="query-values-row">
               <ng-container *ngIf="queryType !== 'between'; else betweenInputs">
                 <div class="input-group full-width">
-                  <label for="queryValue">Evaluation point (x):</label>
+                  <label for="queryValue">{{ 'STATS.EVAL_POINT' | translate }}</label>
                   <input type="number" id="queryValue" [(ngModel)]="queryValue" class="custom-input" />
                 </div>
               </ng-container>
               <ng-template #betweenInputs>
                 <div class="input-group">
-                  <label for="queryValueMin">Lower limit (a):</label>
+                  <label for="queryValueMin">{{ 'STATS.LOWER_LIMIT' | translate }}</label>
                   <input type="number" id="queryValueMin" [(ngModel)]="queryValueMin" class="custom-input" />
                 </div>
                 <div class="input-group">
-                  <label for="queryValueMax">Upper limit (b):</label>
+                  <label for="queryValueMax">{{ 'STATS.UPPER_LIMIT' | translate }}</label>
                   <input type="number" id="queryValueMax" [(ngModel)]="queryValueMax" class="custom-input" />
                 </div>
               </ng-template>
@@ -247,8 +247,8 @@
             <!-- Action Button -->
             <div class="action-buttons">
               <button class="calculate-btn" (click)="calculateProbability()" [disabled]="probabilityLoading">
-                <span *ngIf="!probabilityLoading">Calculate Probability</span>
-                <span *ngIf="probabilityLoading">Calculating...</span>
+                <span *ngIf="!probabilityLoading">{{ 'STATS.CALCULATE_PROB' | translate }}</span>
+                <span *ngIf="probabilityLoading">{{ 'STATS.CALCULATING' | translate }}</span>
               </button>
             </div>
 
@@ -261,7 +261,7 @@
         <!-- Result Display Card -->
         <section class="results-panel">
           <div class="result-card">
-            <h2>Outcome Result</h2>
+            <h2>{{ 'STATS.OUTCOME_RESULT' | translate }}</h2>
             <div class="result-display-box" *ngIf="probabilityData">
               <div class="probability-equation">
                 <span class="math-expr">{{ probabilityData.calculation.type }}</span>
@@ -272,7 +272,7 @@
               </div>
             </div>
             <div class="placeholder-container" *ngIf="!probabilityData && !probabilityLoading">
-              <p class="placeholder-text">Configure the parameters and click Calculate to visualize outcomes.</p>
+              <p class="placeholder-text">{{ 'STATS.PROB_PLACEHOLDER' | translate }}</p>
             </div>
             <div class="loading-spinner-container" *ngIf="probabilityLoading">
               <div class="spinner"></div>
@@ -284,7 +284,7 @@
       <!-- Distribution Curve visualization -->
       <section class="chart-section" *ngIf="probabilityData">
         <div class="chart-card">
-          <h2>Distribution Curve & Highlighted Region</h2>
+          <h2>{{ 'STATS.CURVE_TITLE' | translate }}</h2>
           <div class="chart-container">
             <canvas #probabilityCanvas></canvas>
           </div>

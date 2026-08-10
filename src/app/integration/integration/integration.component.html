@@ -1,22 +1,22 @@
 <div class="container3 crystal-box">
     <header class="integration-header">
-        <h1 class="title">Integration Calculator</h1>
-        <p class="subtitle">Calculate undefined integrates with step-by-step solutions</p>
+        <h1 class="title">{{ 'INTEGRATION.TITLE' | translate }}</h1>
+        <p class="subtitle">{{ 'INTEGRATION.SUBTITLE' | translate }}</p>
     </header>
 
     <main class="integration-main">
         <!-- Input Section -->
         <section class="input-section">
             <div class="input-card">
-                <h2>Expression Input</h2>
+                <h2>{{ 'INTEGRATION.CARD_INPUT' | translate }}</h2>
                 <div class="input-group">
-                    <label for="expression">Function f(x) =</label>
+                    <label for="expression">{{ 'INTEGRATION.FUNCTION_LABEL' | translate }}</label>
                     <input type="text" id="expression" class="expression-input" [(ngModel)]="expression"
-                        placeholder="Enter your function (e.g., x^2 + 3*x + 2)" (keyup.enter)="onCompute()" />
+                        [placeholder]="'INTEGRATION.FUNCTION_PLACEHOLDER' | translate" (keyup.enter)="onCompute()" />
                 </div>
 
                 <div class="variable-selector">
-                    <label for="variable">Variable:</label>
+                    <label for="variable">{{ 'INTEGRATION.VARIABLE' | translate }}</label>
                     <select id="variable" [(ngModel)]="selectedVariable" class="variable-select">
                         <option value="x">x</option>
                         <option value="y">y</option>
@@ -36,8 +36,8 @@
                     <button class="basic-btn clear-btn" (click)="clearInput()">C</button>
                 </div>
 
-                <button class="calculate-btn" (click)="onCompute()" [disabled]="!expression" [disabled]="loading">
-                    <span>Calculate Integral</span>
+                <button class="calculate-btn" (click)="onCompute()" [disabled]="!expression || loading">
+                    <span>{{ 'INTEGRATION.CALCULATE_BTN' | translate }}</span>
                     <svg class="btn-icon" viewBox="0 0 24 24">
                         <path
                             d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z" />
@@ -49,41 +49,41 @@
         <!-- Results Section -->
         <section class="results-section">
             <div class="result-card">
-                <h2>Result</h2>
+                <h2>{{ 'INTEGRATION.CARD_RESULTS' | translate }}</h2>
                 <div class="result-display">
                     <div class="result-item">
-                        <span class="result-label">Original Function:</span>
+                        <span class="result-label">{{ 'INTEGRATION.ORIGINAL_FUNCTION' | translate }}</span>
                         <span class="result-value">{{ expression || 'f(x) = ?' }}</span>
                     </div>
                     <div class="result-item">
-                        <span class="result-label">Integral:</span>
+                        <span class="result-label">{{ 'INTEGRATION.INTEGRAL' | translate }}</span>
                         <span class="result-value">{{ result || 'f\'(x) = ?' }}</span>
                     </div>
                 </div>
             </div>
 
             <div class="steps-card">
-                <h2>Step-by-Step Solution</h2>
+                <h2>{{ 'INTEGRATION.STEPS_TITLE' | translate }}</h2>
                 <div class="steps-container">
                     <div *ngIf="rootSteps.length == 0" class="no-steps">
-                        <p>Steps will appear here after calculation</p>
+                        <p>{{ 'INTEGRATION.NO_STEPS' | translate }}</p>
                     </div>
                     <div class="panel">
-                        <div *ngIf="loading">Procesando…</div>
+                        <div *ngIf="loading">{{ 'INTEGRATION.PROCESSING' | translate }}</div>
                         <div *ngIf="error" class="error">{{ error }}</div>
                         
                         <ng-container *ngIf="(response$ | async) as response">
                             <div class="step-by-step-result">
-                                <h2>Integral</h2>
+                                <h2>{{ 'INTEGRATION.INTEGRAL' | translate }}</h2>
                                 <app-mathjax-viewer
                                 [expression]="'\\( ' + '∫ ' + response!.expression + ' d' + response!.variable + ' \\)'">
                                 </app-mathjax-viewer>
                                 
-                                <h3>Antiderivada</h3>
+                                <h3>{{ 'INTEGRATION.ANTIDERIVATIVE' | translate }}</h3>
                                 <app-mathjax-viewer [expression]="'\\( ' + antiderivativeLatex + ' \\)'"></app-mathjax-viewer>
                                 
-                                <h3>Integration Steps: </h3>
-                                <div *ngIf="!rootSteps.length" class="muted">No hay pasos (caso directo o no soportado).
+                                <h3>{{ 'INTEGRATION.INTEGRATION_STEPS' | translate }}</h3>
+                                <div *ngIf="!rootSteps.length" class="muted">{{ 'INTEGRATION.NO_PASOS' | translate }}
                                 </div>
                                 
                                 <app-step-view-integrated *ngFor="let s of rootSteps; trackBy: trackByIdx" [step]="s">
@@ -99,7 +99,7 @@
         <!-- Graphics Section -->
         <section class="graphics-section">
             <div class="graphics-card">
-                <h2>Function Visualization</h2>
+                <h2>{{ 'INTEGRATION.GRAPHICS_TITLE' | translate }}</h2>
                 <div class="graphics-container">
                     <div class="chart-placeholder">
 
@@ -114,7 +114,7 @@
                             </defs>
                             <rect width="400" height="300" fill="url(#gradient)" rx="8" />
                             <text x="200" y="150" text-anchor="middle" fill="white" font-size="16">
-                                Function Graph
+                                {{ 'INTEGRATION.GRAPH_TITLE' | translate }}
                             </text>
                         </svg>
                     </div>
@@ -125,10 +125,10 @@
         <!-- Information Section -->
         <section class="info-section">
             <div class="info-card">
-                <h2>Function Information</h2>
+                <h2>{{ 'INTEGRATION.INFO_TITLE' | translate }}</h2>
                 <div class="info-content">
                     <div class="info-item">
-                        <h3>Basic Rules</h3>
+                        <h3>{{ 'INTEGRATION.BASIC_RULES' | translate }}</h3>
                         <ul>
                             <li>Power Rule: d/dx[x^n] = n*x^(n-1)</li>
                             <li>Product Rule: d/dx[uv] = u'v + uv'</li>
@@ -136,7 +136,7 @@
                         </ul>
                     </div>
                     <div class="info-item">
-                        <h3>Trigonometric</h3>
+                        <h3>{{ 'INTEGRATION.TRIGONOMETRIC' | translate }}</h3>
                         <ul>
                             <li>d/dx[sin(x)] = cos(x)</li>
                             <li>d/dx[cos(x)] = -sin(x)</li>
@@ -144,7 +144,7 @@
                         </ul>
                     </div>
                     <div class="info-item">
-                        <h3>Exponential & Logarithmic</h3>
+                        <h3>{{ 'INTEGRATION.EXPONENTIAL_LOGARITHMIC' | translate }}</h3>
                         <ul>
                             <li>d/dx[e^x] = e^x</li>
                             <li>d/dx[ln(x)] = 1/x</li>

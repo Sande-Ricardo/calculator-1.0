@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { ConverterRoutingModule } from './converter-routing.module';
 import { ConverterComponent } from './converter.component';
@@ -24,7 +25,8 @@ import { FavoritesComponent } from './components/favorites/favorites.component';
   imports: [
     CommonModule,
     FormsModule,
-    ConverterRoutingModule
+    ConverterRoutingModule,
+    TranslateModule
   ]
 })
 export class ConverterModule { }

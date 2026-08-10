@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { FunctionViewerComponent } from "src/app/components/function-viewer/function-viewer.component";
 import { MathjaxViewerComponent } from '../components/mathjax-viewer/mathjax-viewer.component';
@@ -19,7 +20,8 @@ import { IntegrationComponent } from './integration/integration.component';
     IntegrationRoutingModule,
     StepViewIntregratedComponent,
     MathjaxViewerComponent,
-    FunctionViewerComponent
+    FunctionViewerComponent,
+    TranslateModule
 ]
 })
 export class IntegrationModule { }

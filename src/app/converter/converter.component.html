@@ -9,15 +9,15 @@
       </div>
       <input type="text" 
              class="smart-search-input" 
-             placeholder="Universal Smart Search... (e.g., '15 psi to kpa', '100 C in F', '5 km -> m')" 
+             [placeholder]="'CONVERTER.SEARCH_PLACEHOLDER' | translate" 
              [(ngModel)]="searchQuery" 
              (keyup.enter)="onSmartSearch()" />
-      <button class="search-action-btn" (click)="onSmartSearch()">Parse</button>
+      <button class="search-action-btn" (click)="onSmartSearch()">{{ 'CONVERTER.PARSE_BTN' | translate }}</button>
     </div>
 
     <!-- PRECISION & SETTINGS -->
     <div class="precision-control">
-      <label for="precisionSelect">Decimal Precision:</label>
+      <label for="precisionSelect">{{ 'CONVERTER.DECIMAL_PRECISION' | translate }}</label>
       <select id="precisionSelect" [(ngModel)]="decimalPrecision" (ngModelChange)="recalculate()" class="precision-select">
         <option [ngValue]="2">2 Dec (0.00)</option>
         <option [ngValue]="4">4 Dec (0.0000)</option>

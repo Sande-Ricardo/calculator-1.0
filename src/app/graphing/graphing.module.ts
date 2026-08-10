@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { GraphingRoutingModule } from './graphing-routing.module';
 import { GraphingComponent } from './graphing.component';
@@ -14,7 +15,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     FormsModule,
-    GraphingRoutingModule
+    GraphingRoutingModule,
+    TranslateModule
   ]
 })
 export class GraphingModule { }

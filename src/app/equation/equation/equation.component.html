@@ -1,30 +1,30 @@
 <div class="container2 crystal-box">
   <header class="equation-header">
-    <h1 class="title">Equation Solver</h1>
-    <p class="subtitle">Solve, factorize, expand, or simplify algebraic equations</p>
+    <h1 class="title">{{ 'EQUATIONS.TITLE' | translate }}</h1>
+    <p class="subtitle">{{ 'EQUATIONS.SUBTITLE' | translate }}</p>
   </header>
 
   <main class="equation-main">
     <!-- Input Section -->
     <section class="input-section">
       <div class="input-card">
-        <h2>Parameters & Expression</h2>
+        <h2>{{ 'EQUATIONS.CARD_INPUT' | translate }}</h2>
         
         <!-- Operation Select -->
         <div class="input-group">
-          <label for="operation">Operation:</label>
+          <label for="operation">{{ 'EQUATIONS.OPERATION' | translate }}</label>
           <select id="operation" [(ngModel)]="operation" class="custom-select">
-            <option value="solve">Solve</option>
-            <option value="factorize">Factorize</option>
-            <option value="expand">Expand</option>
-            <option value="simplify">Simplify</option>
+            <option value="solve">{{ 'EQUATIONS.OP_SOLVE' | translate }}</option>
+            <option value="factorize">{{ 'EQUATIONS.OP_FACTORIZE' | translate }}</option>
+            <option value="expand">{{ 'EQUATIONS.OP_EXPAND' | translate }}</option>
+            <option value="simplify">{{ 'EQUATIONS.OP_SIMPLIFY' | translate }}</option>
           </select>
         </div>
 
         <!-- Conditional Solve Options -->
         <div class="solve-options" *ngIf="operation === 'solve'">
           <div class="input-group">
-            <label for="variable">Target Variable:</label>
+            <label for="variable">{{ 'EQUATIONS.TARGET_VARIABLE' | translate }}</label>
             <select id="variable" [(ngModel)]="targetVariable" class="custom-select">
               <option value="x">x</option>
               <option value="y">y</option>
@@ -34,21 +34,21 @@
           </div>
 
           <div class="input-group">
-            <label for="method">Solving Method:</label>
+            <label for="method">{{ 'EQUATIONS.SOLVING_METHOD' | translate }}</label>
             <select id="method" [(ngModel)]="method" class="custom-select">
-              <option value="factorization">Factorization</option>
-              <option value="general_formula">General Formula</option>
-              <option value="quadratic_formula">Quadratic Formula</option>
-              <option value="default">Default</option>
+              <option value="factorization">{{ 'EQUATIONS.METHOD_FACTORIZATION' | translate }}</option>
+              <option value="general_formula">{{ 'EQUATIONS.METHOD_GENERAL_FORMULA' | translate }}</option>
+              <option value="quadratic_formula">{{ 'EQUATIONS.METHOD_QUADRATIC_FORMULA' | translate }}</option>
+              <option value="default">{{ 'EQUATIONS.METHOD_DEFAULT' | translate }}</option>
             </select>
           </div>
         </div>
 
         <!-- Expression Input -->
         <div class="input-group">
-          <label for="expression">Expression / Equation:</label>
+          <label for="expression">{{ 'EQUATIONS.EXPRESSION_LABEL' | translate }}</label>
           <input type="text" id="expression" class="expression-input" [(ngModel)]="expression"
-                 placeholder="Enter equation (e.g., x^2 + 5*x + 6 = 0)" (ngModelChange)="updateMathJaxExpression()" (keyup.enter)="calculate()" />
+                 [placeholder]="'EQUATIONS.EXPRESSION_PLACEHOLDER' | translate" (ngModelChange)="updateMathJaxExpression()" (keyup.enter)="calculate()" />
         </div>
 
         <!-- Keyboard Panels -->
@@ -74,7 +74,7 @@
         <!-- Calculate Buttons -->
         <div class="action-buttons">
           <button class="calculate-btn" (click)="calculate()" [disabled]="!expression">
-            <span>Calculate</span>
+            <span>{{ 'EQUATIONS.CALCULATE' | translate }}</span>
             <svg class="btn-icon" viewBox="0 0 24 24">
               <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z" />
             </svg>
@@ -87,17 +87,17 @@
     <!-- Results Section -->
     <section class="results-section">
       <div class="result-card">
-        <h2>Result Preview</h2>
+        <h2>{{ 'EQUATIONS.CARD_RESULT' | translate }}</h2>
         <div class="result-display">
           <div class="result-item" *ngIf="expression">
-            <span class="result-label">Visual Input:</span>
+            <span class="result-label">{{ 'EQUATIONS.VISUAL_INPUT' | translate }}</span>
             <span class="result-value">
               <app-mathjax-viewer [expression]="mathJaxExpression"></app-mathjax-viewer>
             </span>
           </div>
           
           <div class="result-item" *ngIf="results.length > 0">
-            <span class="result-label">Result:</span>
+            <span class="result-label">{{ 'EQUATIONS.RESULT' | translate }}</span>
             <div class="results-list">
               <div class="result-equation" *ngFor="let res of results">
                 <app-mathjax-viewer [expression]="'\\( ' + res + ' \\)'"></app-mathjax-viewer>
@@ -109,7 +109,7 @@
 
       <!-- Step-by-Step Solutions -->
       <div class="steps-card" *ngIf="steps.length > 0">
-        <h2>Step-by-Step Solution</h2>
+        <h2>{{ 'EQUATIONS.STEPS_TITLE' | translate }}</h2>
         <div class="steps-container">
           <div class="step-node" *ngFor="let step of steps">
             <div class="step-header">
@@ -124,8 +124,8 @@
       </div>
       
       <div class="steps-card no-results" *ngIf="steps.length === 0">
-        <h2>Step-by-Step Solution</h2>
-        <p class="placeholder-text">Enter an expression and calculate to view solving steps.</p>
+        <h2>{{ 'EQUATIONS.STEPS_TITLE' | translate }}</h2>
+        <p class="placeholder-text">{{ 'EQUATIONS.STEPS_PLACEHOLDER' | translate }}</p>
       </div>
     </section>
   </main>

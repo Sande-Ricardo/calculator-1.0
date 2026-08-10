@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { OdeRoutingModule } from './ode-routing.module';
 import { OdeComponent } from './ode.component';
@@ -17,7 +18,8 @@ import { MathjaxViewerComponent } from 'src/app/components/mathjax-viewer/mathja
     CommonModule,
     OdeRoutingModule,
     FormsModule,
-    MathjaxViewerComponent
+    MathjaxViewerComponent,
+    TranslateModule
   ]
 })
 export class OdeModule { }

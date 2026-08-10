@@ -1,7 +1,7 @@
 <div class="container2 crystal-box">
   <header class="stats-header">
-    <h1 class="title">Vector Calculus & Operations</h1>
-    <p class="subtitle">2D & 3D Vector Arithmetic, Dot/Cross Products, Projections, and Step-by-Step Derivations</p>
+    <h1 class="title">{{ 'VECTOR.TITLE' | translate }}</h1>
+    <p class="subtitle">{{ 'VECTOR.SUBTITLE' | translate }}</p>
   </header>
 
   <main class="stats-main">
@@ -16,13 +16,13 @@
               class="segment-btn" 
               [class.active]="dimensionMode === '2D'" 
               (click)="setDimensionMode('2D')">
-              2D Workspace
+              {{ 'VECTOR.WORKSPACE_2D' | translate }}
             </button>
             <button 
               class="segment-btn" 
               [class.active]="dimensionMode === '3D'" 
               (click)="setDimensionMode('3D')">
-              3D Workspace
+              {{ 'VECTOR.WORKSPACE_3D' | translate }}
             </button>
           </div>
 
@@ -32,7 +32,7 @@
               class="segment-btn" 
               [class.active]="coordSystem === 'cartesian'" 
               (click)="setCoordSystem('cartesian')">
-              Cartesian (x, y{{ dimensionMode === '3D' ? ', z' : '' }})
+              {{ 'VECTOR.CARTESIAN' | translate }} (x, y{{ dimensionMode === '3D' ? ', z' : '' }})
             </button>
             <button 
               class="segment-btn" 
@@ -48,26 +48,26 @@
               class="segment-btn" 
               [class.active]="angleUnit === 'deg'" 
               (click)="setAngleUnit('deg')">
-              Degrees (°)
+              {{ 'VECTOR.DEGREES' | translate }}
             </button>
             <button 
               class="segment-btn" 
               [class.active]="angleUnit === 'rad'" 
               (click)="setAngleUnit('rad')">
-              Radians (rad)
+              {{ 'VECTOR.RADIANS' | translate }}
             </button>
           </div>
         </div>
 
         <!-- Physics Template Dropdown -->
         <div class="template-selector">
-          <label for="templateSelect">Physics Template:</label>
+          <label for="templateSelect">{{ 'VECTOR.PHYSICS_TEMPLATE' | translate }}</label>
           <select 
             id="templateSelect" 
             class="custom-select" 
             [ngModel]="physicsTemplate" 
             (ngModelChange)="applyPhysicsTemplate($event)">
-            <option value="none">Custom Vectors</option>
+            <option value="none">{{ 'VECTOR.CUSTOM_VECTORS' | translate }}</option>
             <option value="statics">Statics: Net Force (ΣF = 0)</option>
             <option value="dynamics">Dynamics: Torque (τ = r × F)</option>
             <option value="electromagnetism">Electromagnetism: Lorentz Force (F = q(v × B))</option>
@@ -81,25 +81,25 @@
           class="tab-btn" 
           [class.active]="operation === 'resultant'" 
           (click)="setOperation('resultant')">
-          Vector Addition / Resultant
+          {{ 'VECTOR.TAB_ADDITION' | translate }}
         </button>
         <button 
           class="tab-btn" 
           [class.active]="operation === 'dot'" 
           (click)="setOperation('dot')">
-          Dot Product (u · v) & Angle
+          {{ 'VECTOR.TAB_DOT' | translate }}
         </button>
         <button 
           class="tab-btn" 
           [class.active]="operation === 'cross'" 
           (click)="setOperation('cross')">
-          Cross Product (u × v)
+          {{ 'VECTOR.TAB_CROSS' | translate }}
         </button>
         <button 
           class="tab-btn" 
           [class.active]="operation === 'projection'" 
           (click)="setOperation('projection')">
-          Projection & Rejection (proj_v u)
+          {{ 'VECTOR.TAB_PROJECTION' | translate }}
         </button>
       </div>
 
@@ -111,13 +111,13 @@
           <form [formGroup]="vectorForm">
             <div class="input-card">
               <div class="card-header-flex">
-                <h2>Vector Inputs</h2>
+                <h2>{{ 'VECTOR.VECTOR_INPUTS' | translate }}</h2>
                 <button 
                   type="button" 
                   class="add-btn" 
                   (click)="addVector()" 
                   *ngIf="operation === 'resultant'">
-                  + Add Vector
+                  {{ 'VECTOR.ADD_VECTOR' | translate }}
                 </button>
               </div>
 
@@ -178,7 +178,7 @@
 
           <!-- Input Vectors Summary Cards -->
           <div class="input-card">
-            <h2>Parsed Vector Definitions</h2>
+            <h2>{{ 'VECTOR.PARSED_DEFINITIONS' | translate }}</h2>
             <div class="vector-list">
               <div *ngFor="let item of parsedVectors" class="vector-definition-item">
                 <span class="vec-title">
@@ -211,7 +211,7 @@
           
           <!-- RESULTANT OUTPUT -->
           <div class="result-card" *ngIf="operation === 'resultant' && resultantData">
-            <h2>Resultant Vector</h2>
+            <h2>{{ 'VECTOR.RESULTANT_VECTOR' | translate }}</h2>
             <div class="result-display-box">
               <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">
                 <app-mathjax-viewer [expression]="'\\( \\vec{R} = \\sum \\vec{v} = (' + resultantData.result.x + ', ' + resultantData.result.y + (dimensionMode === '3D' ? ', ' + resultantData.result.z : '') + ') \\)'"></app-mathjax-viewer>
@@ -230,7 +230,7 @@
 
           <!-- DOT PRODUCT OUTPUT -->
           <div class="result-card" *ngIf="operation === 'dot' && dotData">
-            <h2>Dot Product & Angle</h2>
+            <h2>{{ 'VECTOR.DOT_PRODUCT' | translate }}</h2>
             <div class="result-display-box">
               <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">
                 <app-mathjax-viewer [expression]="'\\( \\vec{u} \\cdot \\vec{v} = ' + dotData.result.dotProduct + ' \\)'"></app-mathjax-viewer>
@@ -246,7 +246,7 @@
 
           <!-- CROSS PRODUCT OUTPUT -->
           <div class="result-card" *ngIf="operation === 'cross' && crossData">
-            <h2>Cross Product</h2>
+            <h2>{{ 'VECTOR.CROSS_PRODUCT' | translate }}</h2>
             <div class="result-display-box">
               <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">
                 <app-mathjax-viewer [expression]="'\\( \\vec{u} \\times \\vec{v} = (' + crossData.result.x + ', ' + crossData.result.y + ', ' + crossData.result.z + ') \\)'"></app-mathjax-viewer>
@@ -262,7 +262,7 @@
 
           <!-- PROJECTION OUTPUT -->
           <div class="result-card" *ngIf="operation === 'projection' && projData">
-            <h2>Vector Projection & Rejection</h2>
+            <h2>{{ 'VECTOR.PROJECTION_REJECTION' | translate }}</h2>
             <div class="result-display-box">
               <div style="font-size: 1.2rem; margin-bottom: 0.25rem;">
                 <app-mathjax-viewer [expression]="'\\( \\text{proj}_{\\vec{v}} \\vec{u} = (' + projData.result.projection.x + ', ' + projData.result.projection.y + (dimensionMode === '3D' ? ', ' + projData.result.projection.z : '') + ') \\)'"></app-mathjax-viewer>
@@ -283,7 +283,7 @@
           <!-- SHOW YOUR WORK ACCORDION -->
           <div class="result-card">
             <div class="accordion-header" (click)="toggleShowSteps()">
-              <h2>Show Step-by-Step Derivation</h2>
+              <h2>{{ 'VECTOR.SHOW_STEPS' | translate }}</h2>
               <span class="accordion-icon">{{ showSteps ? '▲' : '▼' }}</span>
             </div>
 

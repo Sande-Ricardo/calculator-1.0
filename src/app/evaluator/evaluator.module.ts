@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { EvaluatorRoutingModule } from './evaluator-routing.module';
 import { EvaluatorMainComponent } from './evaluator-main/evaluator-main.component';
@@ -25,7 +26,8 @@ import { MathjaxViewerComponent } from '../components/mathjax-viewer/mathjax-vie
     FormsModule,
     ReactiveFormsModule,
     EvaluatorRoutingModule,
-    MathjaxViewerComponent
+    MathjaxViewerComponent,
+    TranslateModule
   ],
   exports: [
     ExpressionInputComponent,
