@@ -249,7 +249,53 @@
   "CONVERTER": {
     "SEARCH_PLACEHOLDER": "Búsqueda Inteligente Universal... (ej., '15 psi a kpa', '100 C a F', '5 km -> m')",
     "PARSE_BTN": "Analizar",
-    "DECIMAL_PRECISION": "Precisión Decimal:"
+    "DECIMAL_PRECISION": "Precisión Decimal:",
+    "PANELS": {
+      "SAVE_FAVORITES": "Guardar conversión en favoritos",
+      "FROM_SOURCE": "De (Origen)",
+      "SEARCH_SOURCE_UNIT": "Buscar unidad de origen...",
+      "VALUE_PLACEHOLDER": "ej. 15, 1.5e-3, 1/3",
+      "SUPPORTS_NOTATION": "Soporta notación científica (1e-3) y fracciones (1/3)",
+      "SWAP_UNITS": "Intercambiar Unidades",
+      "TO_TARGET": "A (Destino)",
+      "COPY_TITLE": "Copiar resultado al portapapeles",
+      "COPY": "Copiar",
+      "COPIED": "¡Copiado!",
+      "SEARCH_TARGET_UNIT": "Buscar unidad de destino..."
+    },
+    "SIDEBAR": {
+      "TOGGLE_TITLE": "Alternar Barra Lateral de Herramientas",
+      "TOOLBOX_TITLE": "Caja de Herramientas de Ingeniería",
+      "TAB_DIMENSIONAL": "Dimensional",
+      "TAB_DIMENSIONAL_TITLE": "Análisis Dimensional",
+      "TAB_CONSTANTS": "Constantes",
+      "TAB_CONSTANTS_TITLE": "Constantes Físicas",
+      "TAB_PREFIXES": "Prefijos SI",
+      "TAB_PREFIXES_TITLE": "Prefijos SI",
+      "TAB_FAVORITES": "Favoritos",
+      "TAB_FAVORITES_TITLE": "Favoritos Guardados"
+    },
+    "DIMENSIONAL": {
+      "TITLE": "Inspector de Análisis Dimensional",
+      "FORMULA_INTRO": "Fórmula Dimensional según el Teorema Pi de Buckingham para",
+      "LABEL_DIMENSION": "Dimensión:",
+      "LABEL_BASE_UNIT": "Unidad Base SI:",
+      "LEGEND": "Leyenda: [M] Masa, [L] Longitud, [T] Tiempo, [I] Corriente, [Θ] Temp"
+    },
+    "FAVORITES": {
+      "TITLE": "Conversiones Guardadas",
+      "HINT": "Haz clic para cargar la conversión favorita",
+      "REMOVE_TITLE": "Eliminar de favoritos",
+      "EMPTY_TITLE": "Aún no hay favoritos guardados.",
+      "EMPTY_HINT": "Haz clic en el ícono de estrella en cualquier conversión para guardarla aquí."
+    },
+    "CONSTANTS": {
+      "TITLE": "Constantes Físicas y Químicas",
+      "HINT": "Haz clic en cualquier constante para inyectar su valor en el conversor"
+    },
+    "PREFIXES": {
+      "TITLE": "Referencia de Prefijos SI"
+    }
   },
   "CHEMISTRY": {
     "TITLE": "Calculadora de Masa Molar",

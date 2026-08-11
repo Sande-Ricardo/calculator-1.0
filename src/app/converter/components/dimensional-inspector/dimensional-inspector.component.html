@@ -6,26 +6,26 @@
         <circle cx="12" cy="12" r="9"/>
       </svg>
     </div>
-    <h3>Dimensional Analysis Inspector</h3>
+    <h3>{{ 'CONVERTER.DIMENSIONAL.TITLE' | translate }}</h3>
   </div>
 
   <div class="box-body">
     <p class="description">
-      Buckingham Pi Theorem Dimensional Formula for <strong>{{ magnitude.name }}</strong>:
+      {{ 'CONVERTER.DIMENSIONAL.FORMULA_INTRO' | translate }} <strong>{{ magnitude.name }}</strong>:
     </p>
 
     <div class="formula-card">
-      <span class="label">Dimension:</span>
+      <span class="label">{{ 'CONVERTER.DIMENSIONAL.LABEL_DIMENSION' | translate }}</span>
       <span class="formula-text">{{ magnitude.dimensionalFormula }}</span>
     </div>
 
     <div class="base-unit-info">
-      <span class="info-label">SI Base Unit:</span>
+      <span class="info-label">{{ 'CONVERTER.DIMENSIONAL.LABEL_BASE_UNIT' | translate }}</span>
       <span class="info-val">{{ magnitude.base }}</span>
     </div>
 
     <div class="dimensions-legend">
-      <small><strong>Legend:</strong> [M] Mass, [L] Length, [T] Time, [I] Current, [Θ] Temp</small>
+      <small>{{ 'CONVERTER.DIMENSIONAL.LEGEND' | translate }}</small>
     </div>
   </div>
 </div>

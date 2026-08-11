@@ -5,7 +5,7 @@
       <span class="category-badge">{{ magnitude.category }}</span>
     </div>
     <div class="panel-actions">
-      <button class="favorite-btn" [class.active]="isFavorite" (click)="onFavoriteClick()" title="Save conversion to favorites">
+      <button class="favorite-btn" [class.active]="isFavorite" (click)="onFavoriteClick()" [title]="'CONVERTER.PANELS.SAVE_FAVORITES' | translate">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
         </svg>
@@ -16,12 +16,12 @@
   <div class="panels-grid">
     <!-- SOURCE PANEL -->
     <div class="panel-box source">
-      <div class="panel-label">From (Source)</div>
+      <div class="panel-label">{{ 'CONVERTER.PANELS.FROM_SOURCE' | translate }}</div>
       
       <div class="unit-selector-wrapper">
         <input type="text" 
                class="unit-search-input" 
-               placeholder="Search source unit..." 
+               [placeholder]="'CONVERTER.PANELS.SEARCH_SOURCE_UNIT' | translate" 
                [(ngModel)]="sourceUnitSearch" />
         
         <select class="unit-select" [ngModel]="sourceUnitKey" (ngModelChange)="onSourceSelect($event)">
@@ -36,14 +36,14 @@
                class="numeric-input" 
                [ngModel]="sourceInputText" 
                (ngModelChange)="onSourceInput($event)" 
-               placeholder="e.g. 15, 1.5e-3, 1/3" />
+               [placeholder]="'CONVERTER.PANELS.VALUE_PLACEHOLDER' | translate" />
       </div>
-      <small class="hint-text">Supports scientific notation (1e-3) & fractions (1/3)</small>
+      <small class="hint-text">{{ 'CONVERTER.PANELS.SUPPORTS_NOTATION' | translate }}</small>
     </div>
 
     <!-- SWAP ACTION BUTTON -->
     <div class="swap-action-container">
-      <button class="swap-btn" (click)="onSwap()" title="Swap Units">
+      <button class="swap-btn" (click)="onSwap()" [title]="'CONVERTER.PANELS.SWAP_UNITS' | translate">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <path d="M7 16V4M7 4L3 8M7 4L11 8M17 8V20M17 20L21 16M17 20L13 16"/>
         </svg>
@@ -53,22 +53,22 @@
     <!-- TARGET PANEL -->
     <div class="panel-box target">
       <div class="panel-label-row">
-        <span class="panel-label">To (Target)</span>
-        <button class="copy-btn" (click)="copyTargetResult()" [class.copied]="copiedTarget" title="Copy result to clipboard">
+        <span class="panel-label">{{ 'CONVERTER.PANELS.TO_TARGET' | translate }}</span>
+        <button class="copy-btn" (click)="copyTargetResult()" [class.copied]="copiedTarget" [title]="'CONVERTER.PANELS.COPY_TITLE' | translate">
           <svg *ngIf="!copiedTarget" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
           </svg>
           <svg *ngIf="copiedTarget" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <polyline points="20 6 9 17 4 12"/>
           </svg>
-          <span>{{ copiedTarget ? 'Copied!' : 'Copy' }}</span>
+          <span>{{ (copiedTarget ? 'CONVERTER.PANELS.COPIED' : 'CONVERTER.PANELS.COPY') | translate }}</span>
         </button>
       </div>
 
       <div class="unit-selector-wrapper">
         <input type="text" 
                class="unit-search-input" 
-               placeholder="Search target unit..." 
+               [placeholder]="'CONVERTER.PANELS.SEARCH_TARGET_UNIT' | translate" 
                [(ngModel)]="targetUnitSearch" />
         
         <select class="unit-select" [ngModel]="targetUnitKey" (ngModelChange)="onTargetSelect($event)">

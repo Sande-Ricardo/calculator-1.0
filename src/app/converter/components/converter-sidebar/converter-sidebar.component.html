@@ -1,28 +1,28 @@
 <aside class="sidebar-wrapper" [class.collapsed]="!isOpen">
   <!-- Toggle Bar -->
   <div class="sidebar-toggle-header">
-    <button class="toggle-btn" (click)="toggleSidebar()" title="Toggle Engineering Tools Sidebar">
+    <button class="toggle-btn" (click)="toggleSidebar()" [title]="'CONVERTER.SIDEBAR.TOGGLE_TITLE' | translate">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" [class.rotated]="!isOpen">
         <polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/>
       </svg>
-      <span *ngIf="isOpen">Engineering Toolbox</span>
+      <span *ngIf="isOpen">{{ 'CONVERTER.SIDEBAR.TOOLBOX_TITLE' | translate }}</span>
     </button>
   </div>
 
   <div class="sidebar-content" *ngIf="isOpen">
     <!-- Tabs Navigation -->
     <div class="sidebar-tabs">
-      <button class="tab-btn" [class.active]="activeTab === 'dimensional'" (click)="setTab('dimensional')" title="Dimensional Analysis">
-        Dimensional
+      <button class="tab-btn" [class.active]="activeTab === 'dimensional'" (click)="setTab('dimensional')" [title]="'CONVERTER.SIDEBAR.TAB_DIMENSIONAL_TITLE' | translate">
+        {{ 'CONVERTER.SIDEBAR.TAB_DIMENSIONAL' | translate }}
       </button>
-      <button class="tab-btn" [class.active]="activeTab === 'constants'" (click)="setTab('constants')" title="Physical Constants">
-        Constants
+      <button class="tab-btn" [class.active]="activeTab === 'constants'" (click)="setTab('constants')" [title]="'CONVERTER.SIDEBAR.TAB_CONSTANTS_TITLE' | translate">
+        {{ 'CONVERTER.SIDEBAR.TAB_CONSTANTS' | translate }}
       </button>
-      <button class="tab-btn" [class.active]="activeTab === 'prefixes'" (click)="setTab('prefixes')" title="SI Prefixes">
-        SI Prefixes
+      <button class="tab-btn" [class.active]="activeTab === 'prefixes'" (click)="setTab('prefixes')" [title]="'CONVERTER.SIDEBAR.TAB_PREFIXES_TITLE' | translate">
+        {{ 'CONVERTER.SIDEBAR.TAB_PREFIXES' | translate }}
       </button>
-      <button class="tab-btn" [class.active]="activeTab === 'favorites'" (click)="setTab('favorites')" title="Saved Favorites">
-        Favorites
+      <button class="tab-btn" [class.active]="activeTab === 'favorites'" (click)="setTab('favorites')" [title]="'CONVERTER.SIDEBAR.TAB_FAVORITES_TITLE' | translate">
+        {{ 'CONVERTER.SIDEBAR.TAB_FAVORITES' | translate }}
       </button>
     </div>
 
