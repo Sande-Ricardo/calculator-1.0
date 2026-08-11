@@ -3,19 +3,19 @@
   <div class="top-section no-print">
     <!-- Left: Settings Form -->
     <div class="settings-card crystal-box">
-      <h3>Amortization Settings</h3>
+      <h3>{{ 'FINANCE.AMORTIZATION.SETTINGS_TITLE' | translate }}</h3>
       <form [formGroup]="form" class="calc-form">
         <div class="form-group">
-          <label>Amortization System</label>
+          <label>{{ 'FINANCE.AMORTIZATION.SYSTEM' | translate }}</label>
           <select formControlName="system" class="form-control">
-            <option value="french">French (Constant Installment)</option>
-            <option value="german">German (Constant Principal)</option>
-            <option value="american">American (Interest Only, Principal at End)</option>
+            <option value="french">{{ 'FINANCE.AMORTIZATION.SYSTEM_FRENCH' | translate }}</option>
+            <option value="german">{{ 'FINANCE.AMORTIZATION.SYSTEM_GERMAN' | translate }}</option>
+            <option value="american">{{ 'FINANCE.AMORTIZATION.SYSTEM_AMERICAN' | translate }}</option>
           </select>
         </div>
 
         <div class="form-group">
-          <label>Principal (Loan Amount)</label>
+          <label>{{ 'FINANCE.AMORTIZATION.LABEL_PRINCIPAL' | translate }}</label>
           <div class="input-with-icon">
             <span class="currency-symbol">$</span>
             <input type="number" formControlName="principal" class="form-control" placeholder="10000">
@@ -24,7 +24,7 @@
 
         <div class="form-row flex-row">
           <div class="form-group flex-1">
-            <label>Interest Rate (per period)</label>
+            <label>{{ 'FINANCE.AMORTIZATION.LABEL_RATE' | translate }}</label>
             <div class="input-with-icon right-icon">
               <input type="number" formControlName="rate" class="form-control" placeholder="5">
               <span class="percent-symbol">%</span>
@@ -32,7 +32,7 @@
           </div>
 
           <div class="form-group flex-1">
-            <label>Periods (n)</label>
+            <label>{{ 'FINANCE.AMORTIZATION.LABEL_PERIODS' | translate }}</label>
             <input type="number" formControlName="periods" class="form-control" placeholder="12">
           </div>
         </div>
@@ -41,11 +41,11 @@
       <div class="export-actions">
         <button class="btn btn-outline" (click)="exportCsv()" [disabled]="!tableData.length">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Export CSV
+          {{ 'FINANCE.AMORTIZATION.EXPORT_CSV' | translate }}
         </button>
         <button class="btn btn-outline" (click)="exportPdf()" [disabled]="!tableData.length">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-          Print PDF
+          {{ 'FINANCE.AMORTIZATION.PRINT_PDF' | translate }}
         </button>
       </div>
     </div>
@@ -53,18 +53,18 @@
     <!-- Right: Visualizations -->
     <div class="visuals-card crystal-box">
       <div class="chart-container pie-chart-container" [ngStyle]="{'display': tableData.length > 0 ? 'block' : 'none'}">
-        <h4>Cost Breakdown</h4>
+        <h4>{{ 'FINANCE.AMORTIZATION.CHART_COST_BREAKDOWN' | translate }}</h4>
         <canvas id="pieChart"></canvas>
       </div>
       <div class="empty-state" *ngIf="!tableData.length">
-        <p>No valid data to generate charts</p>
+        <p>{{ 'FINANCE.AMORTIZATION.CHART_EMPTY' | translate }}</p>
       </div>
     </div>
   </div>
 
   <!-- Bottom: Full width line chart -->
   <div class="line-chart-section crystal-box no-print" [ngStyle]="{'display': tableData.length > 0 ? 'block' : 'none'}">
-    <h4>Balance Decay Over Time</h4>
+    <h4>{{ 'FINANCE.AMORTIZATION.CHART_BALANCE_DECAY' | translate }}</h4>
     <div class="chart-container line-chart-container">
        <canvas id="lineChart"></canvas>
     </div>
@@ -73,20 +73,20 @@
   <!-- Bottom: Data Table -->
   <div class="table-section crystal-box">
     <div class="table-header printable-only">
-      <h2>Amortization Schedule</h2>
-      <p>System: {{ form.value.system | titlecase }} | Principal: ${{ form.value.principal | number:'1.2-2' }} | Rate: {{ form.value.rate }}% | Periods: {{ form.value.periods }}</p>
+      <h2>{{ 'FINANCE.AMORTIZATION.TABLE_TITLE' | translate }}</h2>
+      <p>{{ 'FINANCE.AMORTIZATION.SUMMARY_SYSTEM' | translate }}: {{ form.value.system | titlecase }} | {{ 'FINANCE.AMORTIZATION.SUMMARY_PRINCIPAL' | translate }}: ${{ form.value.principal | number:'1.2-2' }} | {{ 'FINANCE.AMORTIZATION.SUMMARY_RATE' | translate }}: {{ form.value.rate }}% | {{ 'FINANCE.AMORTIZATION.SUMMARY_PERIODS' | translate }}: {{ form.value.periods }}</p>
     </div>
     
     <div class="table-responsive">
       <table class="financial-table">
         <thead>
           <tr>
-            <th>Period</th>
-            <th>Initial Balance</th>
-            <th>Installment (A)</th>
-            <th>Interest (I)</th>
-            <th>Principal (K)</th>
-            <th>Final Balance</th>
+            <th>{{ 'FINANCE.AMORTIZATION.COL_PERIOD' | translate }}</th>
+            <th>{{ 'FINANCE.AMORTIZATION.COL_INITIAL_BALANCE' | translate }}</th>
+            <th>{{ 'FINANCE.AMORTIZATION.COL_INSTALLMENT' | translate }}</th>
+            <th>{{ 'FINANCE.AMORTIZATION.COL_INTEREST' | translate }}</th>
+            <th>{{ 'FINANCE.AMORTIZATION.COL_PRINCIPAL' | translate }}</th>
+            <th>{{ 'FINANCE.AMORTIZATION.COL_FINAL_BALANCE' | translate }}</th>
           </tr>
         </thead>
         <tbody>
@@ -101,7 +101,7 @@
         </tbody>
         <tfoot>
           <tr>
-            <td colspan="2" class="text-right"><strong>Totals:</strong></td>
+            <td colspan="2" class="text-right"><strong>{{ 'FINANCE.AMORTIZATION.TOTALS' | translate }}</strong></td>
             <td><strong>${{ (totalPrincipal + totalInterest) | number:'1.2-2' }}</strong></td>
             <td><strong>${{ totalInterest | number:'1.2-2' }}</strong></td>
             <td><strong>${{ totalPrincipal | number:'1.2-2' }}</strong></td>

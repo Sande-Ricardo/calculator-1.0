@@ -2,26 +2,26 @@
   
   <!-- Left Side: Form -->
   <div class="form-card crystal-box">
-    <h3>Calculator Settings</h3>
+    <h3>{{ 'FINANCE.INTEREST.SETTINGS_TITLE' | translate }}</h3>
     <form [formGroup]="form" class="calc-form">
       
       <!-- Selectors -->
       <div class="form-row flex-row">
         <div class="form-group flex-1">
-          <label>Interest Regime</label>
+          <label>{{ 'FINANCE.INTEREST.REGIME' | translate }}</label>
           <select formControlName="interestType" class="form-control">
-            <option value="simple">Simple Interest</option>
-            <option value="compound">Compound Interest</option>
+            <option value="simple">{{ 'FINANCE.INTEREST.REGIME_SIMPLE' | translate }}</option>
+            <option value="compound">{{ 'FINANCE.INTEREST.REGIME_COMPOUND' | translate }}</option>
           </select>
         </div>
         
         <div class="form-group flex-1">
-          <label>Solve for (Missing Variable)</label>
+          <label>{{ 'FINANCE.INTEREST.SOLVE_FOR' | translate }}</label>
           <select formControlName="targetVariable" class="form-control">
-            <option value="vf">Future Value (FV)</option>
-            <option value="vp">Present Value (PV)</option>
-            <option value="i">Interest Rate (i)</option>
-            <option value="n">Periods (n)</option>
+            <option value="vf">{{ 'FINANCE.INTEREST.TARGET_FV' | translate }}</option>
+            <option value="vp">{{ 'FINANCE.INTEREST.TARGET_PV' | translate }}</option>
+            <option value="i">{{ 'FINANCE.INTEREST.TARGET_RATE' | translate }}</option>
+            <option value="n">{{ 'FINANCE.INTEREST.TARGET_PERIODS' | translate }}</option>
           </select>
         </div>
       </div>
@@ -31,7 +31,7 @@
       <!-- Inputs -->
       <div class="inputs-grid">
         <div class="form-group" [class.disabled-group]="form.get('targetVariable')?.value === 'vp'">
-          <label>Present Value (PV)</label>
+          <label>{{ 'FINANCE.INTEREST.LABEL_PV' | translate }}</label>
           <div class="input-with-icon">
             <span class="currency-symbol">$</span>
             <input type="number" formControlName="vp" class="form-control" placeholder="e.g. 1000">
@@ -39,7 +39,7 @@
         </div>
 
         <div class="form-group" [class.disabled-group]="form.get('targetVariable')?.value === 'vf'">
-          <label>Future Value (FV)</label>
+          <label>{{ 'FINANCE.INTEREST.LABEL_FV' | translate }}</label>
           <div class="input-with-icon">
             <span class="currency-symbol">$</span>
             <input type="number" formControlName="vf" class="form-control" placeholder="e.g. 1500">
@@ -47,7 +47,7 @@
         </div>
 
         <div class="form-group" [class.disabled-group]="form.get('targetVariable')?.value === 'i'">
-          <label>Interest Rate (i) per period</label>
+          <label>{{ 'FINANCE.INTEREST.LABEL_RATE' | translate }}</label>
           <div class="input-with-icon right-icon">
             <input type="number" formControlName="i" class="form-control" placeholder="e.g. 5">
             <span class="percent-symbol">%</span>
@@ -55,10 +55,10 @@
         </div>
 
         <div class="form-group" [class.disabled-group]="form.get('targetVariable')?.value === 'n'">
-          <label>Periods (n)</label>
+          <label>{{ 'FINANCE.INTEREST.LABEL_PERIODS' | translate }}</label>
           <div class="input-with-icon right-icon">
             <input type="number" formControlName="n" class="form-control" placeholder="e.g. 12">
-            <span class="percent-symbol">per.</span>
+            <span class="percent-symbol">{{ 'FINANCE.INTEREST.UNIT_PER' | translate }}</span>
           </div>
         </div>
       </div>
@@ -70,11 +70,11 @@
   <div class="result-card crystal-box" [class.has-result]="result !== null">
     <div class="result-header">
       <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
-      <h3>Calculation Result</h3>
+      <h3>{{ 'FINANCE.INTEREST.RESULT_HEADER' | translate }}</h3>
     </div>
     
     <div class="result-content" *ngIf="result !== null; else noResult">
-      <p class="result-label">The calculated {{resultLabel}} is:</p>
+      <p class="result-label">{{ 'FINANCE.INTEREST.CALCULATED_PREFIX' | translate }} {{ resultLabel | translate }} {{ 'FINANCE.INTEREST.CALCULATED_SUFFIX' | translate }}</p>
       
       <div class="result-value-container">
         <!-- Show currency if it's monetary, % if rate, or just number if periods -->
@@ -87,14 +87,14 @@
 
       <div class="result-formula">
         <p class="formula-text" *ngIf="form.get('interestType')?.value === 'simple'">
-          Formula used: 
+          {{ 'FINANCE.INTEREST.FORMULA_USED' | translate }} 
           <span *ngIf="form.get('targetVariable')?.value === 'vf'">FV = PV * (1 + i * n)</span>
           <span *ngIf="form.get('targetVariable')?.value === 'vp'">PV = FV / (1 + i * n)</span>
           <span *ngIf="form.get('targetVariable')?.value === 'i'">i = (FV/PV - 1) / n</span>
           <span *ngIf="form.get('targetVariable')?.value === 'n'">n = (FV/PV - 1) / i</span>
         </p>
         <p class="formula-text" *ngIf="form.get('interestType')?.value === 'compound'">
-          Formula used: 
+          {{ 'FINANCE.INTEREST.FORMULA_USED' | translate }} 
           <span *ngIf="form.get('targetVariable')?.value === 'vf'">FV = PV * (1 + i)^n</span>
           <span *ngIf="form.get('targetVariable')?.value === 'vp'">PV = FV / (1 + i)^n</span>
           <span *ngIf="form.get('targetVariable')?.value === 'i'">i = (FV/PV)^(1/n) - 1</span>
@@ -106,7 +106,7 @@
     <ng-template #noResult>
       <div class="empty-state">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        <p>Please fill out the enabled fields with valid numbers to see the result.</p>
+        <p>{{ 'FINANCE.INTEREST.EMPTY_STATE' | translate }}</p>
       </div>
     </ng-template>
   </div>

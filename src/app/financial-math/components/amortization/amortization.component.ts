@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Chart, registerables } from 'chart.js';
 import { FinancialEngineService, AmortizationRow } from '../../services/financial-engine.service';
 import { FinancialExportService } from '../../services/financial-export.service';
+import { TranslateService } from '@ngx-translate/core';
 
 Chart.register(...registerables);
 
@@ -25,7 +26,8 @@ export class AmortizationComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private fb: FormBuilder,
     private engine: FinancialEngineService,
-    private exportService: FinancialExportService
+    private exportService: FinancialExportService,
+    private translate: TranslateService
   ) {
     this.form = this.fb.group({
       system: ['french', Validators.required],
@@ -97,7 +99,10 @@ export class AmortizationComponent implements OnInit, OnDestroy, AfterViewInit {
         this.pieChart = new Chart(pieCanvas, {
           type: 'pie',
           data: {
-            labels: ['Total Principal', 'Total Interest'],
+            labels: [
+              this.translate.instant('FINANCE.AMORTIZATION.CHART_PRINCIPAL'), 
+              this.translate.instant('FINANCE.AMORTIZATION.CHART_INTEREST')
+            ],
             datasets: [{
               data: [this.totalPrincipal, this.totalInterest],
               backgroundColor: ['rgba(0, 210, 255, 0.7)', 'rgba(58, 123, 213, 0.7)'],
@@ -119,7 +124,7 @@ export class AmortizationComponent implements OnInit, OnDestroy, AfterViewInit {
           data: {
             labels: labels,
             datasets: [{
-              label: 'Remaining Balance',
+              label: this.translate.instant('FINANCE.AMORTIZATION.CHART_REMAINING_BALANCE'),
               data: data,
               borderColor: '#00d2ff',
               backgroundColor: 'rgba(0, 210, 255, 0.1)',

@@ -94,7 +94,12 @@ export class InterestCalculatorComponent implements OnInit {
       this.result = isNaN(res) || !isFinite(res) ? null : res;
 
       // Update labels
-      const labels: any = { vf: 'Future Value (FV)', vp: 'Present Value (PV)', i: 'Interest Rate (%)', n: 'Periods (n)' };
+      const labels: any = { 
+        vf: 'FINANCE.INTEREST.LABEL_FV_FULL', 
+        vp: 'FINANCE.INTEREST.LABEL_PV_FULL', 
+        i: 'FINANCE.INTEREST.LABEL_RATE_FULL', 
+        n: 'FINANCE.INTEREST.LABEL_PERIODS_FULL' 
+      };
       this.resultLabel = labels[target] || 'Result';
 
     } catch (e) {
