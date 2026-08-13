@@ -1,8 +1,8 @@
 <div class="converter-panels-container" *ngIf="magnitude">
   <div class="panels-header">
     <div class="magnitude-info">
-      <h2>{{ magnitude.name }}</h2>
-      <span class="category-badge">{{ magnitude.category }}</span>
+      <h2>{{ ('CONVERTER.MAGNITUDES.' + magnitudeKey) | translate }}</h2>
+      <span class="category-badge">{{ ('CONVERTER.CATEGORIES.' + magnitude.category) | translate }}</span>
     </div>
     <div class="panel-actions">
       <button class="favorite-btn" [class.active]="isFavorite" (click)="onFavoriteClick()" [title]="'CONVERTER.PANELS.SAVE_FAVORITES' | translate">
@@ -26,7 +26,7 @@
         
         <select class="unit-select" [ngModel]="sourceUnitKey" (ngModelChange)="onSourceSelect($event)">
           <option *ngFor="let u of getFilteredUnits(sourceUnitSearch)" [value]="u.key">
-            {{ u.name }} ({{ u.symbol }})
+            {{ ('CONVERTER.UNITS.' + u.name) | translate }} ({{ u.symbol }})
           </option>
         </select>
       </div>
@@ -73,7 +73,7 @@
         
         <select class="unit-select" [ngModel]="targetUnitKey" (ngModelChange)="onTargetSelect($event)">
           <option *ngFor="let u of getFilteredUnits(targetUnitSearch)" [value]="u.key">
-            {{ u.name }} ({{ u.symbol }})
+            {{ ('CONVERTER.UNITS.' + u.name) | translate }} ({{ u.symbol }})
           </option>
         </select>
       </div>

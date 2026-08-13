@@ -33,7 +33,7 @@
             class="cat-tab-btn" 
             [class.active]="selectedCategory === cat" 
             (click)="onCategoryChange(cat)">
-      {{ cat }}
+      {{ ('CONVERTER.CATEGORIES.' + cat) | translate }}
     </button>
   </div>
 
@@ -43,7 +43,7 @@
             class="mag-pill-btn" 
             [class.active]="selectedMagnitudeKey === mag.key" 
             (click)="selectMagnitude(mag.key)">
-      {{ mag.definition.name }}
+      {{ ('CONVERTER.MAGNITUDES.' + mag.key) | translate }}
     </button>
   </div>
 
@@ -51,6 +51,7 @@
   <div class="converter-layout-grid" [class.sidebar-closed]="!isSidebarOpen">
     <div class="main-panels-area">
       <app-converter-panels [magnitude]="dataService.MAGNITUDES[selectedMagnitudeKey]"
+                            [magnitudeKey]="selectedMagnitudeKey"
                             [sourceValue]="sourceValue"
                             [sourceUnitKey]="sourceUnitKey"
                             [targetUnitKey]="targetUnitKey"
@@ -67,6 +68,7 @@
 
     <div class="sidebar-area">
       <app-converter-sidebar [magnitude]="dataService.MAGNITUDES[selectedMagnitudeKey]"
+                             [magnitudeKey]="selectedMagnitudeKey"
                              [(isOpen)]="isSidebarOpen"
                              [(activeTab)]="activeSidebarTab"
                              (injectConstant)="injectConstant($event)"

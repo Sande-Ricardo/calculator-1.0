@@ -7,7 +7,8 @@ import { MagnitudeDefinition, FavoriteConversion } from '../../models/converter.
   styleUrls: ['./converter-sidebar.component.scss']
 })
 export class ConverterSidebarComponent {
-  @Input() magnitude!: MagnitudeDefinition;
+  @Input() magnitude: MagnitudeDefinition | null = null;
+  @Input() magnitudeKey: string = '';
   @Input() isOpen: boolean = true;
   @Input() activeTab: 'dimensional' | 'constants' | 'prefixes' | 'favorites' = 'dimensional';
 

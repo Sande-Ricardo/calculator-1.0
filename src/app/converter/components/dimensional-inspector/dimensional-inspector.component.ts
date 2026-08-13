@@ -7,5 +7,6 @@ import { MagnitudeDefinition } from '../../models/converter.model';
   styleUrls: ['./dimensional-inspector.component.scss']
 })
 export class DimensionalInspectorComponent {
-  @Input() magnitude!: MagnitudeDefinition;
+  @Input() magnitude: MagnitudeDefinition | null = null;
+  @Input() magnitudeKey: string = '';
 }

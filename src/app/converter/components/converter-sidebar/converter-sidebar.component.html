@@ -28,7 +28,7 @@
 
     <!-- Active Tab Panel -->
     <div class="tab-panel">
-      <app-dimensional-inspector *ngIf="activeTab === 'dimensional'" [magnitude]="magnitude"></app-dimensional-inspector>
+      <app-dimensional-inspector *ngIf="activeTab === 'dimensional'" [magnitude]="magnitude" [magnitudeKey]="magnitudeKey"></app-dimensional-inspector>
 
       <app-physical-constants *ngIf="activeTab === 'constants'" (injectConstant)="onInjectConstant($event)"></app-physical-constants>
 

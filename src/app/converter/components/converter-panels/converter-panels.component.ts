@@ -9,6 +9,7 @@ import { ConverterEngineService } from '../../services/converter-engine.service'
 })
 export class ConverterPanelsComponent implements OnChanges {
   @Input() magnitude!: MagnitudeDefinition;
+  @Input() magnitudeKey: string = '';
   @Input() sourceValue: number = 1;
   @Input() sourceUnitKey: string = '';
   @Input() targetUnitKey: string = '';

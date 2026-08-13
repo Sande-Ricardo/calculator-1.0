@@ -7,7 +7,7 @@
   <div class="favorites-list" *ngIf="favoritesService.getFavorites().length > 0; else emptyState">
     <div class="favorite-item" *ngFor="let fav of favoritesService.getFavorites()" (click)="onApply(fav)">
       <div class="fav-info">
-        <span class="mag-name">{{ getMagnitudeName(fav.magnitudeKey) }}</span>
+        <span class="mag-name">{{ ('CONVERTER.MAGNITUDES.' + fav.magnitudeKey) | translate }}</span>
         <span class="pair">{{ fav.sourceUnitKey }} &rarr; {{ fav.targetUnitKey }}</span>
       </div>
       <button class="remove-btn" (click)="onRemove(fav.id, $event)" [title]="'CONVERTER.FAVORITES.REMOVE_TITLE' | translate">
