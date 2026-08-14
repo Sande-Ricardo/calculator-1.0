@@ -1,8 +1,8 @@
 <div class="expression-input-card crystal-box">
   <div class="input-header">
     <div class="header-title">
-      <h3>Expression Input</h3>
-      <span class="hint">Type any formula (e.g. <code>3 * sin(x) + log(y) / 2</code>)</span>
+      <h3>{{ 'EVALUATOR.INPUT.TITLE' | translate }}</h3>
+      <span class="hint">{{ 'EVALUATOR.INPUT.HINT_PREFIX' | translate }}<code>3 * sin(x) + log(y) / 2</code>{{ 'EVALUATOR.INPUT.HINT_SUFFIX' | translate }}</span>
     </div>
 
     <!-- Toolbar Controls -->
@@ -23,7 +23,7 @@
 
       <!-- Precision Selector -->
       <div class="precision-group">
-        <label for="precisionSelect">Precision:</label>
+        <label for="precisionSelect">{{ 'EVALUATOR.INPUT.PRECISION' | translate }}</label>
         <select 
           id="precisionSelect" 
           [(ngModel)]="decimalPrecision" 
@@ -51,12 +51,12 @@
       type="text" 
       [formControl]="expressionControl" 
       class="smart-input" 
-      placeholder="Enter expression e.g. f(x,y) = x^2 + sqrt(y)..." />
+      [placeholder]="'EVALUATOR.INPUT.PLACEHOLDER' | translate" />
   </div>
 
   <!-- Presets Bar -->
   <div class="presets-bar">
-    <span class="preset-label">Quick Presets:</span>
+    <span class="preset-label">{{ 'EVALUATOR.INPUT.PRESETS' | translate }}</span>
     <button type="button" class="preset-pill" (click)="setPresetExpression('3 * sin(x) + cos(x)')">3·sin(x) + cos(x)</button>
     <button type="button" class="preset-pill" (click)="setPresetExpression('x^2 - 4')">x² - 4</button>
     <button type="button" class="preset-pill" (click)="setPresetExpression('A * exp(-k * t)')">A·e^(-k·t)</button>
@@ -65,7 +65,7 @@
 
   <!-- Live LaTeX Render Area -->
   <div class="latex-preview-section" *ngIf="latexOutput">
-    <div class="preview-label">Live Math Preview (WYSIWYG):</div>
+    <div class="preview-label">{{ 'EVALUATOR.INPUT.PREVIEW_TITLE' | translate }}</div>
     <div class="latex-box">
       <app-mathjax-viewer [expression]="latexOutput"></app-mathjax-viewer>
     </div>
@@ -77,8 +77,8 @@
       <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
     </svg>
     <div class="error-details">
-      <strong>Syntax Error:</strong> {{ errorMessage }}
-      <span *ngIf="errorPosition !== null" class="pos-info">(Position {{ errorPosition }})</span>
+      <strong>{{ 'EVALUATOR.INPUT.SYNTAX_ERROR' | translate }}</strong> {{ errorMessage }}
+      <span *ngIf="errorPosition !== null" class="pos-info">({{ 'EVALUATOR.INPUT.POSITION' | translate }} {{ errorPosition }})</span>
     </div>
   </div>
 </div>

@@ -7,8 +7,8 @@
         <line x1="8" y1="12" x2="16" y2="12"/>
       </svg>
       <div>
-        <h3>Numerical Root Finder ($f(x) = 0$)</h3>
-        <span class="sub-text">Hybrid bracket sampling & Newton-Raphson solver</span>
+        <h3>{{ 'EVALUATOR.ROOTS.TITLE' | translate }}</h3>
+        <span class="sub-text">{{ 'EVALUATOR.ROOTS.SUBTEXT' | translate }}</span>
       </div>
     </div>
   </div>
@@ -21,20 +21,20 @@
         class="mode-btn" 
         [class.active]="searchMode === 'interval'" 
         (click)="setSearchMode('interval')">
-        Range Search
+        {{ 'EVALUATOR.ROOTS.MODE_INTERVAL' | translate }}
       </button>
       <button 
         type="button" 
         class="mode-btn" 
         [class.active]="searchMode === 'single'" 
         (click)="setSearchMode('single')">
-        Initial Guess
+        {{ 'EVALUATOR.ROOTS.MODE_SINGLE' | translate }}
       </button>
     </div>
 
     <!-- Target Variable Selection (if multiple variables exist) -->
     <div class="control-group" *ngIf="variables.length > 1">
-      <label>Target Variable:</label>
+      <label>{{ 'EVALUATOR.ROOTS.TARGET_VAR' | translate }}</label>
       <select [(ngModel)]="targetVariable" class="select-input">
         <option *ngFor="let v of variables" [value]="v">{{ v }}</option>
       </select>
@@ -43,7 +43,7 @@
     <!-- Interval Range Inputs -->
     <div class="control-row" *ngIf="searchMode === 'interval'">
       <div class="control-group flex-1">
-        <label>Range Min ($x_{{ '{' }}min{{ '}' }}$):</label>
+        <label>{{ 'EVALUATOR.ROOTS.RANGE_MIN' | translate }}</label>
         <input 
           type="number" 
           [(ngModel)]="rangeMin" 
@@ -51,7 +51,7 @@
           class="num-input" />
       </div>
       <div class="control-group flex-1">
-        <label>Range Max ($x_{{ '{' }}max{{ '}' }}$):</label>
+        <label>{{ 'EVALUATOR.ROOTS.RANGE_MAX' | translate }}</label>
         <input 
           type="number" 
           [(ngModel)]="rangeMax" 
@@ -62,7 +62,7 @@
 
     <!-- Initial Guess Input (Single Mode) -->
     <div class="control-group" *ngIf="searchMode === 'single'">
-      <label>Initial Guess ($x_0$):</label>
+      <label>{{ 'EVALUATOR.ROOTS.INITIAL_GUESS' | translate }}</label>
       <input 
         type="number" 
         [(ngModel)]="initialGuess" 
@@ -72,14 +72,14 @@
     </div>
 
     <button type="button" class="btn-solve" (click)="solveRoot()" [disabled]="isSolving">
-      <span *ngIf="!isSolving">Find Roots</span>
-      <span *ngIf="isSolving">Solving...</span>
+      <span *ngIf="!isSolving">{{ 'EVALUATOR.ROOTS.FIND_ROOTS' | translate }}</span>
+      <span *ngIf="isSolving">{{ 'EVALUATOR.ROOTS.SOLVING' | translate }}</span>
     </button>
   </div>
 
   <ng-template #noVarsState>
     <div class="empty-state">
-      <span>Enter an expression containing at least one variable to approximate roots.</span>
+      <span>{{ 'EVALUATOR.ROOTS.EMPTY_STATE' | translate }}</span>
     </div>
   </ng-template>
 
@@ -87,8 +87,8 @@
   <div class="root-result-banner animate-fade-in" *ngIf="result" [class.success]="result.converged" [class.failed]="!result.converged">
     <div class="result-top">
       <div class="badge" [class.badge-success]="result.converged" [class.badge-danger]="!result.converged">
-        <span *ngIf="result.converged">{{ result.roots.length }} ROOT(S) FOUND</span>
-        <span *ngIf="!result.converged">NO REAL ROOTS FOUND</span>
+        <span *ngIf="result.converged">{{ result.roots.length }} {{ (result.roots.length === 1 ? 'EVALUATOR.ROOTS.ROOT_FOUND' : 'EVALUATOR.ROOTS.ROOTS_FOUND') | translate }}</span>
+        <span *ngIf="!result.converged">{{ 'EVALUATOR.ROOTS.NO_ROOTS_FOUND' | translate }}</span>
       </div>
     </div>
 
@@ -100,8 +100,8 @@
           <span class="root-val">{{ targetVariable }} = {{ r.value }}</span>
         </div>
         <div class="root-item-right">
-          <span class="residual-tag" title="Absolute residual |f(x)|">|f({{ targetVariable }})| &approx; {{ r.residual.toExponential(2) }}</span>
-          <span class="iter-tag">{{ r.iterations }} iter</span>
+          <span class="residual-tag" [title]="'EVALUATOR.ROOTS.RESIDUAL_TOOLTIP' | translate">|f({{ targetVariable }})| &approx; {{ r.residual.toExponential(2) }}</span>
+          <span class="iter-tag">{{ r.iterations }} {{ 'EVALUATOR.ROOTS.ITERATIONS' | translate }}</span>
         </div>
       </div>
     </div>

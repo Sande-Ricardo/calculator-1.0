@@ -38,7 +38,7 @@
               class="segment-btn" 
               [class.active]="coordSystem === 'polar'" 
               (click)="setCoordSystem('polar')">
-              {{ dimensionMode === '2D' ? 'Polar (r, θ)' : 'Spherical (r, θ, φ)' }}
+              {{ (dimensionMode === '2D' ? 'VECTOR.POLAR_2D' : 'VECTOR.SPHERICAL_3D') | translate }}
             </button>
           </div>
 
@@ -68,9 +68,9 @@
             [ngModel]="physicsTemplate" 
             (ngModelChange)="applyPhysicsTemplate($event)">
             <option value="none">{{ 'VECTOR.CUSTOM_VECTORS' | translate }}</option>
-            <option value="statics">Statics: Net Force (ΣF = 0)</option>
-            <option value="dynamics">Dynamics: Torque (τ = r × F)</option>
-            <option value="electromagnetism">Electromagnetism: Lorentz Force (F = q(v × B))</option>
+            <option value="statics">{{ 'VECTOR.TEMPLATES.STATICS' | translate }}</option>
+            <option value="dynamics">{{ 'VECTOR.TEMPLATES.DYNAMICS' | translate }}</option>
+            <option value="electromagnetism">{{ 'VECTOR.TEMPLATES.ELECTROMAGNETISM' | translate }}</option>
           </select>
         </div>
       </div>
@@ -133,7 +133,7 @@
                       type="text" 
                       formControlName="label" 
                       class="custom-input label-input" 
-                      placeholder="Name">
+                      [placeholder]="'VECTOR.NAME_PLACEHOLDER' | translate">
                   </div>
 
                   <div class="vector-components-grid">
@@ -168,7 +168,7 @@
                     class="remove-btn" 
                     (click)="removeVector(i)" 
                     *ngIf="vectorsArray.length > 2 || (operation === 'resultant' && vectorsArray.length > 1)"
-                    title="Remove Vector">
+                    [title]="'VECTOR.REMOVE_TITLE' | translate">
                     &times;
                   </button>
                 </div>
@@ -255,7 +255,7 @@
                 <app-mathjax-viewer [expression]="'\\( \\vec{u} \\times \\vec{v} = ' + crossData.result.toUnitVectorString(false) + ' \\)'"></app-mathjax-viewer>
               </div>
               <div style="font-size: 1.1rem; margin-top: 1rem;">
-                <app-mathjax-viewer [expression]="'\\( \\text{Parallelogram Area} = ||\\vec{u} \\times \\vec{v}|| = ' + crossData.result.magnitude() + ' \\)'"></app-mathjax-viewer>
+                <app-mathjax-viewer [expression]="'\\( \\text{' + ('VECTOR.PARALLELOGRAM_AREA' | translate) + '} = ||\\vec{u} \\times \\vec{v}|| = ' + crossData.result.magnitude() + ' \\)'"></app-mathjax-viewer>
               </div>
             </div>
           </div>

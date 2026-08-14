@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 import { Vector3D } from '../../models/vector.model';
 import { VectorMathService, StepResult } from '../../services/vector-math.service';
 
@@ -37,7 +38,8 @@ export class VectorCalculatorComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    public vectorMath: VectorMathService
+    public vectorMath: VectorMathService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -139,14 +141,14 @@ export class VectorCalculatorComponent implements OnInit, OnDestroy {
       // Torque \tau = r \times F
       this.dimensionMode = '3D';
       this.operation = 'cross';
-      this.addVector('r (Pos)', 0.5, 0.2, 0);
-      this.addVector('F (Force)', 0, 100, -50);
+      this.addVector('r', 0.5, 0.2, 0);
+      this.addVector('F', 0, 100, -50);
     } else if (template === 'electromagnetism') {
       // Lorentz Force F = q(v \times B)
       this.dimensionMode = '3D';
       this.operation = 'cross';
-      this.addVector('v (Vel)', 3000, 0, 0);
-      this.addVector('B (Field)', 0, 0.05, 0.02);
+      this.addVector('v', 3000, 0, 0);
+      this.addVector('B', 0, 0.05, 0.02);
     } else {
       // None / Default
       this.addVector('A', 3, 4, 0);
@@ -204,16 +206,17 @@ export class VectorCalculatorComponent implements OnInit, OnDestroy {
 
   // Label getters for dynamic coordinate inputs
   getVal1Label(): string {
-    return this.coordSystem === 'cartesian' ? 'X' : 'Magnitude (r)';
+    return this.coordSystem === 'cartesian' ? 'X' : this.translate.instant('VECTOR.LABELS.MAGNITUDE_R');
   }
 
   getVal2Label(): string {
     if (this.coordSystem === 'cartesian') return 'Y';
-    return this.dimensionMode === '2D' ? `Angle θ (${this.angleUnit})` : `Azimuth θ (${this.angleUnit})`;
+    const angleText = this.dimensionMode === '2D' ? this.translate.instant('VECTOR.LABELS.ANGLE_THETA') : this.translate.instant('VECTOR.LABELS.AZIMUTH_THETA');
+    return `${angleText} (${this.angleUnit})`;
   }
 
   getVal3Label(): string {
     if (this.coordSystem === 'cartesian') return 'Z';
-    return `Polar φ (${this.angleUnit})`;
+    return `${this.translate.instant('VECTOR.LABELS.POLAR_PHI')} (${this.angleUnit})`;
   }
 }

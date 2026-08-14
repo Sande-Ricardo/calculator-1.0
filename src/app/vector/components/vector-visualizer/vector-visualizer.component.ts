@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit, OnChanges, SimpleChanges, Input, ViewChild, ElementRef } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { Vector3D } from '../../models/vector.model';
 
 declare var Plotly: any;
@@ -22,7 +23,7 @@ export class VectorVisualizerComponent implements OnInit, AfterViewInit, OnChang
   isPlotlyLoaded: boolean = false;
   palette: string[] = ['#3b82f6', '#ef4444', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899'];
 
-  constructor() { }
+  constructor(private translate: TranslateService) { }
 
   ngOnInit(): void {
     this.loadPlotlyScript();
@@ -288,6 +289,9 @@ export class VectorVisualizerComponent implements OnInit, AfterViewInit, OnChang
     if (!this.plotly3DRef || typeof Plotly === 'undefined') return;
 
     const dataTraces: any[] = [];
+    const originLabel = this.translate.instant('VECTOR.VISUALIZER.ORIGIN');
+    const resultantLabel = this.translate.instant('VECTOR.VISUALIZER.RESULTANT_LABEL');
+    const crossLabel = this.translate.instant('VECTOR.VISUALIZER.CROSS_LABEL');
 
     // Origin point
     dataTraces.push({
@@ -295,7 +299,7 @@ export class VectorVisualizerComponent implements OnInit, AfterViewInit, OnChang
       mode: 'markers',
       x: [0], y: [0], z: [0],
       marker: { size: 4, color: '#f8fafc' },
-      name: 'Origin (0,0,0)',
+      name: originLabel,
       showlegend: false
     });
 
@@ -326,9 +330,9 @@ export class VectorVisualizerComponent implements OnInit, AfterViewInit, OnChang
         z: [0, this.resultant.z],
         line: { color: '#38bdf8', width: 8, dash: 'dash' },
         marker: { size: [0, 7], color: '#38bdf8' },
-        text: ['', 'R (Resultant)'],
+        text: ['', resultantLabel],
         textposition: 'top center',
-        name: this.format3DLabel('R Resultant', this.resultant)
+        name: this.format3DLabel(resultantLabel, this.resultant)
       });
     } else if (this.operation === 'cross' && this.resultant) {
       dataTraces.push({
@@ -339,9 +343,9 @@ export class VectorVisualizerComponent implements OnInit, AfterViewInit, OnChang
         z: [0, this.resultant.z],
         line: { color: '#f43f5e', width: 8, dash: 'dash' },
         marker: { size: [0, 7], color: '#f43f5e' },
-        text: ['', 'u × v (Cross Product)'],
+        text: ['', crossLabel],
         textposition: 'top center',
-        name: this.format3DLabel('u × v', this.resultant)
+        name: this.format3DLabel(crossLabel, this.resultant)
       });
     } else if (this.operation === 'projection' && this.projectionResult) {
       const proj = this.projectionResult.projection;

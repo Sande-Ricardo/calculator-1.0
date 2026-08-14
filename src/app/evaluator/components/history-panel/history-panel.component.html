@@ -6,12 +6,12 @@
         <polyline points="12 6 12 12 16 14"/>
       </svg>
       <div>
-        <h3>Evaluation History</h3>
-        <span class="sub-text">Last 10 evaluated sessions (saved in browser)</span>
+        <h3>{{ 'EVALUATOR.HISTORY.TITLE' | translate }}</h3>
+        <span class="sub-text">{{ 'EVALUATOR.HISTORY.SUBTEXT' | translate }}</span>
       </div>
     </div>
 
-    <button type="button" class="btn-clear" (click)="onClear()" *ngIf="history.length > 0">Clear History</button>
+    <button type="button" class="btn-clear" (click)="onClear()" *ngIf="history.length > 0">{{ 'EVALUATOR.HISTORY.CLEAR' | translate }}</button>
   </div>
 
   <div class="history-list" *ngIf="history.length > 0; else emptyState">
@@ -33,7 +33,7 @@
         <circle cx="12" cy="12" r="10"/>
         <polyline points="12 6 12 12 16 14"/>
       </svg>
-      <span>No session history recorded yet. Successfully evaluated formulas will appear here.</span>
+      <span>{{ 'EVALUATOR.HISTORY.EMPTY_STATE' | translate }}</span>
     </div>
   </ng-template>
 </div>

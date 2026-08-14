@@ -185,22 +185,50 @@
     "WORKSPACE_2D": "Espacio de Trabajo 2D",
     "WORKSPACE_3D": "Espacio de Trabajo 3D",
     "CARTESIAN": "Cartesiano",
+    "POLAR_2D": "Polar (r, θ)",
+    "SPHERICAL_3D": "Esférico (r, θ, φ)",
     "DEGREES": "Grados (°)",
     "RADIANS": "Radianes (rad)",
     "PHYSICS_TEMPLATE": "Plantilla Física:",
     "CUSTOM_VECTORS": "Vectores Personalizados",
+    "TEMPLATES": {
+      "STATICS": "Estática: Fuerza Neta (ΣF = 0)",
+      "DYNAMICS": "Dinámica: Torque (τ = r × F)",
+      "ELECTROMAGNETISM": "Electromagnetismo: Fuerza de Lorentz (F = q(v × B))"
+    },
     "TAB_ADDITION": "Suma / Vector Resultante",
     "TAB_DOT": "Producto Escalar (u · v) y Ángulo",
     "TAB_CROSS": "Producto Vectorial (u × v)",
     "TAB_PROJECTION": "Proyección y Rechazo (proj_v u)",
     "VECTOR_INPUTS": "Entrada de Vectores",
     "ADD_VECTOR": "+ Agregar Vector",
+    "NAME_PLACEHOLDER": "Nombre",
+    "REMOVE_TITLE": "Eliminar Vector",
     "PARSED_DEFINITIONS": "Definiciones de Vectores",
     "RESULTANT_VECTOR": "Vector Resultante",
     "DOT_PRODUCT": "Producto Escalar y Ángulo",
     "CROSS_PRODUCT": "Producto Vectorial",
+    "PARALLELOGRAM_AREA": "Área del Paralelogramo",
     "PROJECTION_REJECTION": "Proyección y Rechazo Vectorial",
-    "SHOW_STEPS": "Mostrar Derivación Paso a Paso"
+    "SHOW_STEPS": "Mostrar Derivación Paso a Paso",
+    "LABELS": {
+      "MAGNITUDE_R": "Magnitud (r)",
+      "ANGLE_THETA": "Ángulo θ",
+      "AZIMUTH_THETA": "Acimut θ",
+      "POLAR_PHI": "Polar φ"
+    },
+    "VISUALIZER": {
+      "TITLE": "Visualización Geométrica Interactiva",
+      "CANVAS_2D": "Plano 2D Canvas",
+      "GRAPH_3D": "Gráfico Espacial 3D",
+      "ROTATE_HINT": "Haz clic y arrastra para rotar en 3D",
+      "UNAVAILABLE_TITLE": "Visualización 3D No Disponible en Coordenadas Esféricas",
+      "UNAVAILABLE_DESC": "El renderizado interactivo en 3D está deshabilitado temporalmente para el sistema de coordenadas esféricas",
+      "UNAVAILABLE_SUGGESTION": "Sugerencia: Selecciona coordenadas cartesianas (x, y, z) para interactuar en 3D, o cambia a modo 2D para ver el plano polar (r, θ).",
+      "ORIGIN": "Origen (0,0,0)",
+      "RESULTANT_LABEL": "R (Resultante)",
+      "CROSS_LABEL": "u × v (Producto Vectorial)"
+    }
   },
   "STATS": {
     "TITLE": "Análisis Estadístico",
@@ -344,7 +372,7 @@
       "Microhenry": "Microhenrio",
       "Nanohenry": "Nanohenrio",
       "Weber": "Weber",
-      "Milliweber": "Miliweber",
+      "Milliweber": "Milliweber",
       "Maxwell": "Maxwell",
       "Hertz": "Hertz",
       "Kilohertz": "Kilohertz",
@@ -560,6 +588,60 @@
   },
   "EVALUATOR": {
     "TITLE": "Evaluador e Intérprete de Expresiones Numéricas",
-    "SUBTITLE": "Analiza, evalúa e interpreta funciones matemáticas dinámicas instantáneamente en tu navegador."
+    "SUBTITLE": "Analiza, evalúa e interpreta funciones matemáticas dinámicas instantáneamente en tu navegador.",
+    "INPUT": {
+      "TITLE": "Entrada de Expresión",
+      "HINT_PREFIX": "Ingresa cualquier fórmula (ej. ",
+      "HINT_SUFFIX": ")",
+      "PRECISION": "Precisión:",
+      "PLACEHOLDER": "Ingresa expresión ej. f(x,y) = x^2 + sqrt(y)...",
+      "PRESETS": "Atajos Rápidos:",
+      "PREVIEW_TITLE": "Vista Previa MathJax (WYSIWYG):",
+      "SYNTAX_ERROR": "Error de Sintaxis:",
+      "POSITION": "Posición"
+    },
+    "DASHBOARD": {
+      "TITLE": "Panel de Variables",
+      "SUBTEXT": "Asigna valores numéricos y arrastra deslizadores para evaluar en tiempo real",
+      "EMPTY_VARS": "No se detectaron variables algebraicas libres en la expresión (Modo de cálculo constante).",
+      "RESET_TITLE": "Restablecer a valor por defecto (1)",
+      "RESULT_TITLE": "Resultado de la Evaluación",
+      "COMPUTED_VALUE": "Valor Calculado:",
+      "EVALUATED_SCOPE": "Entorno Evaluado:",
+      "PLACEHOLDER": "Ingresa una expresión matemática válida para ver los resultados de evaluación en vivo."
+    },
+    "PLOT": {
+      "TITLE": "Vista Previa de Gráfica 1D",
+      "SUBTEXT": "Visualización numérica de curva impulsada por Chart.js",
+      "DOMAIN": "Dominio",
+      "TO": "a",
+      "EMPTY_STATE_PREFIX": "Ingresa una expresión que contenga al menos una variable (ej. ",
+      "EMPTY_STATE_SUFFIX": ") para generar una vista previa de la gráfica."
+    },
+    "ROOTS": {
+      "TITLE": "Buscador Numérico de Raíces (f(x) = 0)",
+      "SUBTEXT": "Muestreo híbrido por intervalos y resolutor de Newton-Raphson",
+      "MODE_INTERVAL": "Búsqueda por Rango",
+      "MODE_SINGLE": "Valor Inicial",
+      "TARGET_VAR": "Variable Objetivo:",
+      "RANGE_MIN": "Rango Mín (x_mín):",
+      "RANGE_MAX": "Rango Máx (x_máx):",
+      "INITIAL_GUESS": "Estimación Inicial (x₀):",
+      "FIND_ROOTS": "Buscar Raíces",
+      "SOLVING": "Resolviendo...",
+      "EMPTY_STATE": "Ingresa una expresión que contenga al menos una variable para aproximar raíces.",
+      "ROOT_FOUND": "RAÍZ ENCONTRADA",
+      "ROOTS_FOUND": "RAÍZ(CES) ENCONTRADA(S)",
+      "NO_ROOTS_FOUND": "NO SE ENCONTRARON RAÍCES REALES",
+      "RESIDUAL_TOOLTIP": "Residuo absoluto |f(x)|",
+      "ITERATIONS": "iter"
+    },
+    "HISTORY": {
+      "TITLE": "Historial de Evaluaciones",
+      "SUBTEXT": "Últimas 10 sesiones evaluadas (guardadas en el navegador)",
+      "CLEAR": "Limpiar Historial",
+      "NO_VARIABLES": "Sin variables",
+      "EMPTY_STATE": "Aún no hay historial de sesión registrado. Las fórmulas evaluadas exitosamente aparecerán aquí."
+    }
   }
 }

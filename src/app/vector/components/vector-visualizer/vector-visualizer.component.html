@@ -1,7 +1,7 @@
 <div class="visualizer-card result-card">
   <div class="visualizer-header">
-    <h2>Interactive Geometric Visualization ({{ is2D ? '2D Canvas Plane' : '3D Spatial Graph' }})</h2>
-    <span class="hint-text" *ngIf="!is2D && !isDisabled3DSpherical">Click and drag to rotate in 3D</span>
+    <h2>{{ 'VECTOR.VISUALIZER.TITLE' | translate }} ({{ (is2D ? 'VECTOR.VISUALIZER.CANVAS_2D' : 'VECTOR.VISUALIZER.GRAPH_3D') | translate }})</h2>
+    <span class="hint-text" *ngIf="!is2D && !isDisabled3DSpherical">{{ 'VECTOR.VISUALIZER.ROTATE_HINT' | translate }}</span>
   </div>
 
   <div class="visualizer-canvas-wrapper">
@@ -20,13 +20,13 @@
           <line x1="12" y1="16" x2="12.01" y2="16"></line>
         </svg>
       </div>
-      <h3>3D Visualization Unavailable in Spherical Coordinates</h3>
+      <h3>{{ 'VECTOR.VISUALIZER.UNAVAILABLE_TITLE' | translate }}</h3>
       <p>
-        Interactive 3D spatial graph rendering is temporarily disabled for the spherical coordinate system
+        {{ 'VECTOR.VISUALIZER.UNAVAILABLE_DESC' | translate }}
         <app-mathjax-viewer [expression]="'\\( (r, \\theta, \\phi) \\)'"></app-mathjax-viewer>.
       </p>
       <span class="notice-hint">
-        Suggestion: Select Cartesian coordinates \((x, y, z)\) for 3D graph interaction, or switch to 2D mode to view the Polar plane \((r, \theta)\).
+        {{ 'VECTOR.VISUALIZER.UNAVAILABLE_SUGGESTION' | translate }}
       </span>
     </div>
   </div>

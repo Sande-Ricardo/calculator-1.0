@@ -185,22 +185,50 @@
     "WORKSPACE_2D": "2D Workspace",
     "WORKSPACE_3D": "3D Workspace",
     "CARTESIAN": "Cartesian",
+    "POLAR_2D": "Polar (r, θ)",
+    "SPHERICAL_3D": "Spherical (r, θ, φ)",
     "DEGREES": "Degrees (°)",
     "RADIANS": "Radians (rad)",
     "PHYSICS_TEMPLATE": "Physics Template:",
     "CUSTOM_VECTORS": "Custom Vectors",
+    "TEMPLATES": {
+      "STATICS": "Statics: Net Force (ΣF = 0)",
+      "DYNAMICS": "Dynamics: Torque (τ = r × F)",
+      "ELECTROMAGNETISM": "Electromagnetism: Lorentz Force (F = q(v × B))"
+    },
     "TAB_ADDITION": "Vector Addition / Resultant",
     "TAB_DOT": "Dot Product (u · v) & Angle",
     "TAB_CROSS": "Cross Product (u × v)",
     "TAB_PROJECTION": "Projection & Rejection (proj_v u)",
     "VECTOR_INPUTS": "Vector Inputs",
     "ADD_VECTOR": "+ Add Vector",
+    "NAME_PLACEHOLDER": "Name",
+    "REMOVE_TITLE": "Remove Vector",
     "PARSED_DEFINITIONS": "Parsed Vector Definitions",
     "RESULTANT_VECTOR": "Resultant Vector",
     "DOT_PRODUCT": "Dot Product & Angle",
     "CROSS_PRODUCT": "Cross Product",
+    "PARALLELOGRAM_AREA": "Parallelogram Area",
     "PROJECTION_REJECTION": "Vector Projection & Rejection",
-    "SHOW_STEPS": "Show Step-by-Step Derivation"
+    "SHOW_STEPS": "Show Step-by-Step Derivation",
+    "LABELS": {
+      "MAGNITUDE_R": "Magnitude (r)",
+      "ANGLE_THETA": "Angle θ",
+      "AZIMUTH_THETA": "Azimuth θ",
+      "POLAR_PHI": "Polar φ"
+    },
+    "VISUALIZER": {
+      "TITLE": "Interactive Geometric Visualization",
+      "CANVAS_2D": "2D Canvas Plane",
+      "GRAPH_3D": "3D Spatial Graph",
+      "ROTATE_HINT": "Click and drag to rotate in 3D",
+      "UNAVAILABLE_TITLE": "3D Visualization Unavailable in Spherical Coordinates",
+      "UNAVAILABLE_DESC": "Interactive 3D spatial graph rendering is temporarily disabled for the spherical coordinate system",
+      "UNAVAILABLE_SUGGESTION": "Suggestion: Select Cartesian coordinates (x, y, z) for 3D graph interaction, or switch to 2D mode to view the Polar plane (r, θ).",
+      "ORIGIN": "Origin (0,0,0)",
+      "RESULTANT_LABEL": "R (Resultant)",
+      "CROSS_LABEL": "u × v (Cross Product)"
+    }
   },
   "STATS": {
     "TITLE": "Statistical Analysis",
@@ -560,6 +588,60 @@
   },
   "EVALUATOR": {
     "TITLE": "Numerical Expression Evaluator & Interpreter",
-    "SUBTITLE": "Parse, analyze, and evaluate dynamic mathematical functions instantaneously in your browser."
+    "SUBTITLE": "Parse, analyze, and evaluate dynamic mathematical functions instantaneously in your browser.",
+    "INPUT": {
+      "TITLE": "Expression Input",
+      "HINT_PREFIX": "Type any formula (e.g. ",
+      "HINT_SUFFIX": ")",
+      "PRECISION": "Precision:",
+      "PLACEHOLDER": "Enter expression e.g. f(x,y) = x^2 + sqrt(y)...",
+      "PRESETS": "Quick Presets:",
+      "PREVIEW_TITLE": "Live Math Preview (WYSIWYG):",
+      "SYNTAX_ERROR": "Syntax Error:",
+      "POSITION": "Position"
+    },
+    "DASHBOARD": {
+      "TITLE": "Variable Dashboard",
+      "SUBTEXT": "Assign numeric values and drag sliders for real-time evaluation",
+      "EMPTY_VARS": "No free algebraic variables detected in expression (Constant calculation mode).",
+      "RESET_TITLE": "Reset to default (1)",
+      "RESULT_TITLE": "Evaluation Result",
+      "COMPUTED_VALUE": "Computed Value:",
+      "EVALUATED_SCOPE": "Evaluated Scope:",
+      "PLACEHOLDER": "Enter a valid mathematical expression to view live evaluation results."
+    },
+    "PLOT": {
+      "TITLE": "1D Function Plot Preview",
+      "SUBTEXT": "Numerical curve visualization powered by Chart.js",
+      "DOMAIN": "Domain",
+      "TO": "to",
+      "EMPTY_STATE_PREFIX": "Enter an expression containing at least one variable (e.g. ",
+      "EMPTY_STATE_SUFFIX": ") to generate a plot preview."
+    },
+    "ROOTS": {
+      "TITLE": "Numerical Root Finder (f(x) = 0)",
+      "SUBTEXT": "Hybrid bracket sampling & Newton-Raphson solver",
+      "MODE_INTERVAL": "Range Search",
+      "MODE_SINGLE": "Initial Guess",
+      "TARGET_VAR": "Target Variable:",
+      "RANGE_MIN": "Range Min (x_min):",
+      "RANGE_MAX": "Range Max (x_max):",
+      "INITIAL_GUESS": "Initial Guess (x₀):",
+      "FIND_ROOTS": "Find Roots",
+      "SOLVING": "Solving...",
+      "EMPTY_STATE": "Enter an expression containing at least one variable to approximate roots.",
+      "ROOT_FOUND": "ROOT FOUND",
+      "ROOTS_FOUND": "ROOT(S) FOUND",
+      "NO_ROOTS_FOUND": "NO REAL ROOTS FOUND",
+      "RESIDUAL_TOOLTIP": "Absolute residual |f(x)|",
+      "ITERATIONS": "iter"
+    },
+    "HISTORY": {
+      "TITLE": "Evaluation History",
+      "SUBTEXT": "Last 10 evaluated sessions (saved in browser)",
+      "CLEAR": "Clear History",
+      "NO_VARIABLES": "No variables",
+      "EMPTY_STATE": "No session history recorded yet. Successfully evaluated formulas will appear here."
+    }
   }
 }

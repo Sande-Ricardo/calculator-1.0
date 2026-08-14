@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { EvaluatorHistoryService } from '../../services/evaluator-history.service';
 import { HistoryEntry } from '../../models/evaluator.model';
 
@@ -12,7 +13,10 @@ export class HistoryPanelComponent implements OnInit {
 
   history: HistoryEntry[] = [];
 
-  constructor(private historyService: EvaluatorHistoryService) {}
+  constructor(
+    private historyService: EvaluatorHistoryService,
+    private translate: TranslateService
+  ) {}
 
   ngOnInit(): void {
     this.refreshHistory();
@@ -33,7 +37,7 @@ export class HistoryPanelComponent implements OnInit {
 
   getVariableScopeString(vars: Record<string, number>): string {
     const keys = Object.keys(vars);
-    if (keys.length === 0) return 'No variables';
+    if (keys.length === 0) return this.translate.instant('EVALUATOR.HISTORY.NO_VARIABLES');
     return keys.map(k => `${k}=${vars[k]}`).join(', ');
   }
 }

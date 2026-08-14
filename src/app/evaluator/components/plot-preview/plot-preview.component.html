@@ -5,14 +5,14 @@
         <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
       </svg>
       <div>
-        <h3>1D Function Plot Preview</h3>
-        <span class="sub-text">Numerical curve visualization powered by Chart.js</span>
+        <h3>{{ 'EVALUATOR.PLOT.TITLE' | translate }}</h3>
+        <span class="sub-text">{{ 'EVALUATOR.PLOT.SUBTEXT' | translate }}</span>
       </div>
     </div>
 
     <!-- Domain Controls -->
     <div class="domain-controls" *ngIf="isValidPlotable">
-      <label>Domain [{{ targetVariable }}]:</label>
+      <label>{{ 'EVALUATOR.PLOT.DOMAIN' | translate }} [{{ targetVariable }}]:</label>
       <div class="range-inputs">
         <input 
           type="number" 
@@ -20,7 +20,7 @@
           (change)="onDomainChange()" 
           class="domain-input" 
           placeholder="-10" />
-        <span class="range-sep">to</span>
+        <span class="range-sep">{{ 'EVALUATOR.PLOT.TO' | translate }}</span>
         <input 
           type="number" 
           [(ngModel)]="xMax" 
@@ -41,7 +41,7 @@
       <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
         <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
       </svg>
-      <span>Enter an expression containing at least one variable (e.g. <code>f(x) = x^2 - 4</code>) to generate a plot preview.</span>
+      <span>{{ 'EVALUATOR.PLOT.EMPTY_STATE_PREFIX' | translate }}<code>f(x) = x^2 - 4</code>{{ 'EVALUATOR.PLOT.EMPTY_STATE_SUFFIX' | translate }}</span>
     </div>
   </ng-template>
 </div>
